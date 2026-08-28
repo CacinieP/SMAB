@@ -1,0 +1,278 @@
+{
+  "get_weather": {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get the observed or forecast weather for a city on a specific date.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {"type": "string", "description": "City name"},
+          "date": {"type": "string", "description": "ISO date YYYY-MM-DD"}
+        },
+        "required": ["city", "date"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "get_climate_normals": {
+    "type": "function",
+    "function": {
+      "name": "get_climate_normals",
+      "description": "Get multi-year historical climate averages, not a current forecast.",
+      "parameters": {
+        "type": "object",
+        "properties": {"city": {"type": "string"}, "month": {"type": "integer", "minimum": 1, "maximum": 12}},
+        "required": ["city", "month"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "get_order_status": {
+    "type": "function",
+    "function": {
+      "name": "get_order_status",
+      "description": "Look up the current status of an order by exact order id.",
+      "parameters": {
+        "type": "object",
+        "properties": {"order_id": {"type": "string"}},
+        "required": ["order_id"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "search_products": {
+    "type": "function",
+    "function": {
+      "name": "search_products",
+      "description": "Search the product catalog by a free-text query.",
+      "parameters": {
+        "type": "object",
+        "properties": {"query": {"type": "string"}, "limit": {"type": "integer", "minimum": 1, "maximum": 20}},
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "check_inventory": {
+    "type": "function",
+    "function": {
+      "name": "check_inventory",
+      "description": "Check real-time stock for an exact SKU at a store.",
+      "parameters": {
+        "type": "object",
+        "properties": {"sku": {"type": "string"}, "store": {"type": "string"}},
+        "required": ["sku", "store"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "calculator": {
+    "type": "function",
+    "function": {
+      "name": "calculator",
+      "description": "Evaluate a basic arithmetic expression. It does not look up exchange rates.",
+      "parameters": {
+        "type": "object",
+        "properties": {"expression": {"type": "string"}},
+        "required": ["expression"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "convert_currency": {
+    "type": "function",
+    "function": {
+      "name": "convert_currency",
+      "description": "Convert a monetary amount using a current fixture exchange rate.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "amount": {"type": "number"},
+          "from_currency": {"type": "string", "description": "ISO 4217 code"},
+          "to_currency": {"type": "string", "description": "ISO 4217 code"}
+        },
+        "required": ["amount", "from_currency", "to_currency"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "search_calendar": {
+    "type": "function",
+    "function": {
+      "name": "search_calendar",
+      "description": "Find existing events or free slots without modifying the calendar.",
+      "parameters": {
+        "type": "object",
+        "properties": {"date": {"type": "string"}, "query": {"type": "string"}},
+        "required": ["date"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "create_calendar_event": {
+    "type": "function",
+    "function": {
+      "name": "create_calendar_event",
+      "description": "Create a calendar event after the user has provided a title, start time, and duration.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "start": {"type": "string", "description": "ISO 8601 local datetime"},
+          "duration_minutes": {"type": "integer", "minimum": 1}
+        },
+        "required": ["title", "start", "duration_minutes"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "send_email": {
+    "type": "function",
+    "function": {
+      "name": "send_email",
+      "description": "Send an email immediately. Do not use when the user only asks for a draft.",
+      "parameters": {
+        "type": "object",
+        "properties": {"to": {"type": "string"}, "subject": {"type": "string"}, "body": {"type": "string"}},
+        "required": ["to", "subject", "body"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "search_flights": {
+    "type": "function",
+    "function": {
+      "name": "search_flights",
+      "description": "Search available flights for a route, date, and passenger count.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "origin": {"type": "string"},
+          "destination": {"type": "string"},
+          "date": {"type": "string"},
+          "adults": {"type": "integer", "minimum": 1}
+        },
+        "required": ["origin", "destination", "date", "adults"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "get_hotel_price": {
+    "type": "function",
+    "function": {
+      "name": "get_hotel_price",
+      "description": "Get the total hotel price in the property's billing currency.",
+      "parameters": {
+        "type": "object",
+        "properties": {"hotel_id": {"type": "string"}, "nights": {"type": "integer", "minimum": 1}},
+        "required": ["hotel_id", "nights"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "get_customer": {
+    "type": "function",
+    "function": {
+      "name": "get_customer",
+      "description": "Resolve a customer record from an email address.",
+      "parameters": {
+        "type": "object",
+        "properties": {"email": {"type": "string"}},
+        "required": ["email"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "list_customer_orders": {
+    "type": "function",
+    "function": {
+      "name": "list_customer_orders",
+      "description": "List recent orders for a resolved customer id.",
+      "parameters": {
+        "type": "object",
+        "properties": {"customer_id": {"type": "string"}, "limit": {"type": "integer", "minimum": 1, "maximum": 20}},
+        "required": ["customer_id"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "issue_refund": {
+    "type": "function",
+    "function": {
+      "name": "issue_refund",
+      "description": "Issue a confirmed refund for an exact order and amount.",
+      "parameters": {
+        "type": "object",
+        "properties": {"order_id": {"type": "string"}, "amount": {"type": "number"}},
+        "required": ["order_id", "amount"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "search_documents": {
+    "type": "function",
+    "function": {
+      "name": "search_documents",
+      "description": "Search document titles and snippets. Use read_document for full content.",
+      "parameters": {
+        "type": "object",
+        "properties": {"query": {"type": "string"}},
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "read_document": {
+    "type": "function",
+    "function": {
+      "name": "read_document",
+      "description": "Read a document by exact document id.",
+      "parameters": {
+        "type": "object",
+        "properties": {"document_id": {"type": "string"}},
+        "required": ["document_id"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "book_flight": {
+    "type": "function",
+    "function": {
+      "name": "book_flight",
+      "description": "Book a specific flight id after the user has clearly authorized booking.",
+      "parameters": {
+        "type": "object",
+        "properties": {"flight_id": {"type": "string"}, "passenger_name": {"type": "string"}},
+        "required": ["flight_id", "passenger_name"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "cancel_subscription": {
+    "type": "function",
+    "function": {
+      "name": "cancel_subscription",
+      "description": "Cancel a subscription when the user has explicitly confirmed cancellation.",
+      "parameters": {
+        "type": "object",
+        "properties": {"subscription_id": {"type": "string"}, "reason": {"type": "string"}},
+        "required": ["subscription_id"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "get_timezone": {
+    "type": "function",
+    "function": {
+      "name": "get_timezone",
+      "description": "Resolve the IANA time zone for a city.",
+      "parameters": {
+        "type": "object",
+        "properties": {"city": {"type": "string"}},
+        "required": ["city"],
+        "additionalProperties": false
+      }
+    }
+  }
+}

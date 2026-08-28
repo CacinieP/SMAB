@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "small-model-agent-bench"
+version = "0.1.1"
+description = "Executable, dimension-level benchmark for small tool-using language models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "CacinieP" }]
+keywords = ["benchmark", "function-calling", "agents", "small-language-models"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+smab = "smab.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/smab"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
