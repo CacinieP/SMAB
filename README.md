@@ -1,5 +1,7 @@
 # Small Model Agent Bench（SMAB）
 
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+
 一个面向 **0.3B–7B 小模型**的可执行工具调用测试套件。它不只检查 JSON 是否合法，而是测量模型在任务熵升高时，能力从哪里开始断裂。
 
 > 核心假设：边界由 **歧义程度 × 动作空间 × 任务长度 × 分布偏移**共同决定。小模型适合做可验证的 agent 器官；是否能承担整个控制环，需要逐维度、逐 horizon 实测。
@@ -132,3 +134,9 @@ smab validate
 ## 适用边界
 
 SMAB 当前聚焦确定性 tool-use 控制环，不测开放网页搜索质量、长期记忆、视觉工具或事实知识覆盖；也不把模型生成的自然语言交给另一个大模型裁判。最终答案只通过明确的关键事实检查评分，避免 judge model 掩盖小模型的真实变化。
+
+## 开源许可
+
+本仓库中的源代码、文档和内置 benchmark 数据集采用 [Apache License 2.0](LICENSE) 开源，归属声明见 [NOTICE](NOTICE)。除非提交者另有明确声明，提交到本仓库的贡献按同一协议提供。
+
+[`SMALL_MODELS.md`](SMALL_MODELS.md) 仅列出第三方模型标识。本仓库不分发这些模型的权重、代码、训练数据或服务；使用第三方模型时，应分别遵守对应项目的许可证和使用条款。

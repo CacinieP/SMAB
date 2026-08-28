@@ -1,0 +1,11 @@
+SMAB
+Copyright 2026 CacinieP
+
+This product includes software, documentation, and benchmark dataset files
+developed for the Small Model Agent Bench project and licensed under the
+Apache License, Version 2.0.
+
+The model identifiers in SMALL_MODELS.md are references only. This product
+does not distribute the referenced model weights, model code, training data,
+or provider services. Those materials remain subject to their respective
+licenses and terms.

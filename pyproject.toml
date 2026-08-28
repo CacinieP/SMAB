@@ -8,7 +8,8 @@ version = "0.1.1"
 description = "Executable, dimension-level benchmark for small tool-using language models"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "CacinieP" }]
 keywords = ["benchmark", "function-calling", "agents", "small-language-models"]
 classifiers = [
