@@ -110,6 +110,42 @@ overall 是该案例声明的维度均值，范围 0–1。`success` 只在所�
 
 如果每步独立正确率为 `p`，长度为 `h` 的整条轨迹上限约为 `p^h`。所以请重点看 `by_horizon`，不要只比较单步 selection accuracy。
 
+## 基线（2026-08-31 实测）
+
+以下数字来自 **28 个 episode、temp=0 单遍、native 通道**，覆盖 AI Ping / ModelBest / OpenRouter 三平台共 52 个 run（2026-08-31）。`perfect` 为所有受测维度满分的案例比例，与结果文件中的 `success` 同义。
+
+| # | 模型 | 平台 | overall | perfect | 输入/输出 ¥/Mtok | 平均延迟 |
+|---|---|---|---|---|---|---|
+| 1 | Qwen3.5-27B (2026) | AI Ping | **100.0%** | 100.0% | 0.6 / 4.8 | 9.0s |
+| 2 | cohere/north-mini-code:free | OpenRouter | 99.6% | 96.4% | 免费 | 5.5s |
+| 3 | Qwen3.8-27B (2026) | AI Ping | 98.3% | 92.9% | 3 / 12 | 5.4s |
+| 4 | Step-3.5-Flash (2026) | AI Ping | 97.3% | 92.9% | 0.7 / 2.1 | 4.2s |
+| 5 | MiniCPM5-2B-0822 | ModelBest | 96.9% | 92.9% | 面壁定价 | **1.9s** |
+| 6 | Qwen3-30B-A3B | AI Ping | 96.7% | 89.3% | 0.75 / 3 | 2.3s |
+| 7 | GLM-4.7-Flash / GLM-5.3-Flash | AI Ping | 95.6% | 85.7/82.1% | 0.5–1 / 1.5–3 | 2–18s |
+| 8 | Qwen3.5-Flash (2026) | AI Ping | 95.2% | 92.9% | 0.2 / 2 | 3.3s |
+| 9 | Qwen3-Coder-30B-A3B | AI Ping | 95.1% | 89.3% | 0.7–1 / 2.8–4 | 4.4s |
+| 10 | Qwen3-VL-30B-A3B-Thinking | AI Ping | 94.3% | 89.3% | 0.75 / 2.8–7.5 | 11.1s |
+| 11 | Qwen3-30B-A3B-Instruct-2507 | AI Ping | 92.9% | 85.7% | 0.75 / 3 | 1.9s |
+| 12 | Qwen2.5-14B-Instruct | AI Ping | 91.3% | 75.0% | 0.99 / 0.99 | 4.2s |
+| 13 | Qwen3.5-9B (2026) | AI Ping | 90.5% | 82.1% | 0.5 / 4 | 3.3s |
+| 14 | Qwen3-8B | AI Ping | 90.2% | 82.1% | 0–0.5 / 0–2 | 2.9s |
+| 15 | GLM-4-9B-0414（免费） | AI Ping | 88.3% | 71.4% | 免费 | 1.9s |
+| 16 | Qwen3-14B | AI Ping | 87.8% | 71.4% | 0.5–5 / 1.6–5 | 11.2s |
+| 17 | Qwen3.5-4B（免费，2026） | AI Ping | 85.1% | 71.4% | 免费 | 8.1s |
+| 18 | Qwen3-4B（免费） | AI Ping | 82.2% | 67.9% | 免费 | 5.6s |
+| 19 | Qwen2.5-7B-Instruct | AI Ping | 60.2% | 35.7% | 0.35 / 0.35 | 6.9s |
+
+OpenRouter 免费小模型另测 9 款（native），其中 nemotron-3.5-lightning 94.4%、ling-3.0-flash-fin 92.0% 可用；多数免费款在 `json` 协议下几乎全趴（26.9–30.1%），只适合原生 FC 路径。带 `err` 的 run（免费端限流中断少量案例）分数受轻微低估。
+
+三个读数建议：
+
+- **世代 > 参数量**：2026 年的 2B（MiniCPM5-2B，96.9%）比 2024 年的 7B（Qwen2.5-7B，60.2%）高 **36.7pp**。选型先看训练世代，再看参数规模。
+- **协议通道是独立变量**：Qwen3-4B native 82.2% → json 90.5%（+8.3pp，JSON 约束救参数抽取）；MiniCPM5-2B native 96.9% → json 83.1%（native 更强）。同一个模型两条通道能差出十几到五十个百分点，横评必须注明协议。
+- **recovery 是普遍短板**：全表 recovery 维度普遍低于其他维度 10–30pp；`by_horizon` 的 h3+ 段普遍出现断崖（例：Qwen3.5-9B h2 92.4% → h3+ 43.8%）。
+
+> 以上为单遍 temp=0 结果，反映「最好情况」；生产可用性请重复运行测 pass^k（v0.0.2 起支持 `--repeats`）。
+
 ## 数据集与扩展
 
 - [`datasets/tools.json`](datasets/tools.json)：工具 catalog 与 JSON Schema；
