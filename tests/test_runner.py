@@ -1,6 +1,6 @@
 from smab.adapters import ModelAdapter
 from smab.models import BenchmarkCase, ModelTurn, ToolCall
-from smab.runner import BenchmarkRunner, RunConfig
+from smab.runner import BenchmarkRunner, RunConfig, aggregate_runs
 
 
 class ScriptedAdapter(ModelAdapter):
@@ -76,3 +76,14 @@ def test_runner_maps_aliased_tool_back_to_canonical_name() -> None:
         adapter, RunConfig(model="stub", schema_variant="aliased")
     ).run([case])
     assert result["summary"]["overall"] == 1.0
+
+
+def test_aggregate_runs_reports_mean_stddev_and_keeps_individual_runs() -> None:
+    runs = [
+        {"run": {"model": "stub", "tool_format": "json", "schema_variant": "original", "case_count": 1, "repeat_index": 1}, "summary": {"overall": 0.5, "case_success_rate": 0.0}},
+        {"run": {"model": "stub", "tool_format": "json", "schema_variant": "original", "case_count": 1, "repeat_index": 2}, "summary": {"overall": 1.0, "case_success_rate": 1.0}},
+    ]
+    result = aggregate_runs(runs)
+    assert result["summary"]["overall_mean"] == 0.75
+    assert result["summary"]["overall_stddev"] == 0.25
+    assert len(result["runs"]) == 2

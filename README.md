@@ -1,5 +1,7 @@
 # Small Model Agent Bench（SMAB）
 
+> v0.2.0：支持 `--repeats`，将重复实验的均值、标准差和每次完整轨迹一起保存，避免把一次运行误读为稳定能力。
+
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 一个面向 **0.3B–7B 小模型**的可执行工具调用测试套件。它不只检查 JSON 是否合法，而是测量模型在任务熵升高时，能力从哪里开始断裂。
@@ -50,6 +52,24 @@ smab run \
 ```json
 {"tool_calls":[{"name":"get_weather","arguments":{"city":"上海","date":"2026-09-06"}}]}
 ```
+
+### 重复运行与可比结论（v0.2.0）
+
+单次分数适合调试，不适合模型选型。对同一模型、协议、schema 和 seed，至少执行三次：
+
+```bash
+smab run \
+  --model your-model \
+  --base-url http://127.0.0.1:8000/v1 \
+  --tool-format json \
+  --schema-variant original \
+  --temperature 0 \
+  --repeats 3 \
+  --output runs/your-model-json-r3.json \
+  --report runs/your-model-json-r3.md
+```
+
+重复模式保存每次的完整调用轨迹，并报告 overall 与 perfect-case rate 的均值和总体标准差。保持 seed 不变，才能将变化归因于模型或服务端采样，而不是 schema 随机化。
 
 ```json
 {"final":"上海当天最高 29°C。"}

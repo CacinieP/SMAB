@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import statistics
 import time
 from collections import defaultdict
 from dataclasses import asdict, dataclass
@@ -21,6 +22,7 @@ class RunConfig:
     tool_format: str = "native"
     schema_variant: str = "original"
     seed: int = 0
+    repeat_index: int = 1
     system_prompt: str = (
         "Complete the user's task. Use tools only when they are relevant. "
         "Use tool results to continue, recover from recoverable errors, and stop when the task is complete."
@@ -170,6 +172,29 @@ def write_run(result: dict[str, Any], path: str | Path) -> None:
     output = Path(path)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def aggregate_runs(runs: list[dict[str, Any]]) -> dict[str, Any]:
+    """Aggregate repeated identical runs while retaining every trace."""
+    if not runs:
+        raise ValueError("at least one run is required")
+    first = runs[0]["run"]
+    overall = [item["summary"]["overall"] for item in runs]
+    perfect = [item["summary"]["case_success_rate"] for item in runs]
+    return {
+        "suite": {
+            "model": first["model"], "tool_format": first["tool_format"],
+            "schema_variant": first["schema_variant"], "case_count": first["case_count"],
+            "repeats": len(runs),
+        },
+        "summary": {
+            "overall_mean": round(statistics.fmean(overall), 4),
+            "overall_stddev": round(statistics.pstdev(overall), 4),
+            "perfect_case_rate_mean": round(statistics.fmean(perfect), 4),
+            "perfect_case_rate_stddev": round(statistics.pstdev(perfect), 4),
+        },
+        "runs": runs,
+    }
 
 
 def CounterLike(values: Any) -> dict[str, int]:

@@ -10,7 +10,7 @@ from typing import Any
 from .adapters import OpenAICompatibleAdapter
 from .dataset import DatasetError, dataset_summary, load_cases, load_catalog
 from .report import render_console_summary, render_markdown
-from .runner import BenchmarkRunner, RunConfig, write_run
+from .runner import BenchmarkRunner, RunConfig, aggregate_runs, write_run
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -34,6 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--max-tokens", type=int, default=512)
     run.add_argument("--timeout", type=float, default=120.0)
     run.add_argument("--seed", type=int, default=0)
+    run.add_argument("--repeats", type=int, default=1, help="Repeat an identical run and report mean/stddev")
     run.add_argument("--extra-body", help="JSON object merged into each endpoint request")
     run.add_argument("--output", default="runs/latest.json")
     run.add_argument("--report", help="Optional Markdown report path")
@@ -75,6 +76,8 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _run(args: argparse.Namespace, cases: list[Any]) -> int:
+    if args.repeats < 1:
+        raise ValueError("--repeats must be at least 1")
     extra_body = json.loads(args.extra_body) if args.extra_body else None
     api_key = os.environ.get(args.api_key_env)
     adapter = OpenAICompatibleAdapter(
@@ -87,13 +90,17 @@ def _run(args: argparse.Namespace, cases: list[Any]) -> int:
         timeout=args.timeout,
         extra_body=extra_body,
     )
-    config = RunConfig(
-        model=args.model,
-        tool_format=args.tool_format,
-        schema_variant=args.schema_variant,
-        seed=args.seed,
-    )
-    result = BenchmarkRunner(adapter, config).run(cases)
+    runs = []
+    for repeat_index in range(1, args.repeats + 1):
+        config = RunConfig(
+            model=args.model,
+            tool_format=args.tool_format,
+            schema_variant=args.schema_variant,
+            seed=args.seed,
+            repeat_index=repeat_index,
+        )
+        runs.append(BenchmarkRunner(adapter, config).run(cases))
+    result = runs[0] if args.repeats == 1 else aggregate_runs(runs)
     write_run(result, args.output)
     if args.report:
         report_path = Path(args.report)
