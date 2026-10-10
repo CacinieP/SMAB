@@ -197,7 +197,7 @@ def _json_protocol_messages(
         "Never invent a tool or parameter. Available tool schemas:\n"
         + json.dumps(tools, ensure_ascii=False, separators=(",", ":"))
     )
-    converted: list[dict[str, Any]] = [{"role": "system", "content": protocol}]
+    converted: list[dict[str, Any]] = []
     for message in messages:
         role = message.get("role")
         if role == "tool":
@@ -223,6 +223,12 @@ def _json_protocol_messages(
             )
         else:
             converted.append({"role": role, "content": message.get("content") or ""})
+    if converted and converted[0].get("role") == "system":
+        # Endpoints with strict chat templates (e.g. vLLM MiniCPM) reject a
+        # second system message; merge the protocol into the existing one.
+        converted[0]["content"] = protocol + "\n\n" + converted[0]["content"]
+    else:
+        converted.insert(0, {"role": "system", "content": protocol})
     return converted
 
 
