@@ -1,6 +1,8 @@
 # Small Model Agent Bench（SMAB）
 
-> v0.2.0：支持 `--repeats`，将重复实验的均值、标准差和每次完整轨迹一起保存，避免把一次运行误读为稳定能力。
+> v0.2.0：支持 `--repeats`，将重复实验的均值、标准差和每次完整轨迹一起保存，避免把一次运行误读为稳定能力；新增 `smab probe`，先测量推理框架/端点实际支持的能力，再解释分数。
+>
+> English version: [README_EN.md](README_EN.md)。
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
@@ -20,7 +22,7 @@
 | recovery | 超时、空结果、售罄后能否调整？ | 机械重试或直接放弃 |
 | stopping | 成功或不可恢复错误后是否停下？ | 重复发信、重复取消 |
 
-首批内置 28 个中英双语 episode，覆盖 core/OOD、0/1/2/3+ 预期调用长度、相似工具干扰、并行调用、缺参追问、瞬时和终止错误。工具全部由本地 fixture 模拟，运行 benchmark **不会产生真实副作用**。
+首批内置 28 个中英双语 episode，覆盖 core/OOD、0/1/2/3+ 预期调用长度、相似工具干扰、并行调用、缺参追问、瞬时和终止错误。工具全部由本地 fixture 模拟，运行 benchmark **不会产生真实副作用**。另有 13 个补充回归 episode（`datasets/minicpm47_extra.jsonl`：缺参追问、12h→24h 归一化、h3 依赖链、终止错误不重试、一次性副作用），用 `--dataset datasets/minicpm47_extra.jsonl` 选用。
 
 这不是 BFCL 的替代品。BFCL 适合完整、标准化的 function-calling 横评；SMAB 更偏向小模型微调迭代：案例短小可改、执行环境确定、维度归因明确，并能直接测试 schema 扰动。设计参考了 [Berkeley Function Calling Leaderboard](https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard) 对 simple、multiple、parallel、relevance、multi-turn/multi-step 与格式敏感性的拆分。
 
@@ -44,6 +46,19 @@ smab run \
 ```
 
 如果接口需要密钥，默认从 `SMAB_API_KEY` 读取；可用 `--api-key-env` 改成别的环境变量名。密钥不会写入结果文件。
+
+### 先探测推理框架，再解释分数
+
+同一个权重，在不同框架、chat template、tool parser 和约束解码后端下，分数可以相差十几到几十个百分点。`smab probe` 对端点做 12 项能力检查（native tools、`tool_choice` 各档位、多轮 tool round-trip、并行调用、`json_object`，以及各家结构化输出方言），输出三态判定（ok / unsupported / error）和推荐的 SMAB 调用方式：
+
+```bash
+smab probe --model your-model --base-url http://127.0.0.1:8000/v1 \
+  --output runs/probe.json --report runs/probe.md
+```
+
+方法论、受控实验协议和权威信息源（vLLM / SGLang / llama.cpp 文档、BFCL、τ-bench）见 [`docs/FRAMEWORK_ADAPTATION.md`](docs/FRAMEWORK_ADAPTATION.md)。
+
+推荐命令只采用已检查的协议配置，不会把天气探测 schema 注入正式测评。约束方言的示例用于解释能力；正式 JSON 约束必须允许 SMAB 的 `tool_calls` / `final` 对象。鉴权、限流、服务故障或协议检查不确定时，报告会提示修复或重试。
 
 ### 没有原生 function calling token 的模型
 
@@ -69,7 +84,7 @@ smab run \
   --report runs/your-model-json-r3.md
 ```
 
-重复模式保存每次的完整调用轨迹，并报告 overall 与 perfect-case rate 的均值和总体标准差。保持 seed 不变，才能将变化归因于模型或服务端采样，而不是 schema 随机化。
+重复模式保存每次的完整调用轨迹，并报告 overall 与 perfect-case rate 的均值和总体标准差，同时给出 **pass^k**：对每个 case 的 `n` 次重复、`c` 次完整成功，计算 `C(c,k) / C(n,k)`，再对 case 取均值（`c < k` 时为 0）。这是 τ-bench 的有限样本无偏估计，衡量 k 次都成功的可靠性；`pass^1` 等于 perfect-case rate，k 最大为重复次数。保持 seed 不变，才能将变化归因于模型或服务端采样，而不是 schema 随机化。
 
 ```json
 {"final":"上海当天最高 29°C。"}
@@ -86,6 +101,8 @@ smab run \
 ```
 
 服务端若支持 JSON Schema/grammar 约束，可以通过 `--extra-body` 传入对应采样参数；这样能把格式容量和语义容量分开观察。
+
+仅支持普通 chat、拒绝 `response_format` 的端点，可以用 `--extra-body '{"response_format":null}'` 省略该字段，依靠 system prompt 生成 JSON。此模式没有解码约束，需检查 `protocol_error`。
 
 ## 三组必须跑的对照
 
@@ -164,15 +181,18 @@ OpenRouter 免费小模型另测 9 款（native），其中 nemotron-3.5-lightni
 - **协议通道是独立变量**：Qwen3-4B native 82.2% → json 90.5%（+8.3pp，JSON 约束救参数抽取）；MiniCPM5-2B native 96.9% → json 83.1%（native 更强）。同一个模型两条通道能差出十几到五十个百分点，横评必须注明协议。
 - **recovery 是普遍短板**：全表 recovery 维度普遍低于其他维度 10–30pp；`by_horizon` 的 h3+ 段普遍出现断崖（例：Qwen3.5-9B h2 92.4% → h3+ 43.8%）。
 
-> 以上为单遍 temp=0 结果，反映「最好情况」；生产可用性请重复运行测 pass^k（v0.0.2 起支持 `--repeats`）。
+> 以上为单次 temp=0 观测；生产可用性请重复运行测 pass^k（v0.2.0 起支持 `--repeats`）。
 
 ## 数据集与扩展
 
 - [`datasets/tools.json`](datasets/tools.json)：工具 catalog 与 JSON Schema；
-- [`datasets/core.jsonl`](datasets/core.jsonl)：每行一个可执行 episode；
+- [`datasets/core.jsonl`](datasets/core.jsonl)：28 个可执行 episode（默认数据集）；
+- [`datasets/minicpm47_extra.jsonl`](datasets/minicpm47_extra.jsonl)：13 个补充回归 episode（缺参追问、12h→24h 归一化、h3 依赖链、终止错误不重试、一次性副作用）；
 - [`docs/DATASET_FORMAT.md`](docs/DATASET_FORMAT.md)：case、fixture、oracle 和评分字段说明；
 - [`docs/EVALUATION_PROTOCOL.md`](docs/EVALUATION_PROTOCOL.md)：建议的实验矩阵与报告规则。
+- [`docs/FRAMEWORK_ADAPTATION.md`](docs/FRAMEWORK_ADAPTATION.md)：推理框架适配测评方法论（含 `smab probe` 与权威信息源）。
 - [`docs/BENCHMARK_METHODOLOGY_ZH.md`](docs/BENCHMARK_METHODOLOGY_ZH.md)：完整中文 benchmark 方法论说明。
+- [`README_EN.md`](README_EN.md)：英文版 README。
 - [`SMALL_MODELS.md`](SMALL_MODELS.md)：待确认的小模型候选名称列表。
 
 先把自己的领域工具加入 catalog，再用 fixture 表达确定性返回、瞬时错误、空结果或权限错误。不要把线上 token、客户数据或真实副作用写进 benchmark。

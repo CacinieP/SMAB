@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from smab.adapters import ModelAdapter
 from smab.dataset import load_cases, load_catalog
 from smab.models import ModelTurn, ToolCall
@@ -58,3 +60,48 @@ def test_all_bundled_oracle_traces_execute_and_score_perfectly() -> None:
     for case in cases:
         result = BenchmarkRunner(ExpectedTraceAdapter(case), RunConfig(model="oracle")).run_case(case)
         assert result["score"]["overall"] == 1.0, (case.id, result)
+
+
+def _extra_cases():
+    catalog = load_catalog(ROOT / "datasets/tools.json")
+    return load_cases(ROOT / "datasets/minicpm47_extra.jsonl", catalog)
+
+
+class WrongFinalTraceAdapter(ExpectedTraceAdapter):
+    """Follow the oracle calls but report an incorrect final answer."""
+
+    def __init__(self, case, final_response="Done"):
+        super().__init__(case)
+        self.final_response = final_response
+
+    def complete(self, messages, tools):
+        turn = super().complete(messages, tools)
+        if not turn.tool_calls:
+            turn.content = self.final_response
+        return turn
+
+
+@pytest.mark.parametrize("case", _extra_cases(), ids=lambda case: case.id)
+def test_extra_oracle_traces_execute_and_score_perfectly(case) -> None:
+    result = BenchmarkRunner(ExpectedTraceAdapter(case), RunConfig(model="oracle")).run_case(case)
+    assert result["score"]["overall"] == 1.0, result
+    assert result["score"]["success"]
+
+
+@pytest.mark.parametrize("case", _extra_cases(), ids=lambda case: case.id)
+def test_extra_final_requirements_affect_case_success(case) -> None:
+    assert case.expected.get("final_contains") or case.expected.get("final_contains_any")
+    result = BenchmarkRunner(WrongFinalTraceAdapter(case), RunConfig(model="oracle")).run_case(case)
+    assert result["score"]["dimensions"]["state_tracking"] == 0.0, result
+    assert result["score"]["overall"] < 1.0
+    assert not result["score"]["success"]
+
+
+def test_refund_maintenance_cannot_be_reported_as_success() -> None:
+    case = next(case for case in _extra_cases() if case.id == "m47_recover_103")
+    adapter = WrongFinalTraceAdapter(case, final_response="退款成功")
+    result = BenchmarkRunner(adapter, RunConfig(model="oracle")).run_case(case)
+    assert len(result["trace"]) == 1
+    assert result["trace"][0]["error"] == "refund_channel_maintenance"
+    assert result["score"]["dimensions"]["state_tracking"] == 0.0
+    assert not result["score"]["success"]
