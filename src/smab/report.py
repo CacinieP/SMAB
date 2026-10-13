@@ -31,7 +31,7 @@ def render_markdown(run: dict[str, Any]) -> str:
                     "## Reliability (pass^k)",
                     "",
                     "pass^k estimates how often a case succeeds in every one of k attempts",
-                    "(τ-bench-style reliability, not a different accuracy number).",
+                    "using the mean of C(c,k)/C(n,k) over cases (τ-bench's unbiased estimator).",
                     "",
                     "| k | pass^k |",
                     "|---:|---:|",

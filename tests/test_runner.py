@@ -1,6 +1,8 @@
+import pytest
+
 from smab.adapters import ModelAdapter
 from smab.models import BenchmarkCase, ModelTurn, ToolCall
-from smab.runner import BenchmarkRunner, RunConfig, aggregate_runs
+from smab.runner import BenchmarkRunner, RunConfig, _pass_at_k, aggregate_runs
 
 
 class ScriptedAdapter(ModelAdapter):
@@ -118,6 +120,56 @@ def test_aggregate_runs_computes_pass_at_k_from_per_case_outcomes() -> None:
     pass_at_k = result["summary"]["pass_at_k"]
     # case_0 always succeeds (p=1), case_1 succeeds in 1 of 3 repeats (p=1/3).
     assert pass_at_k["1"] == round((1.0 + 1 / 3) / 2, 4)
-    assert pass_at_k["2"] == round((1.0 + (1 / 3) ** 2) / 2, 4)
-    assert pass_at_k["3"] == round((1.0 + (1 / 3) ** 3) / 2, 4)
-    assert pass_at_k["1"] == result["summary"]["overall_mean"]
+    # case_1 has no all-success subsets of size 2 or 3.
+    assert pass_at_k["2"] == 0.5
+    assert pass_at_k["3"] == 0.5
+    assert pass_at_k["1"] == result["summary"]["perfect_case_rate_mean"]
+
+
+@pytest.mark.parametrize(
+    ("attempts", "successes", "k", "expected"),
+    [
+        (4, 2, 1, 0.5),
+        (4, 2, 2, round(1 / 6, 4)),
+        (4, 2, 3, 0.0),
+        (5, 3, 2, 0.3),
+        (5, 3, 3, 0.1),
+        (3, 3, 3, 1.0),
+        (3, 0, 1, 0.0),
+        (3, 0, 3, 0.0),
+        (1, 1, 1, 1.0),
+    ],
+)
+def test_pass_at_k_uses_finite_sample_all_success_subsets(
+    attempts: int, successes: int, k: int, expected: float
+) -> None:
+    runs = [
+        {
+            "run": {
+                "model": "stub",
+                "tool_format": "json",
+                "schema_variant": "original",
+                "case_count": 1,
+            },
+            "summary": {
+                # Failed attempts can still earn partial credit.
+                "overall": 1.0 if index < successes else 0.75,
+                "case_success_rate": float(index < successes),
+            },
+            "results": [{"id": "case", "score": {"success": index < successes}}],
+        }
+        for index in range(attempts)
+    ]
+    result = aggregate_runs(runs)
+    assert result["summary"]["pass_at_k"][str(k)] == expected
+    assert result["summary"]["pass_at_k"]["1"] == result["summary"]["perfect_case_rate_mean"]
+    if successes < attempts:
+        assert result["summary"]["pass_at_k"]["1"] != result["summary"]["overall_mean"]
+
+
+def test_pass_at_k_rejects_insufficient_attempts() -> None:
+    runs = [{"results": [{"id": "case", "score": {"success": True}}]}]
+    with pytest.raises(ValueError, match="at least k attempts"):
+        _pass_at_k(runs, 2)
+    with pytest.raises(ValueError, match="at least 1"):
+        _pass_at_k(runs, 0)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import statistics
 import time
 from collections import defaultdict
@@ -201,21 +202,29 @@ def aggregate_runs(runs: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _pass_at_k(runs: list[dict[str, Any]], k: int) -> float:
-    """Reliability estimator in the spirit of τ-bench's pass^k.
+    """Estimate τ-bench's pass^k from repeated perfect-case outcomes.
 
-    For each case let ``p`` be its success rate across the repeats; pass^k is
-    the mean of ``p**k`` over cases. pass^1 equals the mean overall score;
-    higher k measures how often a case succeeds in *every* one of k attempts,
-    which is what production reliability actually depends on.
+    For a case with ``c`` successes in ``n`` repeats, use C(c, k) / C(n, k):
+    the fraction of k-attempt subsets in which every attempt succeeds. Average
+    this unbiased finite-sample estimate over cases. pass^1 equals the mean
+    perfect-case success rate for identical repeated suites, rather than the
+    mean of their partial-credit overall scores.
     """
+    if k < 1:
+        raise ValueError("k must be at least 1")
     per_case: dict[str, list[int]] = defaultdict(list)
     for run in runs:
         for result in run.get("results", []):
             per_case[result["id"]].append(1 if result["score"]["success"] else 0)
     if not per_case:
         return 0.0
-    rates = [sum(outcomes) / len(outcomes) for outcomes in per_case.values()]
-    return round(sum(rate**k for rate in rates) / len(rates), 4)
+    if any(len(outcomes) < k for outcomes in per_case.values()):
+        raise ValueError("pass^k requires at least k attempts for every case")
+    estimates = [
+        math.comb(sum(outcomes), k) / math.comb(len(outcomes), k)
+        for outcomes in per_case.values()
+    ]
+    return round(statistics.fmean(estimates), 4)
 
 
 def CounterLike(values: Any) -> dict[str, int]:
