@@ -58,6 +58,8 @@ smab probe --model your-model --base-url http://127.0.0.1:8000/v1 \
 
 方法论、受控实验协议和权威信息源（vLLM / SGLang / llama.cpp 文档、BFCL、τ-bench）见 [`docs/FRAMEWORK_ADAPTATION.md`](docs/FRAMEWORK_ADAPTATION.md)。
 
+推荐命令只采用已检查的协议配置，不会把天气探测 schema 注入正式测评。约束方言的示例用于解释能力；正式 JSON 约束必须允许 SMAB 的 `tool_calls` / `final` 对象。鉴权、限流、服务故障或协议检查不确定时，报告会提示修复或重试。
+
 ### 没有原生 function calling token 的模型
 
 `json` 模式会把工具 schema 写进 system prompt，并要求模型只输出下面两种对象之一：
@@ -82,7 +84,7 @@ smab run \
   --report runs/your-model-json-r3.md
 ```
 
-重复模式保存每次的完整调用轨迹，并报告 overall 与 perfect-case rate 的均值和总体标准差，同时给出 **pass^k**（每个 case 的重复成功率 `p`，pass^k 为 `p^k` 的均值；τ-bench 同型估计量）——它衡量"连续 k 次都成功"的可靠性，而不是另一个平均分。保持 seed 不变，才能将变化归因于模型或服务端采样，而不是 schema 随机化。
+重复模式保存每次的完整调用轨迹，并报告 overall 与 perfect-case rate 的均值和总体标准差，同时给出 **pass^k**：对每个 case 的 `n` 次重复、`c` 次完整成功，计算 `C(c,k) / C(n,k)`，再对 case 取均值（`c < k` 时为 0）。这是 τ-bench 的有限样本无偏估计，衡量 k 次都成功的可靠性；`pass^1` 等于 perfect-case rate，k 最大为重复次数。保持 seed 不变，才能将变化归因于模型或服务端采样，而不是 schema 随机化。
 
 ```json
 {"final":"上海当天最高 29°C。"}
@@ -99,6 +101,8 @@ smab run \
 ```
 
 服务端若支持 JSON Schema/grammar 约束，可以通过 `--extra-body` 传入对应采样参数；这样能把格式容量和语义容量分开观察。
+
+仅支持普通 chat、拒绝 `response_format` 的端点，可以用 `--extra-body '{"response_format":null}'` 省略该字段，依靠 system prompt 生成 JSON。此模式没有解码约束，需检查 `protocol_error`。
 
 ## 三组必须跑的对照
 
@@ -177,7 +181,7 @@ OpenRouter 免费小模型另测 9 款（native），其中 nemotron-3.5-lightni
 - **协议通道是独立变量**：Qwen3-4B native 82.2% → json 90.5%（+8.3pp，JSON 约束救参数抽取）；MiniCPM5-2B native 96.9% → json 83.1%（native 更强）。同一个模型两条通道能差出十几到五十个百分点，横评必须注明协议。
 - **recovery 是普遍短板**：全表 recovery 维度普遍低于其他维度 10–30pp；`by_horizon` 的 h3+ 段普遍出现断崖（例：Qwen3.5-9B h2 92.4% → h3+ 43.8%）。
 
-> 以上为单遍 temp=0 结果，反映「最好情况」；生产可用性请重复运行测 pass^k（v0.0.2 起支持 `--repeats`）。
+> 以上为单次 temp=0 观测；生产可用性请重复运行测 pass^k（v0.2.0 起支持 `--repeats`）。
 
 ## 数据集与扩展
 

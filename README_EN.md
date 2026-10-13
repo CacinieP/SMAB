@@ -58,6 +58,8 @@ smab probe --model your-model --base-url http://127.0.0.1:8000/v1 \
 
 See [docs/FRAMEWORK_ADAPTATION.md](docs/FRAMEWORK_ADAPTATION.md) for the full methodology, controlled-experiment protocol, and authoritative references (vLLM, SGLang, llama.cpp docs; BFCL; τ-bench).
 
+Recommended commands use checked protocol settings and never inject the probe's weather schema into a benchmark run. Dialect examples describe detected capabilities; benchmark JSON constraints must allow SMAB's `tool_calls` / `final` objects. Authentication, rate limits, service failures and inconclusive protocol checks require repair or a retry.
+
 ### Models without native function-calling tokens
 
 `json` mode injects tool schemas into the system prompt and requires exactly one of:
@@ -71,6 +73,8 @@ See [docs/FRAMEWORK_ADAPTATION.md](docs/FRAMEWORK_ADAPTATION.md) for the full me
 ```
 
 If the server supports JSON Schema/grammar-constrained decoding, pass the matching sampling parameter via `--extra-body` so format capacity and semantic capacity can be observed separately.
+
+For a plain chat endpoint that rejects `response_format`, use `--extra-body '{"response_format":null}'` to omit that field and rely on the system prompt for JSON output. This mode has no decoder constraint; inspect `protocol_error` results.
 
 ### Repeated runs and comparable conclusions (v0.2.0)
 
@@ -88,7 +92,7 @@ smab run \
   --report runs/your-model-json-r3.md
 ```
 
-Repeat mode keeps every full trace and reports overall and perfect-case rate as mean ± stddev, plus **pass^k** (the τ-bench-style reliability estimator: per case, `p` = success rate across repeats; pass^k = mean of `p^k`). Keep the seed fixed so variation is attributable to the model or server-side sampling, not schema randomization.
+Repeat mode keeps every full trace and reports overall and perfect-case rate as mean ± stddev, plus **pass^k**. For each case with `c` full successes out of `n` repeats, compute `C(c,k) / C(n,k)`, then average over cases (`c < k` contributes zero). This is τ-bench's unbiased finite-sample estimator of succeeding in all k attempts; `pass^1` equals perfect-case rate, and k ranges up to the repeat count. Keep the seed fixed so variation is attributable to the model or server-side sampling, not schema randomization.
 
 ## Three controls you must run
 
@@ -165,7 +169,7 @@ Three readings:
 - **The protocol channel is an independent variable**: Qwen3-4B native 82.2% → json 90.5% (+8.3pp, JSON constraints rescue argument extraction); MiniCPM5-2B native 96.9% → json 83.1% (native stronger). The same model can differ by ten to fifty points across channels — any comparison must state the protocol.
 - **recovery is the universal weak spot**: recovery trails other dimensions by 10–30pp across the table; the h3+ horizon segment shows cliffs (e.g. Qwen3.5-9B h2 92.4% → h3+ 43.8%).
 
-> Single-pass temp=0 numbers above reflect the best case; for production usability measure pass^k with `--repeats`.
+> The numbers above are single-pass temp=0 observations; for production usability measure pass^k with `--repeats`.
 
 ## Datasets and extension
 
