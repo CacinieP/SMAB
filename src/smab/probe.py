@@ -9,22 +9,27 @@ the model when the framework is what changed.
 Checks are intentionally conservative:
 
 - ``ok``           the capability was observed end-to-end;
-- ``unsupported`` the endpoint rejected the request (HTTP 400) or accepted the
-                   parameter without enforcing it;
-- ``error``        transport-level or unexpected failure (inconclusive, retry).
+- ``unsupported`` an explicit capability rejection (HTTP 400/422), or accepted
+                   parameters whose constraints were contradicted by output;
+- ``error``        transport, authentication, rate limits, server/model errors,
+                   or an inconclusive control comparison (retry).
 
 Only the Python standard library is used, matching the rest of SMAB.
 """
 
 from __future__ import annotations
 
+import http.client
 import json
+import math
+import secrets
+import shlex
 import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Callable
 
 from .adapters import _chat_completions_url
 
@@ -52,6 +57,16 @@ PROBE_MESSAGES = [
     {"role": "user", "content": "What's the weather in Shanghai on 2026-09-06?"},
 ]
 
+PROBE_TIME_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "get_time",
+        "description": "Get the current time.",
+        "parameters": {"type": "object", "properties": {}, "additionalProperties": False},
+    },
+}
+PROBE_TOOLS = [PROBE_TOOL, PROBE_TIME_TOOL]
+
 # Schema used for every constrained-decoding probe. Small, strict, and easy for
 # a mock or a real backend to honour.
 PROBE_SCHEMA = {
@@ -64,9 +79,11 @@ PROBE_SCHEMA = {
     "additionalProperties": False,
 }
 
-PROBE_SCHEMA_PROMPT = (
-    "Return the weather of Shanghai on 2026-09-06 as JSON with keys city and high_c."
-)
+PROBE_SCHEMA_PROMPT = "For this JSON mode test, reply exactly NOT_JSON without quotes or braces."
+PROBE_CONFLICT_MESSAGES = [
+    {"role": "system", "content": "Follow the user's exact response request."},
+    {"role": "user", "content": PROBE_SCHEMA_PROMPT},
+]
 
 
 @dataclass(slots=True)
@@ -157,13 +174,16 @@ class _ProbeContext:
                 body = json.loads(response.read().decode("utf-8"))
                 return response.status, body, None, _elapsed_ms(started)
         except urllib.error.HTTPError as exc:
-            raw = exc.read().decode("utf-8", errors="replace")
+            try:
+                raw = exc.read().decode("utf-8", errors="replace")
+            except (OSError, http.client.HTTPException) as read_error:
+                return None, None, f"{type(read_error).__name__}: {read_error}", _elapsed_ms(started)
             try:
                 parsed = json.loads(raw)
             except json.JSONDecodeError:
                 parsed = {"raw": raw[:500]}
             return exc.code, parsed, None, _elapsed_ms(started)
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+        except (OSError, http.client.HTTPException, UnicodeError, json.JSONDecodeError) as exc:
             return None, None, f"{type(exc).__name__}: {exc}", _elapsed_ms(started)
 
 
@@ -179,7 +199,8 @@ def _timed(
 
 def _message_of(body: dict[str, Any] | None) -> dict[str, Any]:
     try:
-        return body["choices"][0]["message"]  # type: ignore[index]
+        message = body["choices"][0]["message"]  # type: ignore[index]
+        return message if isinstance(message, dict) and message.get("role") == "assistant" else {}
     except (KeyError, IndexError, TypeError):
         return {}
 
@@ -214,9 +235,25 @@ def _base_payload(
 
 
 def _rejected(name: str, status: int | None, body: dict[str, Any] | None, latency: float) -> ProbeCheck:
+    message = _error_message(body)
+    lowered = message.lower()
+    # A missing/invalid model is an operational error even when the response
+    # also mentions structured-output or tool parameters.
+    model_error = "model" in lowered and any(
+        word in lowered for word in ("not found", "does not exist", "unknown", "invalid", "not served", "unavailable", "not available", "unsupported model")
+    )
+    capability = any(word in lowered for word in (
+        "tools", "tool calling", "tool_choice", "parallel_tool_calls", "response_format",
+        "structured output", "structured_outputs", "guided_json", "json_schema", "schema",
+    ))
+    refusal = any(word in lowered for word in (
+        "unsupported", "not supported", "not implemented", "requires", "disabled",
+        "not enabled", "not allowed", "unrecognized", "unknown field", "unexpected",
+    ))
+    verdict = "unsupported" if status in (400, 422) and capability and refusal and not model_error else "error"
     return ProbeCheck(
         name=name,
-        status="unsupported",
+        status=verdict,
         detail=f"endpoint rejected the request (HTTP {status}): {_error_message(body) or 'no message'}",
         latency_ms=latency,
         evidence={"http_status": status},
@@ -232,6 +269,61 @@ def _failed(name: str, error: str | None, latency: float) -> ProbeCheck:
     )
 
 
+def _valid_tool_calls(message: dict[str, Any], allowed: set[str]) -> bool:
+    calls = message.get("tool_calls")
+    if not isinstance(calls, list) or not calls:
+        return False
+    for call in calls:
+        if not isinstance(call, dict) or call.get("type") != "function" or not isinstance(call.get("id"), str) or not call["id"]:
+            return False
+        function = call.get("function")
+        if not isinstance(function, dict) or not isinstance(function.get("name"), str) or function["name"] not in allowed:
+            return False
+        try:
+            raw = function.get("arguments")
+            arguments = json.loads(raw) if isinstance(raw, str) else raw
+        except (json.JSONDecodeError, TypeError):
+            return False
+        if not isinstance(arguments, dict):
+            return False
+        if function["name"] == "get_weather":
+            if not all(isinstance(arguments.get(key), str) and arguments[key] for key in ("city", "date")):
+                return False
+        elif arguments:
+            return False
+    return True
+
+
+def _has_content(message: dict[str, Any]) -> bool:
+    content = message.get("content")
+    return isinstance(content, str) and bool(content.strip())
+
+
+def _json_content(message: dict[str, Any]) -> Any:
+    content = message.get("content")
+    if not isinstance(content, str):
+        return None
+
+    def invalid_constant(value: str) -> None:
+        raise ValueError(f"non-JSON constant: {value}")
+
+    try:
+        return json.loads(content, parse_constant=invalid_constant)
+    except (json.JSONDecodeError, ValueError):
+        return None
+
+
+def _matches_probe_schema(parsed: Any, schema: dict[str, Any]) -> bool:
+    # Validate every rule in our fixed, deliberately small probe schema. This
+    # is not a general-purpose JSON Schema validator.
+    if not isinstance(parsed, dict) or set(parsed) != {"city", "high_c"}:
+        return False
+    if not isinstance(parsed["city"], str) or parsed["city"] not in schema["properties"]["city"]["enum"]:
+        return False
+    value = parsed["high_c"]
+    return type(value) is int or (type(value) is float and math.isfinite(value))
+
+
 # ---------------------------------------------------------------------------
 # Individual checks
 # ---------------------------------------------------------------------------
@@ -244,8 +336,7 @@ def _check_chat_completion(context: _ProbeContext) -> ProbeCheck:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    content = _message_of(body).get("content")
-    if not content:
+    if not _has_content(_message_of(body)):
         return ProbeCheck(name, "error", "HTTP 200 but no assistant content", latency)
     return ProbeCheck(name, "ok", "plain chat completion works", latency)
 
@@ -258,73 +349,88 @@ def _check_native_tools(context: _ProbeContext) -> ProbeCheck:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    calls = _message_of(body).get("tool_calls") or []
-    if not calls:
+    message = _message_of(body)
+    if not message.get("tool_calls"):
         return ProbeCheck(
             name,
             "unsupported",
             "tools accepted but no tool_calls returned; server likely lacks a tool-call parser",
             latency,
-            evidence={"message": _message_of(body)},
+            evidence={"message": message},
         )
-    function = calls[0].get("function", {})
-    raw_arguments = function.get("arguments", "{}")
-    try:
-        arguments = raw_arguments if isinstance(raw_arguments, dict) else json.loads(raw_arguments)
-        parsable = isinstance(arguments, dict)
-    except (json.JSONDecodeError, TypeError):
-        parsable = False
-    if not function.get("name") or not parsable:
+    if not _valid_tool_calls(message, {"get_weather"}):
         return ProbeCheck(
             name,
             "unsupported",
             "tool_calls returned but name/arguments are malformed; parser misconfigured",
             latency,
-            evidence={"tool_call": calls[0]},
+            evidence={"message": message},
         )
+    call = message["tool_calls"][0]
     return ProbeCheck(
         name,
         "ok",
-        f"native tool calling works (parser returned {function.get('name')!r} with JSON arguments)",
+        "native tool calling works (parser returned get_weather with valid JSON arguments)",
         latency,
-        evidence={"tool_call": calls[0]},
+        evidence={"tool_call": call},
     )
 
 
 def _check_tool_choice_required(context: _ProbeContext) -> ProbeCheck:
     name = "tool_choice_required"
-    payload = _base_payload(context, tools=[PROBE_TOOL], tool_choice="required")
+    messages = [
+        {"role": "system", "content": "Follow the user's request."},
+        {"role": "user", "content": "Reply exactly HELLO. Do not call any tools."},
+    ]
+    payload = _base_payload(context, messages=messages, tools=PROBE_TOOLS, tool_choice="auto")
+    status, body, error, control_latency = _timed(context, payload)
+    if error:
+        return _failed(name, error, control_latency)
+    if status != 200:
+        return _rejected(name, status, body, control_latency)
+    control = _message_of(body)
+    if control.get("tool_calls") or not _has_content(control):
+        return ProbeCheck(name, "error", "auto control did not produce a plain reply; required enforcement is unverified", control_latency)
+    payload["tool_choice"] = "required"
     status, body, error, latency = _timed(context, payload)
+    latency += control_latency
     if error:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    calls = _message_of(body).get("tool_calls") or []
-    if not calls:
+    if not _valid_tool_calls(_message_of(body), {"get_weather", "get_time"}):
         return ProbeCheck(
-            name, "unsupported", "tool_choice=required accepted but no tool_calls produced", latency
+            name, "unsupported", "tool_choice=required did not force a valid tool call against the no-tool prompt", latency
         )
-    return ProbeCheck(name, "ok", "tool_choice=required forces at least one tool call", latency)
+    return ProbeCheck(name, "ok", "tool_choice=required changed the plain-reply control into valid tool calls", latency)
 
 
 def _check_tool_choice_named(context: _ProbeContext) -> ProbeCheck:
     name = "tool_choice_named"
     payload = _base_payload(
         context,
-        tools=[PROBE_TOOL],
-        tool_choice={"type": "function", "function": {"name": "get_weather"}},
+        tools=PROBE_TOOLS,
+        tool_choice="auto",
     )
+    status, body, error, control_latency = _timed(context, payload)
+    if error:
+        return _failed(name, error, control_latency)
+    if status != 200:
+        return _rejected(name, status, body, control_latency)
+    if not _valid_tool_calls(_message_of(body), {"get_weather"}):
+        return ProbeCheck(name, "error", "auto control did not select weather; named enforcement is unverified", control_latency)
+    payload["tool_choice"] = {"type": "function", "function": {"name": "get_time"}}
     status, body, error, latency = _timed(context, payload)
+    latency += control_latency
     if error:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    calls = _message_of(body).get("tool_calls") or []
-    if not calls or calls[0].get("function", {}).get("name") != "get_weather":
+    if not _valid_tool_calls(_message_of(body), {"get_time"}):
         return ProbeCheck(
             name, "unsupported", "named tool_choice did not pin the requested function", latency
         )
-    return ProbeCheck(name, "ok", "named function calling pins the requested tool", latency)
+    return ProbeCheck(name, "ok", "named function calling selected get_time despite the weather prompt and auto control", latency)
 
 
 def _check_tool_choice_none(context: _ProbeContext) -> ProbeCheck:
@@ -339,6 +445,8 @@ def _check_tool_choice_none(context: _ProbeContext) -> ProbeCheck:
         return ProbeCheck(
             name, "unsupported", "tool_choice=none still produced tool_calls", latency
         )
+    if not _has_content(_message_of(body)):
+        return ProbeCheck(name, "unsupported", "tool_choice=none returned no valid assistant reply", latency)
     return ProbeCheck(name, "ok", "tool_choice=none suppresses tool calls", latency)
 
 
@@ -373,10 +481,13 @@ def _check_tool_roundtrip(context: _ProbeContext) -> ProbeCheck:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
+    message = _message_of(body)
+    if not _has_content(message) and not _valid_tool_calls(message, {"get_weather"}):
+        return ProbeCheck(name, "unsupported", "tool-result request returned no valid assistant continuation", latency)
     return ProbeCheck(
         name,
         "ok",
-        "multi-turn assistant/tool message round-trip accepted (chat template compatible)",
+        "tool-result request produced a valid assistant continuation (chat template compatible)",
         latency,
     )
 
@@ -400,7 +511,7 @@ def _check_parallel_tool_calls(context: _ProbeContext) -> ProbeCheck:
     if status != 200:
         return _rejected(name, status, body, latency)
     calls = _message_of(body).get("tool_calls") or []
-    if len(calls) >= 2:
+    if isinstance(calls, list) and len(calls) >= 2 and _valid_tool_calls(_message_of(body), {"get_weather"}):
         return ProbeCheck(name, "ok", f"{len(calls)} tool calls emitted in a single turn", latency)
     return ProbeCheck(
         name,
@@ -413,61 +524,63 @@ def _check_parallel_tool_calls(context: _ProbeContext) -> ProbeCheck:
 
 def _check_json_object(context: _ProbeContext) -> ProbeCheck:
     name = "json_object_response_format"
-    payload = _base_payload(context, response_format={"type": "json_object"})
-    payload["messages"] = [PROBE_MESSAGES[0], {"role": "user", "content": PROBE_SCHEMA_PROMPT}]
+    payload = _base_payload(context, messages=PROBE_CONFLICT_MESSAGES)
+    status, body, error, control_latency = _timed(context, payload)
+    if error:
+        return _failed(name, error, control_latency)
+    if status != 200:
+        return _rejected(name, status, body, control_latency)
+    if not _has_content(_message_of(body)):
+        return ProbeCheck(name, "error", "plain control returned no assistant content", control_latency)
+    control_is_object = isinstance(_json_content(_message_of(body)), dict)
+    payload["response_format"] = {"type": "json_object"}
     status, body, error, latency = _timed(context, payload)
+    latency += control_latency
     if error:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    content = _message_of(body).get("content") or ""
-    try:
-        json.loads(content)
-    except json.JSONDecodeError:
+    if not isinstance(_json_content(_message_of(body)), dict):
         return ProbeCheck(
             name,
             "unsupported",
-            "response_format accepted but content is not valid JSON",
+            "response_format accepted but content is not a valid JSON object",
             latency,
-            evidence={"content": content[:200]},
+            evidence={"message": _message_of(body)},
         )
+    if control_is_object:
+        return ProbeCheck(name, "error", "plain control already returned a JSON object; parameter enforcement is unverified", latency)
     return ProbeCheck(
-        name, "ok", "response_format json_object enforced (SMAB json protocol can rely on it)", latency
+        name, "ok", "response_format json_object changed the non-JSON control into a JSON object", latency
     )
 
 
 def _constrained_check(
     context: _ProbeContext,
     name: str,
-    payload_builder: Any,
+    payload_builder: Callable[[dict[str, Any]], dict[str, Any]],
     dialect: str,
 ) -> ProbeCheck:
-    payload = payload_builder()
+    # The random enum appears only in the request schema. A server that ignores
+    # the parameter cannot pass merely by following a weather-JSON prompt.
+    schema = json.loads(json.dumps(PROBE_SCHEMA))
+    marker = "smab-probe-" + secrets.token_hex(16)
+    schema["properties"]["city"]["enum"] = [marker]
+    payload = payload_builder(schema)
     status, body, error, latency = _timed(context, payload)
     if error:
         return _failed(name, error, latency)
     if status != 200:
         return _rejected(name, status, body, latency)
-    content = _message_of(body).get("content") or ""
-    try:
-        parsed = json.loads(content)
-    except json.JSONDecodeError:
-        return ProbeCheck(
-            name,
-            "unsupported",
-            f"{dialect} accepted but the schema was not enforced",
-            latency,
-            evidence={"content": content[:200]},
-        )
-    if not isinstance(parsed, dict) or not {"city", "high_c"} <= set(parsed):
+    if not _matches_probe_schema(_json_content(_message_of(body)), schema):
         return ProbeCheck(
             name,
             "unsupported",
             f"{dialect} accepted but the response does not match the requested schema",
             latency,
-            evidence={"content": content[:200]},
+            evidence={"message": _message_of(body)},
         )
-    return ProbeCheck(name, "ok", f"{dialect} enforced the JSON schema", latency)
+    return ProbeCheck(name, "ok", f"{dialect} satisfied every schema rule including a hidden random enum", latency)
 
 
 def _check_structured_outputs_json(context: _ProbeContext) -> ProbeCheck:
@@ -476,10 +589,10 @@ def _check_structured_outputs_json(context: _ProbeContext) -> ProbeCheck:
     return _constrained_check(
         context,
         "structured_outputs_json",
-        lambda: _base_payload(
+        lambda schema: _base_payload(
             context,
-            messages=[PROBE_MESSAGES[0], {"role": "user", "content": PROBE_SCHEMA_PROMPT}],
-            extra_body={"structured_outputs": {"json": PROBE_SCHEMA}},
+            messages=PROBE_CONFLICT_MESSAGES,
+            extra_body={"structured_outputs": {"json": schema}},
         ),
         "vLLM structured_outputs.json",
     )
@@ -490,10 +603,10 @@ def _check_legacy_guided_json(context: _ProbeContext) -> ProbeCheck:
     return _constrained_check(
         context,
         "legacy_guided_json",
-        lambda: _base_payload(
+        lambda schema: _base_payload(
             context,
-            messages=[PROBE_MESSAGES[0], {"role": "user", "content": PROBE_SCHEMA_PROMPT}],
-            extra_body={"guided_json": PROBE_SCHEMA},
+            messages=PROBE_CONFLICT_MESSAGES,
+            extra_body={"guided_json": schema},
         ),
         "legacy guided_json",
     )
@@ -503,12 +616,12 @@ def _check_sglang_json_schema(context: _ProbeContext) -> ProbeCheck:
     return _constrained_check(
         context,
         "sglang_json_schema",
-        lambda: _base_payload(
+        lambda schema: _base_payload(
             context,
-            messages=[PROBE_MESSAGES[0], {"role": "user", "content": PROBE_SCHEMA_PROMPT}],
-            extra_body={"json_schema": PROBE_SCHEMA},
+            messages=PROBE_CONFLICT_MESSAGES,
+            response_format={"type": "json_schema", "json_schema": {"name": "smab_probe", "schema": schema}},
         ),
-        "SGLang json_schema",
+        "SGLang chat response_format.json_schema",
     )
 
 
@@ -516,10 +629,10 @@ def _check_llamacpp_response_schema(context: _ProbeContext) -> ProbeCheck:
     return _constrained_check(
         context,
         "llamacpp_response_schema",
-        lambda: _base_payload(
+        lambda schema: _base_payload(
             context,
-            messages=[PROBE_MESSAGES[0], {"role": "user", "content": PROBE_SCHEMA_PROMPT}],
-            response_format={"type": "json_object", "schema": PROBE_SCHEMA},
+            messages=PROBE_CONFLICT_MESSAGES,
+            response_format={"type": "json_object", "schema": schema},
         ),
         "llama.cpp response_format schema",
     )
@@ -532,7 +645,7 @@ def _check_llamacpp_response_schema(context: _ProbeContext) -> ProbeCheck:
 _CONSTRAINED_DIALECTS = [
     ("structured_outputs_json", "vllm-structured-outputs", {"structured_outputs": {"json": PROBE_SCHEMA}}),
     ("legacy_guided_json", "legacy-guided-json", {"guided_json": PROBE_SCHEMA}),
-    ("sglang_json_schema", "sglang-json-schema", {"json_schema": PROBE_SCHEMA}),
+    ("sglang_json_schema", "sglang-json-schema", {"response_format": {"type": "json_schema", "json_schema": {"name": "smab_probe", "schema": PROBE_SCHEMA}}}),
     (
         "llamacpp_response_schema",
         "llamacpp-response-schema",
@@ -549,21 +662,39 @@ def _summarize(checks: list[ProbeCheck]) -> dict[str, Any]:
     native = by_name["native_tools"].status == "ok"
     json_object = by_name["json_object_response_format"].status == "ok"
     dialect = None
-    extra_body: dict[str, Any] | None = None
+    probe_example: dict[str, Any] | None = None
     for name, label, body in _CONSTRAINED_DIALECTS:
         if by_name[name].status == "ok":
             dialect = label
-            extra_body = body
+            probe_example = body
             break
-    tool_format = "native" if native else "json"
+    tool_format = None
+    recommended_extra_body = None
+    if by_name["chat_completion"].status == "ok":
+        if native and by_name["tool_roundtrip"].status == "ok":
+            tool_format = "native"
+        elif json_object:
+            tool_format = "json"
+        elif (
+            by_name["native_tools"].status != "error"
+            and by_name["tool_roundtrip"].status != "error"
+            and by_name["json_object_response_format"].status == "unsupported"
+        ):
+            tool_format = "json"
+            recommended_extra_body = {"response_format": None}
     return {
         "ok": counts["ok"],
         "unsupported": counts["unsupported"],
         "error": counts["error"],
         "native_tool_calling": native,
         "json_object_response_format": json_object,
-        "constrained_decoding": {"dialect": dialect, "extra_body": extra_body},
+        "constrained_decoding": {
+            "dialect": dialect,
+            "extra_body": None,
+            "probe_example_extra_body": probe_example,
+        },
         "recommended_tool_format": tool_format,
+        "recommended_extra_body": recommended_extra_body,
         "notes": _notes(by_name),
     }
 
@@ -572,27 +703,31 @@ def _notes(by_name: dict[str, ProbeCheck]) -> list[str]:
     notes: list[str] = []
     if by_name["native_tools"].status != "ok":
         notes.append(
-            "No usable native tool calling: run SMAB with --tool-format json and inject schemas via the system prompt."
+            "Usable native tool calling was not observed; consider the JSON protocol after resolving any request errors."
         )
     else:
         if by_name["tool_choice_required"].status != "ok":
-            notes.append("tool_choice=required unavailable; do not rely on forced tool calling.")
+            notes.append("tool_choice=required enforcement was not verified; do not rely on forced tool calling.")
         if by_name["tool_roundtrip"].status != "ok":
             notes.append(
-                "Multi-turn tool round-trip failed; the chat template likely mishandles assistant/tool messages."
+                "A valid tool-result continuation was not observed; native benchmark episodes are not verified."
             )
         if by_name["parallel_tool_calls"].status != "ok":
             notes.append("Parallel tool calls unreliable; interpret multi-tool episodes with care.")
-    if by_name["json_object_response_format"].status != "ok":
+    if by_name["json_object_response_format"].status == "unsupported":
         notes.append(
-            "response_format json_object unavailable; json-protocol runs depend on prompt discipline only."
+            "response_format json_object enforcement was not verified; prompt-only JSON runs must omit this parameter."
         )
+    elif by_name["json_object_response_format"].status == "error":
+        notes.append("response_format json_object is inconclusive; resolve request errors or retry the control comparison before choosing a JSON configuration.")
     if all(by_name[name].status != "ok" for name, _, _ in _CONSTRAINED_DIALECTS):
         notes.append(
             "No constrained-decoding dialect detected; syntax errors cannot be separated from strategy errors."
         )
     if by_name["chat_completion"].status != "ok":
         notes.append("Basic chat completion failed; fix connectivity before interpreting anything else.")
+    if any(by_name[name].status == "ok" for name, _, _ in _CONSTRAINED_DIALECTS):
+        notes.append("The detected dialect is capability evidence only. Its weather probe schema must never be added to an SMAB benchmark invocation.")
     return notes
 
 
@@ -619,16 +754,24 @@ def render_probe_markdown(report: dict[str, Any]) -> str:
             f"| {latency} | {check['detail']} |"
         )
     constrained = summary["constrained_decoding"]
-    command = [
-        f"smab run --model {probe['model']}",
-        f"--base-url {probe['endpoint']}",
-        f"--tool-format {summary['recommended_tool_format']}",
-    ]
-    if constrained["extra_body"]:
-        command.append(
-            "--extra-body '" + json.dumps(constrained["extra_body"], ensure_ascii=False) + "'"
-        )
-    lines.extend(["", "## Recommended SMAB invocation", "", "```bash", " \\\n  ".join(command), "```", ""])
+    lines.extend(["", "## Recommended SMAB invocation", ""])
+    if summary["recommended_tool_format"] is None:
+        lines.extend(["No invocation is recommended until the request errors are resolved and a runnable protocol is verified.", ""])
+    else:
+        command = [
+            f"smab run --model {shlex.quote(probe['model'])}",
+            f"--base-url {shlex.quote(probe['endpoint'])}",
+            f"--tool-format {summary['recommended_tool_format']}",
+        ]
+        if summary["recommended_extra_body"]:
+            command.append("--extra-body " + shlex.quote(json.dumps(summary["recommended_extra_body"])))
+        lines.extend(["```bash", " \\\n  ".join(command), "```", ""])
+    if constrained["dialect"]:
+        lines.extend([
+            "## Observed constrained-decoding dialect", "",
+            f"Detected `{constrained['dialect']}`. The following is a probe example only; do not add its schema to `smab run`.",
+            "", "```json", json.dumps(constrained["probe_example_extra_body"], ensure_ascii=False, indent=2), "```", "",
+        ])
     if summary["notes"]:
         lines.extend(["## Notes", ""])
         lines.extend(f"- {note}" for note in summary["notes"])

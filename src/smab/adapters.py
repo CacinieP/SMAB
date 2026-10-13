@@ -68,6 +68,11 @@ class OpenAICompatibleAdapter(ModelAdapter):
             payload["messages"] = wire_messages
             payload["response_format"] = {"type": "json_object"}
         payload.update(self.extra_body)
+        # Explicit null opts out of response_format on endpoints that only
+        # support the prompt-based JSON protocol. Do not send a null field:
+        # some compatible servers reject its presence altogether.
+        if payload.get("response_format") is None:
+            payload.pop("response_format", None)
 
         headers = {"Content-Type": "application/json"}
         if self.api_key:
