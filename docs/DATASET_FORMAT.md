@@ -70,6 +70,8 @@
 | `forbidden_tools` | 不得调用的工具 |
 | `stop_after_error` | 指定工具产生终止错误后必须停止，不得重试 |
 
+`final_contains` 和 `final_contains_any` 由 `state_tracking` 维度评分。新增 case 声明这些条件时，必须在 `dimensions` 中包含 `state_tracking`，并测试正确调用但最终回答错误的负向情况。
+
 `arguments` 采用字段级部分分，方便区分“完全不懂”与“只错一个 slot”。`selection` 按带重复次数的 precision/recall F1 计算。`planning` 使用期望序列与真实轨迹的最长公共子序列比例。
 
 参数值默认精确匹配。只有业务上确实等价的表示才应显式使用 matcher：
