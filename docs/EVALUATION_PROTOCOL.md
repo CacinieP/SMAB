@@ -15,12 +15,13 @@
 
 ## 推荐判读顺序
 
-1. 先看 `stop_reasons`，排除 endpoint/tool parser 配置错误；
-2. 比较 `native` 与受约束 `json`，分离格式问题和策略问题；
-3. 比较 core 与 OOD，判断是否只记住训练措辞；
-4. 比较 original 与 aliased，判断是否过度依赖函数名；
-5. 查看 `by_horizon`，观察误差随链长累积；
-6. 最后下钻完整 trace，定位 selection、argument、recovery 或 stopping。
+1. 先用 `smab probe` 确认端点能力（native tools、`tool_choice` 档位、约束解码方言），排除框架/parser 配置问题；
+2. 看 `stop_reasons`，排除 endpoint/tool parser 配置错误；
+3. 比较 `native` 与受约束 `json`，分离格式问题和策略问题；
+4. 比较 core 与 OOD，判断是否只记住训练措辞；
+5. 比较 original 与 aliased，判断是否过度依赖函数名；
+6. 查看 `by_horizon`，观察误差随链长累积；
+7. 最后下钻完整 trace，定位 selection、argument、recovery 或 stopping。
 
 ## 建议门槛（不是通用定律）
 

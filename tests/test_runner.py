@@ -87,3 +87,37 @@ def test_aggregate_runs_reports_mean_stddev_and_keeps_individual_runs() -> None:
     assert result["summary"]["overall_mean"] == 0.75
     assert result["summary"]["overall_stddev"] == 0.25
     assert len(result["runs"]) == 2
+
+
+def test_aggregate_runs_computes_pass_at_k_from_per_case_outcomes() -> None:
+    def _run(repeat_index: int, successes: list[bool]) -> dict:
+        return {
+            "run": {
+                "model": "stub",
+                "tool_format": "json",
+                "schema_variant": "original",
+                "case_count": len(successes),
+                "repeat_index": repeat_index,
+            },
+            "summary": {
+                "overall": sum(successes) / len(successes),
+                "case_success_rate": sum(successes) / len(successes),
+            },
+            "results": [
+                {"id": f"case_{index}", "score": {"success": ok}}
+                for index, ok in enumerate(successes)
+            ],
+        }
+
+    runs = [
+        _run(1, [True, False]),
+        _run(2, [True, True]),
+        _run(3, [True, False]),
+    ]
+    result = aggregate_runs(runs)
+    pass_at_k = result["summary"]["pass_at_k"]
+    # case_0 always succeeds (p=1), case_1 succeeds in 1 of 3 repeats (p=1/3).
+    assert pass_at_k["1"] == round((1.0 + 1 / 3) / 2, 4)
+    assert pass_at_k["2"] == round((1.0 + (1 / 3) ** 2) / 2, 4)
+    assert pass_at_k["3"] == round((1.0 + (1 / 3) ** 3) / 2, 4)
+    assert pass_at_k["1"] == result["summary"]["overall_mean"]

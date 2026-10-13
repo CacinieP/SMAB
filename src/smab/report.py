@@ -23,6 +23,21 @@ def render_markdown(run: dict[str, Any]) -> str:
             f"| {item['run']['repeat_index']} | {item['summary']['overall']:.1%} | {item['summary']['case_success_rate']:.1%} |"
             for item in run["runs"]
         )
+        pass_at_k = summary.get("pass_at_k", {})
+        if pass_at_k:
+            lines.extend(
+                [
+                    "",
+                    "## Reliability (pass^k)",
+                    "",
+                    "pass^k estimates how often a case succeeds in every one of k attempts",
+                    "(τ-bench-style reliability, not a different accuracy number).",
+                    "",
+                    "| k | pass^k |",
+                    "|---:|---:|",
+                ]
+            )
+            lines.extend(f"| {k} | {value:.1%} |" for k, value in pass_at_k.items())
         return "\n".join(lines) + "\n"
     metadata = run["run"]
     summary = run["summary"]
@@ -89,11 +104,16 @@ def render_markdown(run: dict[str, Any]) -> str:
 def render_console_summary(run: dict[str, Any]) -> str:
     if "suite" in run:
         summary = run["summary"]
-        return (
-            f"overall_mean={summary['overall_mean']:.1%}  overall_stddev={summary['overall_stddev']:.1%}\n"
+        lines = [
+            f"overall_mean={summary['overall_mean']:.1%}  overall_stddev={summary['overall_stddev']:.1%}",
             f"perfect_case_rate_mean={summary['perfect_case_rate_mean']:.1%}  "
-            f"perfect_case_rate_stddev={summary['perfect_case_rate_stddev']:.1%}"
-        )
+            f"perfect_case_rate_stddev={summary['perfect_case_rate_stddev']:.1%}",
+        ]
+        pass_at_k = summary.get("pass_at_k", {})
+        if pass_at_k:
+            rendered = "  ".join(f"pass^{k}={value:.1%}" for k, value in pass_at_k.items())
+            lines.append(rendered)
+        return "\n".join(lines)
     summary = run["summary"]
     dimensions = "  ".join(f"{key}={value:.1%}" for key, value in summary["by_dimension"].items())
     return (

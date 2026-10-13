@@ -192,9 +192,30 @@ def aggregate_runs(runs: list[dict[str, Any]]) -> dict[str, Any]:
             "overall_stddev": round(statistics.pstdev(overall), 4),
             "perfect_case_rate_mean": round(statistics.fmean(perfect), 4),
             "perfect_case_rate_stddev": round(statistics.pstdev(perfect), 4),
+            "pass_at_k": {
+                str(k): _pass_at_k(runs, k) for k in range(1, len(runs) + 1)
+            },
         },
         "runs": runs,
     }
+
+
+def _pass_at_k(runs: list[dict[str, Any]], k: int) -> float:
+    """Reliability estimator in the spirit of τ-bench's pass^k.
+
+    For each case let ``p`` be its success rate across the repeats; pass^k is
+    the mean of ``p**k`` over cases. pass^1 equals the mean overall score;
+    higher k measures how often a case succeeds in *every* one of k attempts,
+    which is what production reliability actually depends on.
+    """
+    per_case: dict[str, list[int]] = defaultdict(list)
+    for run in runs:
+        for result in run.get("results", []):
+            per_case[result["id"]].append(1 if result["score"]["success"] else 0)
+    if not per_case:
+        return 0.0
+    rates = [sum(outcomes) / len(outcomes) for outcomes in per_case.values()]
+    return round(sum(rate**k for rate in rates) / len(rates), 4)
 
 
 def CounterLike(values: Any) -> dict[str, int]:

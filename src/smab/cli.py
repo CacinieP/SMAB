@@ -9,6 +9,7 @@ from typing import Any
 
 from .adapters import OpenAICompatibleAdapter
 from .dataset import DatasetError, dataset_summary, load_cases, load_catalog
+from .probe import ProbeConfig, probe_endpoint, render_probe_markdown
 from .report import render_console_summary, render_markdown
 from .runner import BenchmarkRunner, RunConfig, aggregate_runs, write_run
 
@@ -42,6 +43,17 @@ def build_parser() -> argparse.ArgumentParser:
     report = subparsers.add_parser("report", help="Render a Markdown report from a JSON run")
     report.add_argument("run_file")
     report.add_argument("--output")
+
+    probe = subparsers.add_parser(
+        "probe",
+        help="Probe an OpenAI-compatible endpoint for framework/tool-calling capabilities",
+    )
+    probe.add_argument("--model", required=True, help="Model id exposed by the endpoint")
+    probe.add_argument("--base-url", default="http://127.0.0.1:8000/v1")
+    probe.add_argument("--api-key-env", default="SMAB_API_KEY")
+    probe.add_argument("--timeout", type=float, default=60.0)
+    probe.add_argument("--output", default="runs/probe.json")
+    probe.add_argument("--report", help="Optional Markdown report path")
     return parser
 
 
@@ -58,6 +70,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.command == "report":
             return _report(args)
+        if args.command == "probe":
+            return _probe(args)
         catalog = load_catalog(args.tools)
         cases = load_cases(
             args.dataset,
@@ -123,6 +137,33 @@ def _report(args: argparse.Namespace) -> int:
         print(f"report_file={output}")
     else:
         print(report, end="")
+    return 0
+
+
+def _probe(args: argparse.Namespace) -> int:
+    api_key = os.environ.get(args.api_key_env)
+    config = ProbeConfig(
+        base_url=args.base_url,
+        model=args.model,
+        api_key=api_key,
+        timeout=args.timeout,
+    )
+    report = probe_endpoint(config)
+    write_run(report, args.output)
+    if args.report:
+        report_path = Path(args.report)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(render_probe_markdown(report), encoding="utf-8")
+    summary = report["summary"]
+    print(
+        f"probe: {summary['ok']} ok / {summary['unsupported']} unsupported / {summary['error']} error"
+    )
+    print(f"recommended_tool_format={summary['recommended_tool_format']}")
+    dialect = summary["constrained_decoding"]["dialect"]
+    print(f"constrained_decoding={dialect or 'none detected'}")
+    print(f"run_file={args.output}")
+    if args.report:
+        print(f"report_file={args.report}")
     return 0
 
 

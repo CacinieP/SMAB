@@ -183,6 +183,8 @@ Fine-tuning 更像组织已有表征形成行为，不能从零制造一个缺�
 
 使用服务端标准 `tools` 与 `tool_calls` 字段，适合 vLLM、SGLang、llama.cpp 或商业 OpenAI-compatible endpoint。它测量模型、chat template 与 tool parser 组成的实际部署系统。
 
+> 部署系统本身是先决变量：不同框架的 tool parser、结构化输出后端与 `tool_choice` 档位支持不同，选错会把模型问题误判为框架问题（或相反）。运行前先用 `smab probe` 测量端点能力，方法论见 [FRAMEWORK_ADAPTATION.md](FRAMEWORK_ADAPTATION.md)。
+
 ### 6.2 JSON protocol
 
 对没有原生 function-call token 的小模型，把 schema 注入 system prompt，并约束输出为：
