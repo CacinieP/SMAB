@@ -60,15 +60,18 @@ def smab_perfect_case_rate_v2(llm) -> float:
     return artifact["summary"]["perfect_case_rate_mean"]
 '''
     cells = [
-        {"cell_type": "markdown", "metadata": {}, "source": [
+        {"cell_type": "markdown", "id": "smab-introduction", "metadata": {}, "source": [
             "# SMAB kbench-native-v2\n",
             "New channel revision; do not overwrite/compare directly with legacy v1 scores.\n",
             "Select the exact model in Kaggle matching MODEL before running. MODEL is a recorded label, not a proxy selector.\n",
             "All dimensions, partial-credit overall, perfect-case rate and pass^k use the same repeated traces.\n",
             "Source/data hashes are bundled; no GitHub access or pip installation is needed.\n"]},
     ]
-    for source in [setup, task, "smab_perfect_case_rate_v2.run(llm=kbench.llm)\n"]:
-        cells.append({"cell_type": "code", "metadata": {}, "execution_count": None,
+    for cell_id, source in [
+        ("smab-setup", setup), ("smab-task", task),
+        ("smab-run", "smab_perfect_case_rate_v2.run(llm=kbench.llm)\n"),
+    ]:
+        cells.append({"cell_type": "code", "id": cell_id, "metadata": {}, "execution_count": None,
                       "outputs": [], "source": source.splitlines(keepends=True)})
     return {"nbformat": 4, "nbformat_minor": 5,
             "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"}},

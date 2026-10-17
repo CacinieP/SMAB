@@ -127,3 +127,39 @@ rel_005 三次均未完整成功；recover_002 成功序列为 [1,0,0]；其余 
 完整报告文件名 `smab-kaggle-v2-gemini38-r3-2026-10-17.json`，SHA-256 `dc044fc831274cedb52e4d1ebe80704cae263d73096dc3791699c7bfba93d6f8`，已保存用于复核。没有将独立 smoke run 混入这组三轮统计。
 
 代码检查与 live 评测均已完成；本记录提交时 PR 尚未合并，独立 v2 任务尚未构建/发布。
+
+## 补跑核收与中断状态修复（2026-10-17 05:29 UTC）
+
+[PR #2](https://github.com/CacinieP/SMAB/pull/2) 已合并为 `dfc78a790408bf5b270d581a8aa3297d23d80bcf`。本次用本机现有授权调用 Kaggle 官方 SDK 的只读任务/运行 API，核对八个公开 v1 任务：创建状态全部为 `COMPLETED`，其 backing notebook 均已发布；尚未列出独立 v2 任务。公开榜单仍包含七个模型。
+
+此前发起的 20 项补跑中，6 项 `COMPLETED`、13 项 `ERRORED`、1 项仍为 `RUNNING`。六项完成记录均为 Qwen 3 Coder 480B 的 relevance、selection、state_tracking、recovery、stopping、overall。13 项错误均属于两款 Qwen 3 Next 80B：11 项 HTTP 429（heavy load / too many requests），2 项 Thinking 的 ReadTimeout。这些是服务故障，不能补为零分。
+
+| 模型 | 完成任务 / 8 | 其余状态 |
+|---|---:|---|
+| Gemini 3.8 Flash | 8 | 无 |
+| Gemma 4 26B A4B | 8 | 无 |
+| gpt-oss-20b | 8 | 无（仅指 v1，不能代替 v2 代理防护后的验证） |
+| Qwen 3 235B A22B Instruct | 8 | 无 |
+| Qwen 3 Coder 480B | 8 | 无 |
+| Qwen 3 Next 80B Instruct | 1（relevance） | 6 errored；arguments 仍为 running |
+| Qwen 3 Next 80B Thinking | 1（recovery） | 7 errored |
+
+逐任务/模型的 56 条最新运行状态、run ID、起止时间、错误分类和榜单结果类型见 [核收 CSV](evidence/kaggle-v1-runs-2026-10-17.csv)。这是带查询时间的 API 快照，不会自动更新。运行中项为 [smab_arguments](https://www.kaggle.com/benchmarks/tasks/cacinie/smab-arguments/1) / `qwen3-next-80b-a3b-instruct`，run ID `4876112`；API 未给出 startTime/endTime，不能仅凭耗时断言其已停止。此次没有提交新评测、取消已有运行、扩大配额或替换旧结果。
+
+05:30 UTC 另用只读 leaderboard API 联查结果类型：42 项完成运行均有 numericResult；13 项错误运行在 SDK 序列化中显示为 `booleanResult: false`，运行中项为空。CSV 同时保存这些字段，但只有 `COMPLETED` 且为 numericResult 的行可作有效分数；不能把 false/空值转成数值零。平台标题综合分当时显示 0.00/横线，不能替代逐项状态。
+
+本次还复现了独立的本地生命周期缺陷：v2 suite 收到 `KeyboardInterrupt` 时旧报告保持 `running`，容易被误读成仍在执行。现改为保存 `interrupted`、中断 case/repeat 和异常类型，保留此前完成的案例，不生成全局聚合分，并重新抛出中断。异常正文仍不写入报告。重试依旧要求新输出路径和完整 suite；不拼接成功案例。该修复不修改 v1 或评分器，也不会将已有草稿自动变为有效结果。
+
+Notebook 导出器同时为声明为 nbformat 4.5 的所有 cell 补上合法、唯一且稳定的 ID，符合 [Jupyter 格式要求](https://nbformat.readthedocs.io/en/latest/format_description.html#cell-ids)。这修复了导出文件的格式缺项；没有证据表明它导致了上述服务错误。完整本地测试 140 项通过，包括中断证据保留、cell ID 检查与导出代码编译；未启动新的线上模型评测。
+
+本次读取的 Gemini 草稿现名为 [smab-v2-guarded-reliability-gemini-3-8-flash](https://www.kaggle.com/code/cacinie/smab-v2-guarded-reliability-gemini-3-8-flash/edit)。已保存的末尾单元格输出与此前三轮记录一致：overall 均值/标准差 0.9699/0.0016、perfect 均值/标准差 0.9405/0.0168、pass^2/pass^3 0.9286。此次完整轨迹下载返回 HTTP 500，session output/status 接口返回 404，因此仅确认保存输出，未重新执行 84 例逐项复算；上文逐项复算与 SHA-256 属于 PR #2 的既有验证记录。
+
+## 原 20 项补跑终态（2026-10-17 08:35 UTC）
+
+08:35:13–08:35:16 UTC 的最终只读 API 核对确认，原 20 项补跑为 **6 COMPLETED、14 ERRORED**，没有运行中项；错误为 **12 次 HTTP 429、2 次 ReadTimeout**。全部 56 条原任务/模型记录为 42 COMPLETED、14 ERRORED，run ID、任务、模型和版本与 05:29 快照全部一致，没有新增或替换记录。唯一状态变化是 `4876112` 从 RUNNING 变为 ERRORED。Qwen 3 Next 80B Instruct 和 Thinking 各只有一项完成、七项服务错误。逐项终态见[原 20 项补跑终态 CSV](evidence/kaggle-v1-backfills-final-2026-10-17.csv)；上文 05:29 快照与原 CSV 保留，不覆写历史。
+
+[smab_arguments / v1](https://www.kaggle.com/benchmarks/tasks/cacinie/smab-arguments/1) 的 `qwen3-next-80b-a3b-instruct`、平台 run `4876112` 于 08:32:51 UTC 首次读到 ERRORED，错误为 `openai.RateLimitError` / HTTP 429 model heavy load。原内部 arguments 调用时间为 03:10:08–03:25:10 UTC，结果只有 `booleanResult: false`，没有有效 numericResult。最终服务错误不能补为零分或用来解释模型能力，也没有据此重新发起评测。
+
+已下载并离线解析该 run 的原始输出 ZIP（80,199 字节、17 个成员；SHA-256 `090c96a6f62b65f382b2fc0f2af2fe8b57236940b4cdc82d8a0915ef87f6d6fd`）。这个 notebook 的源码按 `dimension in c.dimensions` 筛选，因此 arguments 应覆盖 23 例，而非 category=arguments 的四例。它还显式顺序执行七维任务和 smab_overall；arguments 内部失败后仍继续后续任务，最后 overall 于 08:27:23 结束。因此，内部任务结束、整份 notebook 执行结束和首次读取平台终态是不同时间，不能直接把此前 RUNNING 判断为缓存过时。
+
+该 ZIP 只证明本次 arguments notebook 的八任务循环，不能推广到其他 backing notebook。包内其他内部任务的数值没有对应的平台数值 run ID，未用于填补、替换平台其他任务或拼接综合分。本次仍保留 v1 结果与评分口径，独立 v2 尚未发布。
