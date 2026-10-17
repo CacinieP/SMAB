@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import inspect
 import keyword
+import logging
 import time
 from contextlib import AbstractContextManager
 from datetime import datetime, timezone
@@ -20,6 +21,18 @@ from .simulator import ToolSimulator, tool_result_content
 CHANNEL = "kbench-native-v2"
 _TYPES = {"string": "str", "integer": "int", "number": "float", "boolean": "bool",
           "array": "list", "object": "dict"}
+
+
+class ProxyResponseError(RuntimeError):
+    """The SDK reported an invalid proxy response instead of raising an API error."""
+
+
+class _ProxyResponseGuard(logging.Handler):
+    def emit(self, record: logging.LogRecord) -> None:
+        # Kaggle SDK proxy_openai currently turns this malformed response into
+        # an empty assistant message. Fail before that becomes a model score.
+        if "choices[0].message=None" in record.getMessage():
+            raise ProxyResponseError("Kaggle Model Proxy returned a missing message")
 
 
 def build_tool(spec: dict[str, Any], invoke: Callable) -> Callable:
@@ -72,7 +85,10 @@ def run_episode(llm: Any, case: BenchmarkCase, chat: Callable[..., AbstractConte
     tools = [build_tool(spec, invoke) for spec in case.tools]
     final = None
     stop_reason = "completed"
+    proxy_logger = logging.getLogger("kaggle_benchmarks.actors.proxy_openai")
+    guard = _ProxyResponseGuard(level=logging.WARNING)
     with chat(f"smab_r{repeat_index}_{case.id}"):
+        proxy_logger.addHandler(guard)
         try:
             final = llm.prompt(
                 RunConfig(model="").system_prompt + "\n\n" + case.prompt,
@@ -84,6 +100,8 @@ def run_episode(llm: Any, case: BenchmarkCase, chat: Callable[..., AbstractConte
                 # 429/5xx/auth failures must invalidate the run, never become zero scores.
                 raise
             stop_reason = "max_turns"
+        finally:
+            proxy_logger.removeHandler(guard)
     if final is not None and not isinstance(final, str):
         raise TypeError("Kaggle prompt() must return text or None")
     return {

@@ -82,3 +82,11 @@ HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并�
 已发布原榜单 Description，明确八项任务与 28 个 episode 的关系、perfect/overall/composite 区别、协议及单次运行限制。
 
 另已在新 Notebook 草稿启动 gpt-oss-20b 的 v2 三轮完整运行，显式选择 `kbench.llms["openai/gpt-oss-20b"]`，避免记录标签与默认模型不一致。初始化和任务定义单元格已在真实 Kaggle SDK 上执行，完整 suite 尚在运行，任务尚未发布。草稿：https://www.kaggle.com/code/cacinie/new-benchmark-task-3bf72/edit/run/359188218 。
+
+### 真实 SDK 验证暴露的代理异常
+
+新草稿实际执行时，gpt-oss-20b 至少两次出现 SDK 警告 `Model Proxy returned choices[0].message=None ... treating as empty response`。已主动中断该次 suite（Notebook 显示 KeyboardInterrupt），没有发布分数。原始诊断输出保留在草稿中。
+
+上游实现 https://github.com/Kaggle/kaggle-benchmarks/blob/ci/src/kaggle_benchmarks/actors/proxy_openai.py 的 `_call_api` 确认会对缺失 message 返回空 `LLMResponse`。新适配器对该 logger 的明确异常警告抛出 `ProxyResponseError`，令 suite 标记 errored 且没有聚合分，并在调用结束移除 handler。此保护有回归测试；修复后的完整真实模型 suite 尚未重跑验证。上游无 choices 的静默空返回仍不可仅由 prompt 文本识别，不能声称适配器已捕获所有代理异常。
+
+另一个协议细节：上游会对 Google 模型移除 seed 参数，因此 v1 的 seed=0 是请求配置，不保证服务端实际接收。应记录 SDK 版本与实际请求行为，不能据此宣称 Google 运行完全确定。

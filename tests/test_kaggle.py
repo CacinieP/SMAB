@@ -1,12 +1,13 @@
 import importlib.util
 import json
+import logging
 from contextlib import nullcontext
 from pathlib import Path
 
 import pytest
 
 from smab.dataset import load_cases, load_catalog
-from smab.kaggle import build_tool, run_episode, run_suite
+from smab.kaggle import ProxyResponseError, build_tool, run_episode, run_suite
 from test_bundled_episodes import _materialize, ExpectedTraceAdapter
 from smab.runner import BenchmarkRunner, RunConfig
 
@@ -78,6 +79,26 @@ def test_existing_evidence_cannot_be_overwritten(tmp_path):
         run_suite(OracleLLM(CASES[0]), CASES[:1], lambda _: nullcontext(),
                   model="oracle", provenance={}, output=output)
     assert output.read_text() == "previous evidence"
+
+
+def test_proxy_missing_message_warning_invalidates_suite(tmp_path):
+    logger = logging.getLogger("kaggle_benchmarks.actors.proxy_openai")
+    handlers = list(logger.handlers)
+
+    class Malformed:
+        def prompt(self, *args, **kwargs):
+            logger.warning("Model Proxy returned choices[0].message=None for model fake; treating as empty response.")
+            return ""
+
+    output = tmp_path / "malformed.json"
+    with pytest.raises(ProxyResponseError):
+        run_suite(Malformed(), CASES[:1], lambda _: nullcontext(),
+                  model="fake", provenance={}, output=output)
+    artifact = json.loads(output.read_text())
+    assert artifact["state"] == "errored"
+    assert artifact["error_type"] == "ProxyResponseError"
+    assert "summary" not in artifact
+    assert logger.handlers == handlers
 
 
 def test_round_limit_is_a_model_outcome_but_other_errors_propagate():
