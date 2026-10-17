@@ -147,6 +147,12 @@ overall 是该案例声明的维度均值，范围 0–1。`success` 只在所�
 
 如果每步独立正确率为 `p`，长度为 `h` 的整条轨迹上限约为 `p^h`。所以请重点看 `by_horizon`，不要只比较单步 selection accuracy。
 
+## Kaggle 排行榜与指标口径
+
+[公开 Kaggle 排行榜](https://www.kaggle.com/benchmarks/cacinie/smab-small-model-agent-bench/leaderboard) 使用独立的 `kbench-native` 通道。Kaggle v1 的 `smab_overall` 是 **perfect-case rate**，不等于本仓库的部分得分 `overall`；平台综合分也不等于完整任务成功率。8 Tasks 指七维加完整成功率，底层仍是 28 个 episode。
+
+当前榜单快照、协议差异、429 故障记录，以及自包含 Notebook 导出和重复运行说明见 [docs/KAGGLE.md](docs/KAGGLE.md)。新 `kbench-native-v2` 复用仓库评分器并保存重复轨迹/标准差/pass^k，已完成 Gemini 3.8 Flash 的 28 例单轮实测和逐例离线评分复核；三轮共 84 条案例执行及 pass^k 也已完成离线复算，不得覆盖或混入旧 v1 结果。
+
 ## 基线（2026-08-31 实测）
 
 以下数字来自 **28 个 episode、temp=0 单遍、native 通道**，覆盖 AI Ping / ModelBest / OpenRouter 三平台共 52 个 run（2026-08-31）。`perfect` 为所有受测维度满分的案例比例，与结果文件中的 `success` 同义。

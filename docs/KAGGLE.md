@@ -1,0 +1,129 @@
+# Kaggle SMAB：指标、协议与重复运行
+
+## 已发布 v1 与本仓库
+
+- [公开排行榜](https://www.kaggle.com/benchmarks/cacinie/smab-small-model-agent-bench/leaderboard)
+- [v1 perfect-case 任务](https://www.kaggle.com/benchmarks/tasks/cacinie/smab-overall/1)
+- [原始发布 Notebook（固定版本）](https://www.kaggle.com/code/cacinie/new-benchmark-task-db3fc?scriptVersionId=358944007)
+
+2026-10-17（北京时间）在未登录浏览器中确认排行榜与任务均为 Public、v1，榜单标示更新/评测日期为 2026-10-16，显示 8 Tasks、3 Models。8 Tasks 是七维分数加完整成功率，底层数据是 28 个 episode；不是只有八道题。下面是观察快照，不会自动更新，也不替代实时榜单。
+
+| 指标 | Gemini 3.8 Flash | Gemma 4 26B A4B | gpt-oss-20b |
+|---|---:|---:|---:|
+| 平台综合分 | 0.96 | 0.92 | 0.90 |
+| relevance | 83.3% | 66.7% | 83.3% |
+| selection | 99.0% | 97.6% | 97.1% |
+| arguments | 100.0% | 97.8% | 97.8% |
+| planning | 100.0% | 100.0% | 92.6% |
+| state_tracking | 93.3% | 86.7% | 80.0% |
+| recovery | 100.0% | 100.0% | 100.0% |
+| stopping | 96.4% | 97.6% | 97.6% |
+| smab_overall（完整成功率） | 92.9%（26/28） | 85.7%（24/28） | 75.0%（21/28） |
+
+## 三种数值不可混用
+
+| 字段 | 定义 |
+|---|---|
+| 仓库 `summary.overall` | 每个 episode 先平均其声明的受测维度，再平均 episode；允许部分得分 |
+| 仓库 `case_success_rate` / Kaggle v1 `smab_overall` | 所有受测维度满分的 episode 比例（perfect-case rate） |
+| 平台综合分 | 平台对任务结果的聚合；不是上述两种成功率 |
+| 重复运行 `pass_at_k` | 名称沿用现有 JSON 字段，含义是 **pass^k**：k 次全部完整成功的有限样本估计，不是至少成功一次的 pass@k |
+
+显示的综合分与八项任务等权平均后的四舍五入一致，但尚未读取平台聚合配置，因此只作为推断。不要把 0.96 宣传为 96% 完整成功率。完整成功率加入七维平均会重复包含相关信息。
+
+v1 的维度任务分别调用 `run_episode`；维度行不能拼成同一次运行的轨迹。温度为零、固定 seed 也不能代替重复运行。v1 没有展示重复标准差或 pass^k，28 例中一例约 3.57pp，不能仅凭少量案例差异宣称稳定优势。当前三模型综合榜也不构成对 0.3B–7B 目标范围的覆盖。
+
+## 协议差异
+
+v1 Notebook 标注 `kbench-native`：Kaggle Model Proxy、temperature=0、seed=0；system 指令放在 user preamble；JSON 工具通过 Python 签名转换，多余参数可能在 SDK 调用层成为错误。原 JSON Schema 的 enum/minimum/additionalProperties 等不能假定全部保留。SDK 的 `max_tool_rounds` 与仓库模型回合数也不可假定等价。
+
+因此不可把 v1 Kaggle 数字与 README 2026-08-31 原生接口单遍基线直接排名。框架适配规则见 [FRAMEWORK_ADAPTATION.md](FRAMEWORK_ADAPTATION.md)。
+
+## 可复现的新通道：kbench-native-v2
+
+`src/smab/kaggle.py` 直接复用仓库的 case、simulator、scorer、summary 和 pass^k 实现，不再维护一份复制评分器。它是**新通道修订**，已完成 Gemini 3.8 Flash 的真实 SDK 单轮 28 例端到端验证；三轮可靠性已完成并通过离线复算，不应覆盖旧 v1 结果。
+
+每轮跑完整数据集一次，所有维度、部分得分 overall、完整成功率及可靠性从同组轨迹派生。省略的可选参数不再变成显式 None；显式传入的 None 仍保留。这可能改变 v1 行为，需发布为新任务版本/名称。
+
+```bash
+python scripts/export_kaggle_notebook.py \
+  --model '<exact-model-id>' --repeats 3 \
+  --output /tmp/smab-kaggle-v2.ipynb
+```
+
+在干净的固定 commit checkout 执行导出。Notebook 内嵌源码与默认数据集，记录 commit、逐文件 SHA-256 和 Kaggle SDK 版本；不依赖 Kaggle 联网拉仓库或安装 SMAB。文件 hash 是实际嵌入内容的依据，即使 checkout 有未提交修改也不会被 commit 标签掩盖。
+
+将 Notebook 导入 Kaggle，在平台选择与 `MODEL` 相同的精确模型后运行。`MODEL` 只是记录标签，**不会切换 Kaggle 模型**；需核对平台输出中的 modelVersion。任务名 `smab_perfect_case_rate_v2` 明确返回重复完整成功率均值；完整报告在 `/kaggle/working/smab-repeated-<unique-id>.json`，含每次完整轨迹、最终回答、维度、停止原因、overall 均值/总体标准差、perfect 均值/总体标准差和 pass^k。每次任务调用生成新路径，且适配器拒绝覆盖已有输出。
+
+SDK 管理内部消息和回合，本适配器记录工具执行顺序，不声称记录原始模型消息、token usage 或原生 harness 回合。聊天上下文按 repeat/case 隔离。Python callable 只保留基础类型/描述，尚不保证完整 JSON Schema 等价；这是跨协议比较的限制。
+
+HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并重新抛出；输出标记 `errored`，保留此前已完成案例，不生成聚合分。异常文本不写入报告以避免泄露 provider 凭据。失败案例的 SDK 原始细节应从 Kaggle 运行日志保存；不得把它补为零分。重试必须生成新输出并保留旧失败记录，记录替换原因；恢复服务后从完整 suite 重跑，不拼接挑选成功案例。
+
+## 发布状态待办与已证实故障
+
+`smab_overall` 任务页在检查时有 7 条记录；Qwen 3 235B A22B Instruct 显示约 0.86，但不在三模型综合榜中。应逐项核对该模型其余七个任务是否成功/被纳入；当前证据不足以断言缺榜原因。
+
+[Qwen 3 Coder 480B 的运行输出](https://www.kaggle.com/code/cacinie/new-benchmark-task-db3fc/output?scriptVersionId=358951703) 明确记录 `BENCHMARK_TASK_RUN_STATE_ERRORED`，原因为 HTTP 429、模型 heavy load（2026-10-16T09:03:14Z 至 09:48:42Z）。这不是零分或模型策略失败。Qwen 3 Next 80B Thinking/Instruct 的无数值记录尚未逐项诊断，不能自动归为同一原因。
+
+线上发布需要 Kaggle 的已授权会话/API 凭据，GitHub API 无法替代。发布前应：
+
+1. 在 Kaggle 对新 Notebook 做单模型单轮 smoke test，核对 callable 签名、工具错误及终止回合行为，再跑三轮。
+2. 保留 v1，发布新任务/版本并解释通道变化；不要把旧结果改名伪装成 v2。
+3. 核对同一模型所有任务的完成状态与模型版本，排除服务异常后再纳入综合榜。
+4. 若继续发布七维任务，明确它们是否来自独立运行；优先以同组 trace 的报告作为归因依据。
+5. 再做 native/json、schema original/shuffled/aliased 的受控对照；本适配器当前只实现 original callable 通道。
+
+## 2026-10-17 已执行的线上修正
+
+登录后确认：榜单模型选择器只勾选了原来的三个模型，四个 Qwen 均未选中。这是 Qwen 已有单任务结果未进入该榜单的一个直接配置原因。已将四个 Qwen 加入，榜单显示 8 Tasks / 7 Models。
+
+使用每个任务的 `Run for Models Missing Results Only` 提交了 20 个补跑：arguments 2、overall 3、relevance 2、selection 3、planning 2、state_tracking 3、recovery 2、stopping 3。提交后已观察到对应运行进度；已有数值结果保留。此记录代表已启动，不代表已成功完成。结果不完整时平台标题分数显示的 0.00 或横线不得当作模型得分或排名。
+
+已发布原榜单 Description，明确八项任务与 28 个 episode 的关系、perfect/overall/composite 区别、协议及单次运行限制。
+
+另已在新 Notebook 草稿启动 gpt-oss-20b 的 v2 三轮完整运行，显式选择 `kbench.llms["openai/gpt-oss-20b"]`，避免记录标签与默认模型不一致。初始化和任务定义单元格已在真实 Kaggle SDK 上执行，完整 suite 尚在运行，任务尚未发布。草稿：https://www.kaggle.com/code/cacinie/new-benchmark-task-3bf72/edit/run/359188218 。
+
+### 真实 SDK 验证暴露的代理异常
+
+新草稿实际执行时，gpt-oss-20b 至少两次出现 SDK 警告 `Model Proxy returned choices[0].message=None ... treating as empty response`。已主动中断该次 suite（Notebook 显示 KeyboardInterrupt），没有发布分数。原始诊断输出保留在草稿中。
+
+上游实现 https://github.com/Kaggle/kaggle-benchmarks/blob/ci/src/kaggle_benchmarks/actors/proxy_openai.py 的 `_call_api` 确认会对缺失 message 返回空 `LLMResponse`。新适配器对该 logger 的明确异常警告抛出 `ProxyResponseError`，令 suite 标记 errored 且没有聚合分，并在调用结束移除 handler。此保护有回归测试；修复后的 Gemini 3.8 Flash 完整单轮 suite 已通过链路验证，详见下方最新记录；gpt-oss-20b 尚未完成修复后重跑。上游无 choices 的静默空返回仍不可仅由 prompt 文本识别，不能声称适配器已捕获所有代理异常。
+
+另一个协议细节：上游会对 Google 模型移除 seed 参数，因此 v1 的 seed=0 是请求配置，不保证服务端实际接收。应记录 SDK 版本与实际请求行为，不能据此宣称 Google 运行完全确定。
+
+## 最新验证：修复后的 Gemini 3.8 Flash（2026-10-17）
+
+使用 commit `7f61e5026d4e67750087e8db2b6f29beaec52340` 的 v2 适配器，显式指定 `google/gemini-3.8-flash`，Kaggle SDK `0.6.1`。完整 28 例单轮运行完成，全部 stop_reason 为 completed；未观察到 429 或缺失 message 等代理异常。下载完整轨迹后，用仓库原评分器逐例重算，28/28 与线上记录一致。
+
+| 指标 | 单轮实测 |
+|---|---:|
+| 部分得分 overall | 0.9454 |
+| 完整成功率 | 0.8571（24/28） |
+| pass^1 | 0.8571 |
+| 重复次数 | 1 |
+
+单轮输出中的总体标准差 0 不代表稳定性；不能由 n=1 推断可靠性。未完整成功的案例为 rel_005、sel_001、plan_002、recover_002。另已启动相同配置下独立的三轮 suite，尚未完成时不报告 pass^2/pass^3。旧 v1 Gemini 的 26/28 与本轮 24/28 不能解释为模型退化：通道修订、不同调用和服务采样均未隔离。
+
+验证 Notebook（所有者草稿，尚未发布新任务）：https://www.kaggle.com/code/cacinie/new-benchmark-task-fa5a9/edit/run/359190584 。原 gpt-oss 诊断草稿现有地址：https://www.kaggle.com/code/cacinie/smab-v2-repeated-reliability-gpt-oss-20b/edit 。
+
+此前关于未完成 live suite 的段落是按执行时间保留的历史记录，以本节为最新进展。20 项旧版 Qwen 补跑仍需逐项核收；缺失任务时平台可显示基于部分结果的综合分，例如 Coder 1.00 不代表 28/28 成功。该限制已补充到公开 Description。
+
+## 三轮可靠性验收（2026-10-17，最新）
+
+与上面的独立 smoke run 分开，使用同一 v2 代码和模型配置完成三轮正式 suite。每轮均覆盖全部 28 个唯一案例，84 个停止原因全部为 completed。下载完整报告后用原评分器逐例重算，84/84 与记录分数一致；重新聚合均值/总体标准差，并独立计算 C(c,k)/C(3,k)，全部匹配。
+
+| 指标 | 三轮实测 |
+|---|---:|
+| 每轮完整成功数 | 27/28、26/28、26/28 |
+| 每轮部分得分 overall | 0.9722、0.9687、0.9687 |
+| overall 均值 / 总体标准差 | 0.9699 / 0.0016 |
+| 完整成功率均值 / 总体标准差 | 0.9405 / 0.0168 |
+| pass^1 | 0.9405 |
+| pass^2 | 0.9286 |
+| pass^3 | 0.9286 |
+
+rel_005 三次均未完整成功；recover_002 成功序列为 [1,0,0]；其余 26 个案例三次均完整成功。高平均分仍不能掩盖不该调用时仍调用和恢复路径中的参数错误。n=3 只是有限样本观测，不能直接推断生产 SLA 或泛化可靠性。
+
+完整报告文件名 `smab-kaggle-v2-gemini38-r3-2026-10-17.json`，SHA-256 `dc044fc831274cedb52e4d1ebe80704cae263d73096dc3791699c7bfba93d6f8`，已保存用于复核。没有将独立 smoke run 混入这组三轮统计。
+
+代码检查与 live 评测均已完成；本记录提交时 PR 尚未合并，独立 v2 任务尚未构建/发布。
