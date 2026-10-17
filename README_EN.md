@@ -203,3 +203,9 @@ SMAB currently targets the deterministic tool-use control loop. It does not meas
 Source code, documentation and the built-in benchmark datasets are licensed under [Apache License 2.0](LICENSE), with attribution in [NOTICE](NOTICE). Unless stated otherwise, contributions are provided under the same license.
 
 [`SMALL_MODELS.md`](SMALL_MODELS.md) only lists third-party model identifiers. This repository does not distribute those models' weights, code, training data or services; using third-party models is subject to their respective licenses and terms.
+
+## Kaggle metrics and reproducibility
+
+The [public Kaggle leaderboard](https://www.kaggle.com/benchmarks/cacinie/smab-small-model-agent-bench/leaderboard) uses a separate `kbench-native` channel. Its v1 `smab_overall` means **perfect-case rate**, not this repository's partial-credit `overall`. The platform composite is another metric. Eight tasks mean seven dimensions plus perfect-case rate over 28 episodes.
+
+See [docs/KAGGLE.md](docs/KAGGLE.md) for the dated snapshot, protocol differences, confirmed HTTP 429 failure, and self-contained notebook export. The new `kbench-native-v2` reuses repository scoring and preserves repeated traces, standard deviations and pass^k. It has not yet been verified end to end with the live Kaggle SDK and must not overwrite or be pooled with v1 results.
