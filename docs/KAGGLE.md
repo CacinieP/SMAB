@@ -151,3 +151,5 @@ rel_005 三次均未完整成功；recover_002 成功序列为 [1,0,0]；其余 
 本次还复现了独立的本地生命周期缺陷：v2 suite 收到 `KeyboardInterrupt` 时旧报告保持 `running`，容易被误读成仍在执行。现改为保存 `interrupted`、中断 case/repeat 和异常类型，保留此前完成的案例，不生成全局聚合分，并重新抛出中断。异常正文仍不写入报告。重试依旧要求新输出路径和完整 suite；不拼接成功案例。该修复不修改 v1 或评分器，也不会将已有草稿自动变为有效结果。
 
 Notebook 导出器同时为声明为 nbformat 4.5 的所有 cell 补上合法、唯一且稳定的 ID，符合 [Jupyter 格式要求](https://nbformat.readthedocs.io/en/latest/format_description.html#cell-ids)。这修复了导出文件的格式缺项；没有证据表明它导致了上述服务错误。完整本地测试 140 项通过，包括中断证据保留、cell ID 检查与导出代码编译；未启动新的线上模型评测。
+
+本次读取的 Gemini 草稿现名为 [smab-v2-guarded-reliability-gemini-3-8-flash](https://www.kaggle.com/code/cacinie/smab-v2-guarded-reliability-gemini-3-8-flash/edit)。已保存的末尾单元格输出与此前三轮记录一致：overall 均值/标准差 0.9699/0.0016、perfect 均值/标准差 0.9405/0.0168、pass^2/pass^3 0.9286。此次完整轨迹下载返回 HTTP 500，session output/status 接口返回 404，因此仅确认保存输出，未重新执行 84 例逐项复算；上文逐项复算与 SHA-256 属于 PR #2 的既有验证记录。
