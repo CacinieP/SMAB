@@ -41,7 +41,7 @@ v1 Notebook 标注 `kbench-native`：Kaggle Model Proxy、temperature=0、seed=0
 
 ## 可复现的新通道：kbench-native-v2
 
-`src/smab/kaggle.py` 直接复用仓库的 case、simulator、scorer、summary 和 pass^k 实现，不再维护一份复制评分器。它是**新通道修订**，已完成 Gemini 3.8 Flash 的真实 SDK 单轮 28 例端到端验证；三轮可靠性仍待完成，不应覆盖旧 v1 结果。
+`src/smab/kaggle.py` 直接复用仓库的 case、simulator、scorer、summary 和 pass^k 实现，不再维护一份复制评分器。它是**新通道修订**，已完成 Gemini 3.8 Flash 的真实 SDK 单轮 28 例端到端验证；三轮可靠性已完成并通过离线复算，不应覆盖旧 v1 结果。
 
 每轮跑完整数据集一次，所有维度、部分得分 overall、完整成功率及可靠性从同组轨迹派生。省略的可选参数不再变成显式 None；显式传入的 None 仍保留。这可能改变 v1 行为，需发布为新任务版本/名称。
 
@@ -93,7 +93,7 @@ HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并�
 
 ## 最新验证：修复后的 Gemini 3.8 Flash（2026-10-17）
 
-使用 commit `7f61e5026d4e67750087e8db2b6f29beaec52340` 的 v2 适配器，显式指定 `google/gemini-3.8-flash`，Kaggle SDK `0.6.1`。完整 28 例单轮运行完成，全部 stop_reason 为 completed；无聚合前混入 API 异常。下载完整轨迹后，用仓库原评分器逐例重算，28/28 与线上记录一致。
+使用 commit `7f61e5026d4e67750087e8db2b6f29beaec52340` 的 v2 适配器，显式指定 `google/gemini-3.8-flash`，Kaggle SDK `0.6.1`。完整 28 例单轮运行完成，全部 stop_reason 为 completed；未观察到 429 或缺失 message 等代理异常。下载完整轨迹后，用仓库原评分器逐例重算，28/28 与线上记录一致。
 
 | 指标 | 单轮实测 |
 |---|---:|
@@ -107,3 +107,23 @@ HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并�
 验证 Notebook（所有者草稿，尚未发布新任务）：https://www.kaggle.com/code/cacinie/new-benchmark-task-fa5a9/edit/run/359190584 。原 gpt-oss 诊断草稿现有地址：https://www.kaggle.com/code/cacinie/smab-v2-repeated-reliability-gpt-oss-20b/edit 。
 
 此前关于未完成 live suite 的段落是按执行时间保留的历史记录，以本节为最新进展。20 项旧版 Qwen 补跑仍需逐项核收；缺失任务时平台可显示基于部分结果的综合分，例如 Coder 1.00 不代表 28/28 成功。该限制已补充到公开 Description。
+
+## 三轮可靠性验收（2026-10-17，最新）
+
+与上面的独立 smoke run 分开，使用同一 v2 代码和模型配置完成三轮正式 suite。每轮均覆盖全部 28 个唯一案例，84 个停止原因全部为 completed。下载完整报告后用原评分器逐例重算，84/84 与记录分数一致；重新聚合均值/总体标准差，并独立计算 C(c,k)/C(3,k)，全部匹配。
+
+| 指标 | 三轮实测 |
+|---|---:|
+| 每轮完整成功数 | 27/28、26/28、26/28 |
+| 每轮部分得分 overall | 0.9722、0.9687、0.9687 |
+| overall 均值 / 总体标准差 | 0.9699 / 0.0016 |
+| 完整成功率均值 / 总体标准差 | 0.9405 / 0.0168 |
+| pass^1 | 0.9405 |
+| pass^2 | 0.9286 |
+| pass^3 | 0.9286 |
+
+rel_005 三次均未完整成功；recover_002 成功序列为 [1,0,0]；其余 26 个案例三次均完整成功。高平均分仍不能掩盖不该调用时仍调用和恢复路径中的参数错误。n=3 只是有限样本观测，不能直接推断生产 SLA 或泛化可靠性。
+
+完整报告文件名 `smab-kaggle-v2-gemini38-r3-2026-10-17.json`，SHA-256 `dc044fc831274cedb52e4d1ebe80704cae263d73096dc3791699c7bfba93d6f8`，已保存用于复核。没有将独立 smoke run 混入这组三轮统计。
+
+PR 尚未合并，独立 v2 任务尚未构建/发布：自动审批要求分别获得明确的主分支合并和新 Kaggle 任务创建/发布授权。代码检查与 live 评测均已完成，待授权后执行。
