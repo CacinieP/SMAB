@@ -127,3 +127,27 @@ rel_005 三次均未完整成功；recover_002 成功序列为 [1,0,0]；其余 
 完整报告文件名 `smab-kaggle-v2-gemini38-r3-2026-10-17.json`，SHA-256 `dc044fc831274cedb52e4d1ebe80704cae263d73096dc3791699c7bfba93d6f8`，已保存用于复核。没有将独立 smoke run 混入这组三轮统计。
 
 代码检查与 live 评测均已完成；本记录提交时 PR 尚未合并，独立 v2 任务尚未构建/发布。
+
+## 补跑核收与中断状态修复（2026-10-17 05:29 UTC）
+
+[PR #2](https://github.com/CacinieP/SMAB/pull/2) 已合并为 `dfc78a790408bf5b270d581a8aa3297d23d80bcf`。本次用本机现有授权调用 Kaggle 官方 SDK 的只读任务/运行 API，核对八个公开 v1 任务：创建状态全部为 `COMPLETED`，其 backing notebook 均已发布；尚未列出独立 v2 任务。公开榜单仍包含七个模型。
+
+此前发起的 20 项补跑中，6 项 `COMPLETED`、13 项 `ERRORED`、1 项仍为 `RUNNING`。六项完成记录均为 Qwen 3 Coder 480B 的 relevance、selection、state_tracking、recovery、stopping、overall。13 项错误均属于两款 Qwen 3 Next 80B：11 项 HTTP 429（heavy load / too many requests），2 项 Thinking 的 ReadTimeout。这些是服务故障，不能补为零分。
+
+| 模型 | 完成任务 / 8 | 其余状态 |
+|---|---:|---|
+| Gemini 3.8 Flash | 8 | 无 |
+| Gemma 4 26B A4B | 8 | 无 |
+| gpt-oss-20b | 8 | 无（仅指 v1，不能代替 v2 代理防护后的验证） |
+| Qwen 3 235B A22B Instruct | 8 | 无 |
+| Qwen 3 Coder 480B | 8 | 无 |
+| Qwen 3 Next 80B Instruct | 1（relevance） | 6 errored；arguments 仍为 running |
+| Qwen 3 Next 80B Thinking | 1（recovery） | 7 errored |
+
+逐任务/模型的 56 条最新运行状态、run ID、起止时间、错误分类和榜单结果类型见 [核收 CSV](evidence/kaggle-v1-runs-2026-10-17.csv)。这是带查询时间的 API 快照，不会自动更新。运行中项为 [smab_arguments](https://www.kaggle.com/benchmarks/tasks/cacinie/smab-arguments/1) / `qwen3-next-80b-a3b-instruct`，run ID `4876112`；API 未给出 startTime/endTime，不能仅凭耗时断言其已停止。此次没有提交新评测、取消已有运行、扩大配额或替换旧结果。
+
+05:30 UTC 另用只读 leaderboard API 联查结果类型：42 项完成运行均有 numericResult；13 项错误运行在 SDK 序列化中显示为 `booleanResult: false`，运行中项为空。CSV 同时保存这些字段，但只有 `COMPLETED` 且为 numericResult 的行可作有效分数；不能把 false/空值转成数值零。平台标题综合分当时显示 0.00/横线，不能替代逐项状态。
+
+本次还复现了独立的本地生命周期缺陷：v2 suite 收到 `KeyboardInterrupt` 时旧报告保持 `running`，容易被误读成仍在执行。现改为保存 `interrupted`、中断 case/repeat 和异常类型，保留此前完成的案例，不生成全局聚合分，并重新抛出中断。异常正文仍不写入报告。重试依旧要求新输出路径和完整 suite；不拼接成功案例。该修复不修改 v1 或评分器，也不会将已有草稿自动变为有效结果。
+
+Notebook 导出器同时为声明为 nbformat 4.5 的所有 cell 补上合法、唯一且稳定的 ID，符合 [Jupyter 格式要求](https://nbformat.readthedocs.io/en/latest/format_description.html#cell-ids)。这修复了导出文件的格式缺项；没有证据表明它导致了上述服务错误。完整本地测试 140 项通过，包括中断证据保留、cell ID 检查与导出代码编译；未启动新的线上模型评测。
