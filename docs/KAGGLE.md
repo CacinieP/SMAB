@@ -72,3 +72,13 @@ HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并�
 3. 核对同一模型所有任务的完成状态与模型版本，排除服务异常后再纳入综合榜。
 4. 若继续发布七维任务，明确它们是否来自独立运行；优先以同组 trace 的报告作为归因依据。
 5. 再做 native/json、schema original/shuffled/aliased 的受控对照；本适配器当前只实现 original callable 通道。
+
+## 2026-10-17 已执行的线上修正
+
+登录后确认：榜单模型选择器只勾选了原来的三个模型，四个 Qwen 均未选中。这是 Qwen 已有单任务结果未进入该榜单的一个直接配置原因。已将四个 Qwen 加入，榜单显示 8 Tasks / 7 Models。
+
+使用每个任务的 `Run for Models Missing Results Only` 提交了 20 个补跑：arguments 2、overall 3、relevance 2、selection 3、planning 2、state_tracking 3、recovery 2、stopping 3。提交后已观察到对应运行进度；已有数值结果保留。此记录代表已启动，不代表已成功完成。结果不完整时平台标题分数显示的 0.00 或横线不得当作模型得分或排名。
+
+已发布原榜单 Description，明确八项任务与 28 个 episode 的关系、perfect/overall/composite 区别、协议及单次运行限制。
+
+另已在新 Notebook 草稿启动 gpt-oss-20b 的 v2 三轮完整运行，显式选择 `kbench.llms["openai/gpt-oss-20b"]`，避免记录标签与默认模型不一致。初始化和任务定义单元格已在真实 Kaggle SDK 上执行，完整 suite 尚在运行，任务尚未发布。草稿：https://www.kaggle.com/code/cacinie/new-benchmark-task-3bf72/edit/run/359188218 。
