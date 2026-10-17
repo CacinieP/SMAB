@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import logging
+import re
 from contextlib import nullcontext
 from pathlib import Path
 
@@ -149,6 +150,10 @@ def test_exported_notebook_is_self_contained_and_compiles():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     notebook = module.build_notebook("test/model")
+    cell_ids = [cell["id"] for cell in notebook["cells"]]
+    assert len(cell_ids) == len(set(cell_ids))
+    assert all(re.fullmatch(r"[A-Za-z0-9_-]{1,64}", cell_id) for cell_id in cell_ids)
+    assert cell_ids == [cell["id"] for cell in module.build_notebook("test/model")["cells"]]
     for cell in notebook["cells"]:
         if cell["cell_type"] == "code":
             compile("".join(cell["source"]), "notebook", "exec")
