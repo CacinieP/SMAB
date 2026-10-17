@@ -63,6 +63,36 @@ def test_api_failure_is_not_scored_and_partial_trace_is_saved(tmp_path):
     assert "secret-provider-text" not in output.read_text()
 
 
+def test_interrupted_suite_is_marked_and_completed_cases_are_saved(tmp_path):
+    case = CASES[0]
+
+    class Interrupted(OracleLLM):
+        def __init__(self):
+            super().__init__(case)
+            self.calls = 0
+
+        def prompt(self, *args, **kwargs):
+            self.calls += 1
+            if self.calls == 2:
+                raise KeyboardInterrupt("private interruption text")
+            return super().prompt(*args, **kwargs)
+
+    output = tmp_path / "interrupted.json"
+    with pytest.raises(KeyboardInterrupt):
+        run_suite(Interrupted(), [case], lambda _: nullcontext(), model="fake",
+                  provenance={}, output=output, repeats=3)
+    data = json.loads(output.read_text())
+    assert data["state"] == "interrupted"
+    assert data["failed_case"] == case.id
+    assert data["failed_repeat"] == 2
+    assert data["error_type"] == "KeyboardInterrupt"
+    assert len(data["runs"][0]["results"]) == 1
+    assert data["runs"][0]["results"][0]["score"]["success"]
+    assert data["runs"][1]["results"] == []
+    assert "summary" not in data
+    assert "private interruption text" not in output.read_text()
+
+
 def test_reliability_uses_same_repeated_case_results(tmp_path):
     case = CASES[0]
     data = run_suite(OracleLLM(case), [case], lambda _: nullcontext(), model="oracle",
