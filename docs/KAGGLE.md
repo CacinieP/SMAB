@@ -41,7 +41,7 @@ v1 Notebook 标注 `kbench-native`：Kaggle Model Proxy、temperature=0、seed=0
 
 ## 可复现的新通道：kbench-native-v2
 
-`src/smab/kaggle.py` 直接复用仓库的 case、simulator、scorer、summary 和 pass^k 实现，不再维护一份复制评分器。它是**新通道修订**，尚未做 Kaggle SDK/真实模型端到端验证，不应覆盖旧 v1 结果。
+`src/smab/kaggle.py` 直接复用仓库的 case、simulator、scorer、summary 和 pass^k 实现，不再维护一份复制评分器。它是**新通道修订**，已完成 Gemini 3.8 Flash 的真实 SDK 单轮 28 例端到端验证；三轮可靠性仍待完成，不应覆盖旧 v1 结果。
 
 每轮跑完整数据集一次，所有维度、部分得分 overall、完整成功率及可靠性从同组轨迹派生。省略的可选参数不再变成显式 None；显式传入的 None 仍保留。这可能改变 v1 行为，需发布为新任务版本/名称。
 
@@ -87,6 +87,23 @@ HTTP 429、5xx、鉴权和其他非回合耗尽异常会中止整个 suite 并�
 
 新草稿实际执行时，gpt-oss-20b 至少两次出现 SDK 警告 `Model Proxy returned choices[0].message=None ... treating as empty response`。已主动中断该次 suite（Notebook 显示 KeyboardInterrupt），没有发布分数。原始诊断输出保留在草稿中。
 
-上游实现 https://github.com/Kaggle/kaggle-benchmarks/blob/ci/src/kaggle_benchmarks/actors/proxy_openai.py 的 `_call_api` 确认会对缺失 message 返回空 `LLMResponse`。新适配器对该 logger 的明确异常警告抛出 `ProxyResponseError`，令 suite 标记 errored 且没有聚合分，并在调用结束移除 handler。此保护有回归测试；修复后的完整真实模型 suite 尚未重跑验证。上游无 choices 的静默空返回仍不可仅由 prompt 文本识别，不能声称适配器已捕获所有代理异常。
+上游实现 https://github.com/Kaggle/kaggle-benchmarks/blob/ci/src/kaggle_benchmarks/actors/proxy_openai.py 的 `_call_api` 确认会对缺失 message 返回空 `LLMResponse`。新适配器对该 logger 的明确异常警告抛出 `ProxyResponseError`，令 suite 标记 errored 且没有聚合分，并在调用结束移除 handler。此保护有回归测试；修复后的 Gemini 3.8 Flash 完整单轮 suite 已通过链路验证，详见下方最新记录；gpt-oss-20b 尚未完成修复后重跑。上游无 choices 的静默空返回仍不可仅由 prompt 文本识别，不能声称适配器已捕获所有代理异常。
 
 另一个协议细节：上游会对 Google 模型移除 seed 参数，因此 v1 的 seed=0 是请求配置，不保证服务端实际接收。应记录 SDK 版本与实际请求行为，不能据此宣称 Google 运行完全确定。
+
+## 最新验证：修复后的 Gemini 3.8 Flash（2026-10-17）
+
+使用 commit `7f61e5026d4e67750087e8db2b6f29beaec52340` 的 v2 适配器，显式指定 `google/gemini-3.8-flash`，Kaggle SDK `0.6.1`。完整 28 例单轮运行完成，全部 stop_reason 为 completed；无聚合前混入 API 异常。下载完整轨迹后，用仓库原评分器逐例重算，28/28 与线上记录一致。
+
+| 指标 | 单轮实测 |
+|---|---:|
+| 部分得分 overall | 0.9454 |
+| 完整成功率 | 0.8571（24/28） |
+| pass^1 | 0.8571 |
+| 重复次数 | 1 |
+
+单轮输出中的总体标准差 0 不代表稳定性；不能由 n=1 推断可靠性。未完整成功的案例为 rel_005、sel_001、plan_002、recover_002。另已启动相同配置下独立的三轮 suite，尚未完成时不报告 pass^2/pass^3。旧 v1 Gemini 的 26/28 与本轮 24/28 不能解释为模型退化：通道修订、不同调用和服务采样均未隔离。
+
+验证 Notebook（所有者草稿，尚未发布新任务）：https://www.kaggle.com/code/cacinie/new-benchmark-task-fa5a9/edit/run/359190584 。原 gpt-oss 诊断草稿现有地址：https://www.kaggle.com/code/cacinie/smab-v2-repeated-reliability-gpt-oss-20b/edit 。
+
+此前关于未完成 live suite 的段落是按执行时间保留的历史记录，以本节为最新进展。20 项旧版 Qwen 补跑仍需逐项核收；缺失任务时平台可显示基于部分结果的综合分，例如 Coder 1.00 不代表 28/28 成功。该限制已补充到公开 Description。
