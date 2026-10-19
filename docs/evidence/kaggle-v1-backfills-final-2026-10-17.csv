@@ -1,0 +1,21 @@
+run_id,task,model,found_exact_id,state,error_reason,start_time_utc,end_time_utc
+4876108,smab-overall,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:18:59.431Z,2026-10-17T02:28:44.679Z
+4876109,smab-overall,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:02.989Z,2026-10-17T01:49:43.465Z
+4876110,smab-overall,qwen3-next-80b-a3b-thinking,True,ERRORED,HTTP 429,2026-10-17T01:18:50.084Z,2026-10-17T01:58:03.547Z
+4876112,smab-arguments,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T03:10:08.643Z,2026-10-17T03:25:10.577Z
+4876113,smab-arguments,qwen3-next-80b-a3b-thinking,True,ERRORED,ReadTimeout,2026-10-17T02:14:02.240Z,2026-10-17T02:44:13.959Z
+4876114,smab-relevance,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:19:06.768Z,2026-10-17T01:59:57.534Z
+4876115,smab-relevance,qwen3-next-80b-a3b-thinking,True,ERRORED,HTTP 429,2026-10-17T01:19:03.643Z,2026-10-17T01:48:56.914Z
+4876116,smab-selection,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:19:06.380Z,2026-10-17T02:23:16.107Z
+4876117,smab-selection,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:11.837Z,2026-10-17T01:34:15.226Z
+4876118,smab-planning,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:01.850Z,2026-10-17T01:34:34.296Z
+4876119,smab-selection,qwen3-next-80b-a3b-thinking,True,ERRORED,HTTP 429,2026-10-17T01:19:07.280Z,2026-10-17T01:54:59.906Z
+4876120,smab-planning,qwen3-next-80b-a3b-thinking,True,ERRORED,HTTP 429,2026-10-17T01:19:09.405Z,2026-10-17T01:58:41.481Z
+4876121,smab-state-tracking,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:19:10.765Z,2026-10-17T02:25:23.974Z
+4876122,smab-state-tracking,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:06.130Z,2026-10-17T02:47:56.806Z
+4876123,smab-recovery,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:19:12.417Z,2026-10-17T02:08:54.927Z
+4876124,smab-state-tracking,qwen3-next-80b-a3b-thinking,True,ERRORED,ReadTimeout,2026-10-17T01:19:14.066Z,2026-10-17T01:55:54.346Z
+4876126,smab-recovery,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:15.242Z,2026-10-17T01:34:17.413Z
+4876127,smab-stopping,qwen3-coder-480b-a35b-instruct,True,COMPLETED,,2026-10-17T01:19:08.294Z,2026-10-17T02:28:47.926Z
+4876128,smab-stopping,qwen3-next-80b-a3b-instruct,True,ERRORED,HTTP 429,2026-10-17T01:19:08.242Z,2026-10-17T03:57:38.018Z
+4876129,smab-stopping,qwen3-next-80b-a3b-thinking,True,ERRORED,HTTP 429,2026-10-17T01:19:14.413Z,2026-10-17T01:51:05.844Z

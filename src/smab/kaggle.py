@@ -120,8 +120,9 @@ def run_suite(llm: Any, cases: list[BenchmarkCase], chat: Callable,
               repeats: int = 3, seed: int = 0) -> dict[str, Any]:
     """Run each case once per repeat; derive all metrics from those same traces.
 
-    Persist partial completed cases on failure and re-raise. The failed artifact
-    has no aggregate score. Retry the entire suite into a new output file.
+    Persist completed cases on failure or keyboard interruption and re-raise.
+    An unfinished artifact has no aggregate score. Retry the entire suite into
+    a new output file.
     """
     if repeats < 1 or not cases or len({case.id for case in cases}) != len(cases):
         raise ValueError("Need positive repeats and nonempty unique cases")
@@ -142,8 +143,9 @@ def run_suite(llm: Any, cases: list[BenchmarkCase], chat: Callable,
         for case in cases:
             try:
                 result = run_episode(llm, case, chat, seed=seed, repeat_index=index)
-            except Exception as exc:
-                artifact.update(state="errored", failed_case=case.id,
+            except (Exception, KeyboardInterrupt) as exc:
+                state = "interrupted" if isinstance(exc, KeyboardInterrupt) else "errored"
+                artifact.update(state=state, failed_case=case.id,
                                 failed_repeat=index, error_type=type(exc).__name__)
                 # Do not persist arbitrary provider exception strings/headers (may contain secrets).
                 write_run(artifact, output)
