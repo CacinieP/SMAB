@@ -1,0 +1,2377 @@
+[
+  {
+    "file": "baseline/e2b-json-original-core-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "json",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.8969941176470588,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.8235294117647058,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 42,
+    "failed_cases": {
+      "rel_005": [
+        1,
+        2,
+        3
+      ],
+      "plan_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 359.7237254901961,
+    "median_episode_ms": 328.69,
+    "mean_completion_tokens": 64.45098039215686,
+    "raw_turn_count": 111,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:10:22.788941+00:00",
+    "finished_at": "2026-11-02T16:10:41.136880+00:00",
+    "framework_summary": {
+      "overall_mean": 0.897,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.8235,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.8235,
+        "2": 0.8235,
+        "3": 0.8235
+      }
+    }
+  },
+  {
+    "file": "baseline/e2b-native-aliased-core-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9686294117647058,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 368.0692156862745,
+    "median_episode_ms": 269.13,
+    "mean_completion_tokens": 73.6470588235294,
+    "raw_turn_count": 114,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:10:03.965881+00:00",
+    "finished_at": "2026-11-02T16:10:22.739557+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9686,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e2b-native-original-core-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9902,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "stop_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 384.54549019607845,
+    "median_episode_ms": 319.79,
+    "mean_completion_tokens": 78.0,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:09:05.880366+00:00",
+    "finished_at": "2026-11-02T16:09:25.494178+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9902,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e2b-native-shuffled-core-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9902,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "stop_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 381.21156862745096,
+    "median_episode_ms": 320.25,
+    "mean_completion_tokens": 78.23529411764706,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:09:25.539264+00:00",
+    "finished_at": "2026-11-02T16:09:44.983689+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9902,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e2b-native-shuffled-seed42-core-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9902,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "stop_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 370.29607843137256,
+    "median_episode_ms": 292.02,
+    "mean_completion_tokens": 76.6470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:09:45.028317+00:00",
+    "finished_at": "2026-11-02T16:10:03.916016+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9902,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e4b-json-original-core-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "json",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9738588235294118,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "rel_005": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 560.8570588235294,
+    "median_episode_ms": 539.86,
+    "mean_completion_tokens": 72.01960784313725,
+    "raw_turn_count": 120,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:37:12.381354+00:00",
+    "finished_at": "2026-11-02T15:37:40.987449+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9739,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e4b-native-aliased-core-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 485.06470588235294,
+    "median_episode_ms": 429.16,
+    "mean_completion_tokens": 65.6470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:36:47.592558+00:00",
+    "finished_at": "2026-11-02T15:37:12.333369+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "baseline/e4b-native-original-core-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9882352941176471,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "plan_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 483.0378431372549,
+    "median_episode_ms": 480.63,
+    "mean_completion_tokens": 65.17647058823529,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:34:01.150149+00:00",
+    "finished_at": "2026-11-02T15:34:25.787482+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9882,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e4b-native-shuffled-core-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9882352941176471,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "plan_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 476.5827450980392,
+    "median_episode_ms": 467.14,
+    "mean_completion_tokens": 65.17647058823529,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:36:23.234562+00:00",
+    "finished_at": "2026-11-02T15:36:47.543374+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9882,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "baseline/e4b-native-shuffled-seed42-core-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9882352941176471,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "plan_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 468.6998039215686,
+    "median_episode_ms": 428.28,
+    "mean_completion_tokens": 65.3529411764706,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:43:30.396834+00:00",
+    "finished_at": "2026-11-02T15:43:54.303467+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9882,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-aliased-core-candidate-v2-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9686294117647058,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 410.17470588235295,
+    "median_episode_ms": 339.59,
+    "mean_completion_tokens": 77.52941176470588,
+    "raw_turn_count": 114,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:11:53.292883+00:00",
+    "finished_at": "2026-11-02T16:12:14.213960+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9686,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-aliased-core-candidate-v3-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9934647058823529,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "arg_003": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 439.73549019607844,
+    "median_episode_ms": 346.53,
+    "mean_completion_tokens": 85.17647058823529,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:15:51.178201+00:00",
+    "finished_at": "2026-11-02T16:16:13.606857+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9935,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-original-core-candidate-v2-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9686294117647058,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 392.28137254901964,
+    "median_episode_ms": 328.38,
+    "mean_completion_tokens": 73.70588235294117,
+    "raw_turn_count": 114,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:10:53.233467+00:00",
+    "finished_at": "2026-11-02T16:11:13.241862+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9686,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-original-core-candidate-v3-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 421.8829411764706,
+    "median_episode_ms": 347.13,
+    "mean_completion_tokens": 79.76470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:14:46.282383+00:00",
+    "finished_at": "2026-11-02T16:15:07.800421+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-shuffled-core-candidate-v2-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9686294117647058,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 393.3649019607843,
+    "median_episode_ms": 328.32,
+    "mean_completion_tokens": 73.70588235294117,
+    "raw_turn_count": 114,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:11:13.288072+00:00",
+    "finished_at": "2026-11-02T16:11:33.352343+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9686,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-shuffled-core-candidate-v3-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 423.5149019607843,
+    "median_episode_ms": 346.39,
+    "mean_completion_tokens": 79.88235294117646,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:15:07.848377+00:00",
+    "finished_at": "2026-11-02T16:15:29.450289+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-shuffled-seed42-core-candidate-v2-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 0.9686294117647058,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9411764705882353,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 48,
+    "failed_cases": {
+      "recover_001": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 389.0401960784314,
+    "median_episode_ms": 328.28,
+    "mean_completion_tokens": 72.29411764705883,
+    "raw_turn_count": 114,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:11:33.400416+00:00",
+    "finished_at": "2026-11-02T16:11:53.244365+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9686,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9412,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9412,
+        "2": 0.9412,
+        "3": 0.9412
+      }
+    }
+  },
+  {
+    "file": "development-trials/e2b-native-shuffled-seed42-core-candidate-v3-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 424.1280392156863,
+    "median_episode_ms": 355.25,
+    "mean_completion_tokens": 80.3529411764706,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:15:29.498299+00:00",
+    "finished_at": "2026-11-02T16:15:51.131456+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-aliased-core-candidate-v1-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "03a215fd4bf5c048afe70e341a758dc275d4fed45a6c23f33a920958cec2c592",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 512.8939215686274,
+    "median_episode_ms": 471.65,
+    "mean_completion_tokens": 69.3529411764706,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:39:59.967516+00:00",
+    "finished_at": "2026-11-02T15:40:26.126624+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-aliased-core-candidate-v2-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 555.8917647058823,
+    "median_episode_ms": 497.52,
+    "mean_completion_tokens": 69.6470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:00:01.829130+00:00",
+    "finished_at": "2026-11-02T16:00:30.181994+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-aliased-core-candidate-v3-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 556.8817647058823,
+    "median_episode_ms": 515.26,
+    "mean_completion_tokens": 70.17647058823529,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:18:19.257305+00:00",
+    "finished_at": "2026-11-02T16:18:47.660519+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-original-core-candidate-v1-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "03a215fd4bf5c048afe70e341a758dc275d4fed45a6c23f33a920958cec2c592",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 500.121568627451,
+    "median_episode_ms": 455.12,
+    "mean_completion_tokens": 66.58823529411765,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:39:09.615974+00:00",
+    "finished_at": "2026-11-02T15:39:35.124527+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-original-core-candidate-v2-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 515.4019607843137,
+    "median_episode_ms": 492.87,
+    "mean_completion_tokens": 66.76470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:45:50.202923+00:00",
+    "finished_at": "2026-11-02T15:46:16.490793+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-original-core-candidate-v3-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 554.0749019607844,
+    "median_episode_ms": 512.81,
+    "mean_completion_tokens": 71.17647058823529,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:16:54.318665+00:00",
+    "finished_at": "2026-11-02T16:17:22.578588+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-core-candidate-v1-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "03a215fd4bf5c048afe70e341a758dc275d4fed45a6c23f33a920958cec2c592",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 485.17470588235295,
+    "median_episode_ms": 435.84,
+    "mean_completion_tokens": 66.82352941176471,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:39:35.173685+00:00",
+    "finished_at": "2026-11-02T15:39:59.920687+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-core-candidate-v2-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 525.7282352941177,
+    "median_episode_ms": 511.64,
+    "mean_completion_tokens": 66.76470588235294,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:59:07.814669+00:00",
+    "finished_at": "2026-11-02T15:59:34.629932+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-core-candidate-v3-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 554.6270588235294,
+    "median_episode_ms": 514.66,
+    "mean_completion_tokens": 71.0,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:17:22.627718+00:00",
+    "finished_at": "2026-11-02T16:17:50.916440+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-seed42-core-candidate-v1-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "03a215fd4bf5c048afe70e341a758dc275d4fed45a6c23f33a920958cec2c592",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 479.7121568627451,
+    "median_episode_ms": 438.14,
+    "mean_completion_tokens": 66.88235294117646,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:43:54.345724+00:00",
+    "finished_at": "2026-11-02T15:44:18.813932+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-seed42-core-candidate-v2-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 531.334705882353,
+    "median_episode_ms": 513.75,
+    "mean_completion_tokens": 67.11764705882354,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:59:34.681252+00:00",
+    "finished_at": "2026-11-02T16:00:01.782393+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "development-trials/e4b-native-shuffled-seed42-core-candidate-v3-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 553.6939215686275,
+    "median_episode_ms": 516.89,
+    "mean_completion_tokens": 71.0,
+    "raw_turn_count": 117,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:17:50.963215+00:00",
+    "finished_at": "2026-11-02T16:18:19.204430+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "diagnostics/e2b-native-original-core-thinking-default-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 2225.464901960784,
+    "median_episode_ms": 1783.34,
+    "mean_completion_tokens": 561.7843137254902,
+    "raw_turn_count": 117,
+    "reasoning_messages": 117,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:12:32.282912+00:00",
+    "finished_at": "2026-11-02T16:14:25.780992+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "diagnostics/e4b-native-original-core-thinking-default-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core"
+    ],
+    "case_count": 17,
+    "repeats": 3,
+    "episode_attempts": 51,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 51,
+    "failed_cases": {},
+    "mean_episode_ms": 2146.0511764705884,
+    "median_episode_ms": 1744.51,
+    "mean_completion_tokens": 399.27450980392155,
+    "raw_turn_count": 117,
+    "reasoning_messages": 117,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T15:49:31.621233+00:00",
+    "finished_at": "2026-11-02T15:51:21.073246+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-aliased-ood-optimized-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9626272727272728,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.8181818181818182,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 27,
+    "failed_cases": {
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 604.7133333333334,
+    "median_episode_ms": 547.57,
+    "mean_completion_tokens": 82.72727272727273,
+    "raw_turn_count": 72,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:25:35.934311+00:00",
+    "finished_at": "2026-11-02T16:25:55.891626+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9626,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.8182,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.8182,
+        "2": 0.8182,
+        "3": 0.8182
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-aliased-ood-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.980809090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.8181818181818182,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 27,
+    "failed_cases": {
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 745.6239393939394,
+    "median_episode_ms": 550.2,
+    "mean_completion_tokens": 106.63636363636364,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:25:11.264924+00:00",
+    "finished_at": "2026-11-02T16:25:35.872341+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9808,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.8182,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.8182,
+        "2": 0.8182,
+        "3": 0.8182
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-original-ood-optimized-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9368727272727273,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.7272727272727273,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 24,
+    "failed_cases": {
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 497.49636363636364,
+    "median_episode_ms": 436.25,
+    "mean_completion_tokens": 71.63636363636364,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:23:36.621010+00:00",
+    "finished_at": "2026-11-02T16:23:53.039885+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9369,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.7273,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.7273,
+        "2": 0.7273,
+        "3": 0.7273
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-original-ood-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9293,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.6363636363636364,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 21,
+    "failed_cases": {
+      "sel_004": [
+        1,
+        2,
+        3
+      ],
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 508.5284848484848,
+    "median_episode_ms": 352.42,
+    "mean_completion_tokens": 98.18181818181819,
+    "raw_turn_count": 66,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:23:19.788197+00:00",
+    "finished_at": "2026-11-02T16:23:36.571117+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9293,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.6364,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.6364,
+        "2": 0.6364,
+        "3": 0.6364
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-original-supplementary-optimized-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core",
+      "ood"
+    ],
+    "case_count": 13,
+    "repeats": 3,
+    "episode_attempts": 39,
+    "overall": 0.9366076923076923,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.6923076923076923,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 27,
+    "failed_cases": {
+      "m47_arg_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_arg_102": [
+        1,
+        2,
+        3
+      ],
+      "m47_recover_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_stop_101": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 668.7494871794872,
+    "median_episode_ms": 553.44,
+    "mean_completion_tokens": 93.15384615384616,
+    "raw_turn_count": 93,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:26:18.162398+00:00",
+    "finished_at": "2026-11-02T16:26:44.245516+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9366,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.6923,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.6923,
+        "2": 0.6923,
+        "3": 0.6923
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-original-supplementary-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core",
+      "ood"
+    ],
+    "case_count": 13,
+    "repeats": 3,
+    "episode_attempts": 39,
+    "overall": 0.9166692307692308,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.6923076923076923,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 27,
+    "failed_cases": {
+      "m47_arg_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_arg_102": [
+        1,
+        2,
+        3
+      ],
+      "m47_recover_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_stop_101": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 566.9689743589744,
+    "median_episode_ms": 465.12,
+    "mean_completion_tokens": 82.0,
+    "raw_turn_count": 81,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:25:55.972118+00:00",
+    "finished_at": "2026-11-02T16:26:18.085825+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9167,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.6923,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.6923,
+        "2": 0.6923,
+        "3": 0.6923
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-shuffled-ood-optimized-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9368727272727273,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.7272727272727273,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 24,
+    "failed_cases": {
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 548.89,
+    "median_episode_ms": 489.7,
+    "mean_completion_tokens": 71.63636363636364,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:24:16.452040+00:00",
+    "finished_at": "2026-11-02T16:24:34.567433+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9369,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.7273,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.7273,
+        "2": 0.7273,
+        "3": 0.7273
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-shuffled-ood-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9293,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.6363636363636364,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 21,
+    "failed_cases": {
+      "sel_004": [
+        1,
+        2,
+        3
+      ],
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 705.8078787878787,
+    "median_episode_ms": 503.38,
+    "mean_completion_tokens": 98.18181818181819,
+    "raw_turn_count": 66,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:23:53.102341+00:00",
+    "finished_at": "2026-11-02T16:24:16.396196+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9293,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.6364,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.6364,
+        "2": 0.6364,
+        "3": 0.6364
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-shuffled-seed42-ood-optimized-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.9368727272727273,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.7272727272727273,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 24,
+    "failed_cases": {
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 570.1169696969697,
+    "median_episode_ms": 516.71,
+    "mean_completion_tokens": 73.18181818181819,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:24:52.359474+00:00",
+    "finished_at": "2026-11-02T16:25:11.175531+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9369,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.7273,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.7273,
+        "2": 0.7273,
+        "3": 0.7273
+      }
+    }
+  },
+  {
+    "file": "confirmation/e2b-native-shuffled-seed42-ood-r3.json",
+    "model": "gemma4:e2b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.8611181818181818,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.5454545454545454,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 18,
+    "failed_cases": {
+      "rel_004": [
+        1,
+        2,
+        3
+      ],
+      "sel_004": [
+        1,
+        2,
+        3
+      ],
+      "arg_004": [
+        1,
+        2,
+        3
+      ],
+      "recover_002": [
+        1,
+        2,
+        3
+      ],
+      "recover_004": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 535.0481818181818,
+    "median_episode_ms": 509.52,
+    "mean_completion_tokens": 73.0909090909091,
+    "raw_turn_count": 63,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:24:34.623402+00:00",
+    "finished_at": "2026-11-02T16:24:52.282108+00:00",
+    "framework_summary": {
+      "overall_mean": 0.8611,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.5455,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.5455,
+        "2": 0.5455,
+        "3": 0.5455
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-aliased-ood-optimized-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 588.400303030303,
+    "median_episode_ms": 556.3,
+    "mean_completion_tokens": 78.45454545454545,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:21:33.321429+00:00",
+    "finished_at": "2026-11-02T16:21:52.740175+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-aliased-ood-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "aliased",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 554.0327272727272,
+    "median_episode_ms": 471.47,
+    "mean_completion_tokens": 77.27272727272727,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:21:14.989076+00:00",
+    "finished_at": "2026-11-02T16:21:33.273698+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-original-ood-optimized-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 593.4866666666667,
+    "median_episode_ms": 543.73,
+    "mean_completion_tokens": 81.0,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:19:40.798211+00:00",
+    "finished_at": "2026-11-02T16:20:00.384677+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-original-ood-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 520.4975757575758,
+    "median_episode_ms": 462.7,
+    "mean_completion_tokens": 75.0909090909091,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:19:23.574830+00:00",
+    "finished_at": "2026-11-02T16:19:40.752650+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-original-supplementary-optimized-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "core",
+      "ood"
+    ],
+    "case_count": 13,
+    "repeats": 3,
+    "episode_attempts": 39,
+    "overall": 1.0,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 1,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 39,
+    "failed_cases": {},
+    "mean_episode_ms": 554.488717948718,
+    "median_episode_ms": 543.93,
+    "mean_completion_tokens": 73.53846153846153,
+    "raw_turn_count": 90,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:22:10.880034+00:00",
+    "finished_at": "2026-11-02T16:22:32.506757+00:00",
+    "framework_summary": {
+      "overall_mean": 1.0,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 1.0,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-original-supplementary-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "original",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "core",
+      "ood"
+    ],
+    "case_count": 13,
+    "repeats": 3,
+    "episode_attempts": 39,
+    "overall": 0.926923076923077,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.6923076923076923,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 27,
+    "failed_cases": {
+      "m47_arg_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_arg_102": [
+        1,
+        2,
+        3
+      ],
+      "m47_plan_101": [
+        1,
+        2,
+        3
+      ],
+      "m47_stop_101": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 462.6369230769231,
+    "median_episode_ms": 474.57,
+    "mean_completion_tokens": 69.3076923076923,
+    "raw_turn_count": 87,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:21:52.788996+00:00",
+    "finished_at": "2026-11-02T16:22:10.833451+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9269,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.6923,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.6923,
+        "2": 0.6923,
+        "3": 0.6923
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-shuffled-ood-optimized-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 589.4284848484848,
+    "median_episode_ms": 547.03,
+    "mean_completion_tokens": 81.0,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:20:17.359624+00:00",
+    "finished_at": "2026-11-02T16:20:36.812640+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-shuffled-ood-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 0,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 511.44848484848484,
+    "median_episode_ms": 459.85,
+    "mean_completion_tokens": 75.0909090909091,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:20:00.433617+00:00",
+    "finished_at": "2026-11-02T16:20:17.313243+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-shuffled-seed42-ood-optimized-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 614.5718181818182,
+    "median_episode_ms": 546.93,
+    "mean_completion_tokens": 82.0909090909091,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:20:54.644535+00:00",
+    "finished_at": "2026-11-02T16:21:14.927325+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  },
+  {
+    "file": "confirmation/e4b-native-shuffled-seed42-ood-r3.json",
+    "model": "gemma4:e4b",
+    "tool_format": "native",
+    "schema_variant": "shuffled",
+    "schema_seed": 42,
+    "system_prompt_sha256": "559bfd2773cec5f988b4b7aea1ffa7aa28c3fe53a8d243206fdbe94db0cd19ce",
+    "splits": [
+      "ood"
+    ],
+    "case_count": 11,
+    "repeats": 3,
+    "episode_attempts": 33,
+    "overall": 0.990909090909091,
+    "overall_stddev_population": 0.0,
+    "perfect_case_rate": 0.9090909090909091,
+    "perfect_case_rate_stddev_population": 0.0,
+    "perfect_attempts": 30,
+    "failed_cases": {
+      "recover_002": [
+        1,
+        2,
+        3
+      ]
+    },
+    "mean_episode_ms": 536.3718181818182,
+    "median_episode_ms": 431.47,
+    "mean_completion_tokens": 76.63636363636364,
+    "raw_turn_count": 69,
+    "reasoning_messages": 0,
+    "length_truncations": 0,
+    "started_at": "2026-11-02T16:20:36.878293+00:00",
+    "finished_at": "2026-11-02T16:20:54.580385+00:00",
+    "framework_summary": {
+      "overall_mean": 0.9909,
+      "overall_stddev": 0.0,
+      "perfect_case_rate_mean": 0.9091,
+      "perfect_case_rate_stddev": 0.0,
+      "pass_at_k": {
+        "1": 0.9091,
+        "2": 0.9091,
+        "3": 0.9091
+      }
+    }
+  }
+]

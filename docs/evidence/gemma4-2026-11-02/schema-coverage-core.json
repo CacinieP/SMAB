@@ -1,0 +1,482 @@
+{
+  "scope": "SMAB core only",
+  "case_count": 17,
+  "cases_with_multiple_tools": 11,
+  "cases_with_one_tool": 6,
+  "tool_count_distribution": {
+    "1": 6,
+    "2": 9,
+    "3": 1,
+    "4": 1
+  },
+  "perturbation_function": "smab.perturb.perturb_tools",
+  "selection_basis": "Tool-list structure only; no seed42 model results were run or inspected",
+  "model_inference_performed": false,
+  "seeds": {
+    "0": {
+      "changed_case_count": 2,
+      "unchanged_case_count": 15,
+      "changed_multi_tool_case_count": 2,
+      "coverage_all_cases": 0.11764705882352941,
+      "coverage_multi_tool_cases": 0.18181818181818182,
+      "changed_case_ids": [
+        "plan_001",
+        "plan_002"
+      ],
+      "cases": [
+        {
+          "id": "rel_001",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "calculator",
+            "search_documents"
+          ],
+          "shuffled_order": [
+            "calculator",
+            "search_documents"
+          ]
+        },
+        {
+          "id": "rel_002",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "get_order_status",
+            "search_products"
+          ],
+          "shuffled_order": [
+            "get_order_status",
+            "search_products"
+          ]
+        },
+        {
+          "id": "rel_005",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "get_weather",
+            "get_climate_normals"
+          ],
+          "shuffled_order": [
+            "get_weather",
+            "get_climate_normals"
+          ]
+        },
+        {
+          "id": "sel_001",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "get_weather",
+            "get_climate_normals"
+          ],
+          "shuffled_order": [
+            "get_weather",
+            "get_climate_normals"
+          ]
+        },
+        {
+          "id": "sel_002",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "search_products",
+            "check_inventory"
+          ],
+          "shuffled_order": [
+            "search_products",
+            "check_inventory"
+          ]
+        },
+        {
+          "id": "sel_003",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "calculator",
+            "convert_currency"
+          ],
+          "shuffled_order": [
+            "calculator",
+            "convert_currency"
+          ]
+        },
+        {
+          "id": "arg_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "search_flights"
+          ],
+          "shuffled_order": [
+            "search_flights"
+          ]
+        },
+        {
+          "id": "arg_002",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "send_email"
+          ],
+          "shuffled_order": [
+            "send_email"
+          ]
+        },
+        {
+          "id": "arg_003",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "search_calendar",
+            "create_calendar_event"
+          ],
+          "shuffled_order": [
+            "search_calendar",
+            "create_calendar_event"
+          ]
+        },
+        {
+          "id": "plan_001",
+          "tool_count": 3,
+          "order_changed": true,
+          "original_order": [
+            "get_hotel_price",
+            "convert_currency",
+            "calculator"
+          ],
+          "shuffled_order": [
+            "get_hotel_price",
+            "calculator",
+            "convert_currency"
+          ]
+        },
+        {
+          "id": "plan_002",
+          "tool_count": 4,
+          "order_changed": true,
+          "original_order": [
+            "get_customer",
+            "list_customer_orders",
+            "get_order_status",
+            "issue_refund"
+          ],
+          "shuffled_order": [
+            "get_order_status",
+            "get_customer",
+            "list_customer_orders",
+            "issue_refund"
+          ]
+        },
+        {
+          "id": "plan_003",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "search_documents",
+            "read_document"
+          ],
+          "shuffled_order": [
+            "search_documents",
+            "read_document"
+          ]
+        },
+        {
+          "id": "state_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "get_order_status"
+          ],
+          "shuffled_order": [
+            "get_order_status"
+          ]
+        },
+        {
+          "id": "recover_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "get_weather"
+          ],
+          "shuffled_order": [
+            "get_weather"
+          ]
+        },
+        {
+          "id": "recover_003",
+          "tool_count": 2,
+          "order_changed": false,
+          "original_order": [
+            "search_flights",
+            "book_flight"
+          ],
+          "shuffled_order": [
+            "search_flights",
+            "book_flight"
+          ]
+        },
+        {
+          "id": "stop_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "send_email"
+          ],
+          "shuffled_order": [
+            "send_email"
+          ]
+        },
+        {
+          "id": "stop_002",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "cancel_subscription"
+          ],
+          "shuffled_order": [
+            "cancel_subscription"
+          ]
+        }
+      ]
+    },
+    "42": {
+      "changed_case_count": 11,
+      "unchanged_case_count": 6,
+      "changed_multi_tool_case_count": 11,
+      "coverage_all_cases": 0.6470588235294118,
+      "coverage_multi_tool_cases": 1.0,
+      "changed_case_ids": [
+        "rel_001",
+        "rel_002",
+        "rel_005",
+        "sel_001",
+        "sel_002",
+        "sel_003",
+        "arg_003",
+        "plan_001",
+        "plan_002",
+        "plan_003",
+        "recover_003"
+      ],
+      "cases": [
+        {
+          "id": "rel_001",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "calculator",
+            "search_documents"
+          ],
+          "shuffled_order": [
+            "search_documents",
+            "calculator"
+          ]
+        },
+        {
+          "id": "rel_002",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "get_order_status",
+            "search_products"
+          ],
+          "shuffled_order": [
+            "search_products",
+            "get_order_status"
+          ]
+        },
+        {
+          "id": "rel_005",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "get_weather",
+            "get_climate_normals"
+          ],
+          "shuffled_order": [
+            "get_climate_normals",
+            "get_weather"
+          ]
+        },
+        {
+          "id": "sel_001",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "get_weather",
+            "get_climate_normals"
+          ],
+          "shuffled_order": [
+            "get_climate_normals",
+            "get_weather"
+          ]
+        },
+        {
+          "id": "sel_002",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "search_products",
+            "check_inventory"
+          ],
+          "shuffled_order": [
+            "check_inventory",
+            "search_products"
+          ]
+        },
+        {
+          "id": "sel_003",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "calculator",
+            "convert_currency"
+          ],
+          "shuffled_order": [
+            "convert_currency",
+            "calculator"
+          ]
+        },
+        {
+          "id": "arg_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "search_flights"
+          ],
+          "shuffled_order": [
+            "search_flights"
+          ]
+        },
+        {
+          "id": "arg_002",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "send_email"
+          ],
+          "shuffled_order": [
+            "send_email"
+          ]
+        },
+        {
+          "id": "arg_003",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "search_calendar",
+            "create_calendar_event"
+          ],
+          "shuffled_order": [
+            "create_calendar_event",
+            "search_calendar"
+          ]
+        },
+        {
+          "id": "plan_001",
+          "tool_count": 3,
+          "order_changed": true,
+          "original_order": [
+            "get_hotel_price",
+            "convert_currency",
+            "calculator"
+          ],
+          "shuffled_order": [
+            "convert_currency",
+            "get_hotel_price",
+            "calculator"
+          ]
+        },
+        {
+          "id": "plan_002",
+          "tool_count": 4,
+          "order_changed": true,
+          "original_order": [
+            "get_customer",
+            "list_customer_orders",
+            "get_order_status",
+            "issue_refund"
+          ],
+          "shuffled_order": [
+            "get_order_status",
+            "list_customer_orders",
+            "issue_refund",
+            "get_customer"
+          ]
+        },
+        {
+          "id": "plan_003",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "search_documents",
+            "read_document"
+          ],
+          "shuffled_order": [
+            "read_document",
+            "search_documents"
+          ]
+        },
+        {
+          "id": "state_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "get_order_status"
+          ],
+          "shuffled_order": [
+            "get_order_status"
+          ]
+        },
+        {
+          "id": "recover_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "get_weather"
+          ],
+          "shuffled_order": [
+            "get_weather"
+          ]
+        },
+        {
+          "id": "recover_003",
+          "tool_count": 2,
+          "order_changed": true,
+          "original_order": [
+            "search_flights",
+            "book_flight"
+          ],
+          "shuffled_order": [
+            "book_flight",
+            "search_flights"
+          ]
+        },
+        {
+          "id": "stop_001",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "send_email"
+          ],
+          "shuffled_order": [
+            "send_email"
+          ]
+        },
+        {
+          "id": "stop_002",
+          "tool_count": 1,
+          "order_changed": false,
+          "original_order": [
+            "cancel_subscription"
+          ],
+          "shuffled_order": [
+            "cancel_subscription"
+          ]
+        }
+      ]
+    }
+  }
+}

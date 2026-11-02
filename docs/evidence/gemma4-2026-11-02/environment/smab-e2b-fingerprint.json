@@ -1,0 +1,131 @@
+{
+  "model": "gemma4:e2b",
+  "manifest_sha256": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+  "total_blob_bytes": 4587156505,
+  "blobs": [
+    {
+      "media_type": "application/vnd.docker.container.image.v1+json",
+      "expected_sha256": "3ff8a734c316b74964b7c7f7318e56ad85077da655a985aaa73f466c450d993a",
+      "actual_sha256": "3ff8a734c316b74964b7c7f7318e56ad85077da655a985aaa73f466c450d993a",
+      "expected_bytes": 241,
+      "actual_bytes": 241,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.model",
+      "expected_sha256": "6dd7ac24fe13a238898e16e253ebc7a72fa27fb83f2658c2f6c241df3af5937d",
+      "actual_sha256": "6dd7ac24fe13a238898e16e253ebc7a72fa27fb83f2658c2f6c241df3af5937d",
+      "expected_bytes": 3502493472,
+      "actual_bytes": 3502493472,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.projector",
+      "expected_sha256": "7ba3bbacdf1b6959c27f0470defa080942c5a1f37e539b09ff1668c1e6265900",
+      "actual_sha256": "7ba3bbacdf1b6959c27f0470defa080942c5a1f37e539b09ff1668c1e6265900",
+      "expected_bytes": 986833664,
+      "actual_bytes": 986833664,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.draft",
+      "expected_sha256": "dd57b3b7308f65058f87be2e546c0aed07c84731426980f5aff28160fe1df9fb",
+      "actual_sha256": "dd57b3b7308f65058f87be2e546c0aed07c84731426980f5aff28160fe1df9fb",
+      "expected_bytes": 97817696,
+      "actual_bytes": 97817696,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.template",
+      "expected_sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "actual_sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "expected_bytes": 13,
+      "actual_bytes": 13,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.license",
+      "expected_sha256": "7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "actual_sha256": "7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "expected_bytes": 11355,
+      "actual_bytes": 11355,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.params",
+      "expected_sha256": "2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "actual_sha256": "2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "expected_bytes": 64,
+      "actual_bytes": 64,
+      "verified": true
+    }
+  ],
+  "all_blob_sha256_verified": true,
+  "details": {
+    "parent_model": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2",
+    "format": "gguf",
+    "family": "gemma4",
+    "families": [
+      "gemma4"
+    ],
+    "parameter_size": "4.6B",
+    "quantization_level": "Q4_K_M",
+    "runner": "llamacpp"
+  },
+  "thinking": {
+    "values": [
+      false,
+      true
+    ],
+    "default": true
+  },
+  "version": "0.40.13",
+  "context_length_observed": 32768,
+  "server": {
+    "pid": 60758,
+    "settings": {
+      "OLLAMA_HOST": "127.0.0.1:11435",
+      "OLLAMA_MODELS": "<LOCAL_WORKSPACE>/work/ollama-models",
+      "OLLAMA_NUM_PARALLEL": "1",
+      "OLLAMA_CONTEXT_LENGTH": "32768",
+      "OLLAMA_MAX_LOADED_MODELS": "1",
+      "OLLAMA_KEEP_ALIVE": "30m"
+    },
+    "created_for": "SMAB E4B/E2B benchmarking",
+    "stop_only_after_parent_benchmark_complete": true,
+    "persistent_exec_session_id": 46117,
+    "previous_unmanaged_pid": 58922,
+    "previous_pid_gone": true,
+    "lifecycle": "held by active exec_command session; keep running until benchmark owner requests stop"
+  },
+  "request_parameters": {
+    "temperature": 0,
+    "max_tokens": 2048,
+    "reasoning_effort": "none",
+    "stream": false
+  },
+  "none_response_message": {
+    "role": "assistant",
+    "content": "323"
+  },
+  "no_reasoning_field_output": true,
+  "smoke_arithmetic_matches": true,
+  "official_reasoning_control_doc": "https://docs.ollama.com/api/openai-compatibility",
+  "source": "https://registry.ollama.ai/v2/library/gemma4/manifests/e2b",
+  "not_official_competition_qat": true,
+  "smab_core_baseline_parameters": {
+    "temperature": 0,
+    "max_tokens": 512,
+    "reasoning_effort": "none",
+    "seed": 0,
+    "repeats": 3,
+    "context_length": 32768
+  },
+  "readiness_smoke_output_limit": 2048,
+  "startup_settings_observed": {
+    "OLLAMA_NUM_PARALLEL": "1",
+    "OLLAMA_CONTEXT_LENGTH": "32768",
+    "OLLAMA_MAX_LOADED_MODELS": "1"
+  },
+  "startup_log_source": "smab-server-persistent.log"
+}

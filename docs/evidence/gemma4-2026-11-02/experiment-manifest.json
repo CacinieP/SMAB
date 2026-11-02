@@ -1,0 +1,154 @@
+{
+  "source_commit": "69c24b7916e9d9579902966db0bf3e6003d65142",
+  "upstream_baseline_commit": "7b7c5c95e8a5cb687ae96b57f2c6bff21fb0c821",
+  "files_sha256": {
+    "datasets/core.jsonl": "295fa7186a2f9245e5f1d765cc34e7777d37ffb53ddf28885a9b58d4dceace57",
+    "datasets/tools.json": "2130fc7dba7b62f1efd819d8fb0bf606de14c00a1404f438f7988e985070ac9f",
+    "datasets/minicpm47_extra.jsonl": "a5cb97ecae4e7389b3ccaf9fe71be57e1618b9926eb27b030ad3a09b6ca68f03",
+    "src/smab/runner.py": "e26aa13cb60269b41bd002677c5a90903fe9d7bfe2fc802e85137a49a21c7c87",
+    "src/smab/scoring.py": "c4df5a53dcb1f46650e974cf61cc55cc8fbe4d2306231a6ee6b991f46d4b6f71",
+    "src/smab/adapters.py": "c1a06f3e9503f359131043d818b9dc0a62cdaeca5d12818b59bb3b3fba634aaa",
+    "src/smab/cli.py": "2378fddfabb3b43351d46e9f731f8b06f1129dbc40681336758a3b36bd18bc70",
+    "src/smab/probe.py": "d705056c797722cfd4633dbdb942e0949ff93ebc2cf3e34313c8ca9da1742c3c"
+  },
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "endpoint": "http://127.0.0.1:11435/v1",
+  "profile": {
+    "temperature": 0,
+    "max_tokens": 512,
+    "timeout": 60,
+    "schema_seed": 0,
+    "extra_body": {
+      "reasoning_effort": "none",
+      "seed": 0
+    },
+    "context_length": 32768,
+    "parallel_requests": 1,
+    "repeats": 3,
+    "backend_draft_model": "Ollama Gemma assistant draft enabled by default; not target-only latency"
+  },
+  "protocol": {
+    "development": "core split (17 episodes); native original/shuffled/aliased plus json original",
+    "optimization": "Freeze one shared generic prompt after core-only diagnosis of both models; no oracle or case-specific constants",
+    "confirmation": "ood split (11 episodes); default vs frozen optimized prompt; native original/shuffled(seed 0)/shuffled(seed 42)/aliased; repeats=3",
+    "supplementary_confirmation": "13 supplementary episodes, native original, repeats=3; evaluated only after prompt freeze; no further tuning",
+    "interpretation": "Public synthetic benchmark; withheld from this tuning session, not a blinded or independent real-world test"
+  },
+  "infrastructure_failures": [
+    "probes/infrastructure-failures/e4b-startup.json",
+    "probes/infrastructure-failures/e4b-undeclared-tool-control.json"
+  ],
+  "scoring_modified": false,
+  "development_candidates": [
+    {
+      "prompt_file": "prompts/candidate-v1.txt",
+      "sha256": "03a215fd4bf5c048afe70e341a758dc275d4fed45a6c23f33a920958cec2c592",
+      "rationale": "E4B core-only diagnosis: correct actions but missing receipt in final answer and overstatement of accepted status",
+      "heldout_evaluated_before_design": false
+    },
+    {
+      "prompt_file": "prompts/candidate-v2.txt",
+      "sha256": "f4d1929953be61334b24d75151ae91275ccdb08a583c70868da5d804e47f6f18",
+      "rationale": "Core-only manual audit found accepted status plus overstated completion wording; add acknowledgement-versus-completion distinction",
+      "heldout_evaluated_before_design": false
+    },
+    {
+      "prompt_file": "prompts/candidate-v3.txt",
+      "sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+      "rationale": "E2B core candidate-v2 fixed empty final responses but regressed a temporary lookup timeout from successful retry to early termination. Baseline aliased and JSON also stopped after this timeout. Restore default recovery instruction, explicitly distinguish recoverable errors from acknowledged/successful side effects, and require a nonempty final summary. No claim of the model internal cause.",
+      "heldout_evaluated_before_design": false,
+      "created_at": "2026-11-02T16:13:23.492478+00:00"
+    }
+  ],
+  "schema_coverage_control": {
+    "added_schema_seed": 42,
+    "seed_selection_basis": "tool permutations only, before viewing model results at seed 42",
+    "seed0_changed_core": 2,
+    "seed42_changed_core": 11,
+    "multi_tool_core": 11,
+    "original_seed0_runs_retained": true
+  },
+  "notes": [
+    "Native baseline uses the benchmark default system prompt. Scores and dataset were not changed.",
+    "Schema seed0 changes only 2/17 core orderings; seed42 was added for tool-order coverage before inspecting its model outcomes.",
+    "Development candidate-v1 improves receipt retention but a manual core audit still found potentially overstated accepted statuses; candidate-v2 is a recorded further development trial."
+  ],
+  "diagnostics": [
+    {
+      "file": "diagnostics/e4b-native-original-core-thinking-default-r3.json",
+      "requested_extra_body": {
+        "seed": 0
+      },
+      "reasoning_present_in_all_117_response_messages": true,
+      "purpose": "Default backend thinking vs explicitly disabled thinking; core diagnostic only"
+    }
+  ],
+  "python_manifest_writer": "3.15.0",
+  "benchmark_python": "Python 3.12.13",
+  "documentation_commit": "c848044",
+  "manifest_created_at": "2026-11-02T15:35:00.734863+00:00",
+  "first_benchmark_started_at": "2026-11-02T15:34:01.150149+00:00",
+  "models": {
+    "e4b": {
+      "model": "gemma4:e4b",
+      "manifest_sha256": "dc35e8d9c6061baa6f0fa870975ab6932e2542b579b13ea0f199fa4bb7300c9c",
+      "total_blob_bytes": 6583656505,
+      "details": {
+        "parent_model": "gemma4-validation-20260929:e4b-imatrix-attention-q6-q8-draft2",
+        "format": "gguf",
+        "family": "gemma4",
+        "families": [
+          "gemma4"
+        ],
+        "parameter_size": "7.5B",
+        "quantization_level": "Q4_K_M",
+        "runner": "llamacpp"
+      },
+      "all_blob_sha256_verified": true,
+      "version": "0.40.13",
+      "context_length_observed": 32768
+    },
+    "e2b": {
+      "model": "gemma4:e2b",
+      "manifest_sha256": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+      "total_blob_bytes": 4587156505,
+      "details": {
+        "parent_model": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2",
+        "format": "gguf",
+        "family": "gemma4",
+        "families": [
+          "gemma4"
+        ],
+        "parameter_size": "4.6B",
+        "quantization_level": "Q4_K_M",
+        "runner": "llamacpp"
+      },
+      "all_blob_sha256_verified": true,
+      "version": "0.40.13",
+      "context_length_observed": 32768
+    }
+  },
+  "request_caps": {
+    "benchmark_max_tokens": 512,
+    "probe_max_tokens": 256,
+    "readiness_smoke_max_tokens": 2048
+  },
+  "frozen_prompt": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+  "frozen_at_utc": "2026-11-02T16:19:23.466048+00:00",
+  "final_candidate": "candidate-v3",
+  "hardware": {
+    "processor": "Apple M5 Max",
+    "accelerator": "Metal",
+    "unified_memory_bytes": 68719476736
+  },
+  "source_provenance": {
+    "benchmark_logic_commit": "69c24b7916e9d9579902966db0bf3e6003d65142",
+    "upstream_comparison_commit": "7b7c5c95e8a5cb687ae96b57f2c6bff21fb0c821",
+    "later_source_change": "a7dc4bd changes only CLI help text about newline normalization; relevant current file hashes are included",
+    "runner_scoring_adapters_and_datasets_unchanged": true
+  },
+  "last_benchmark_finished_at": "2026-11-02T16:26:44.245516+00:00",
+  "benchmark_files": 52,
+  "episode_attempts": 2316,
+  "confirmation_files": 20
+}

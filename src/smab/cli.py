@@ -37,6 +37,10 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--seed", type=int, default=0)
     run.add_argument("--repeats", type=int, default=1, help="Repeat an identical run and report mean/stddev")
     run.add_argument("--extra-body", help="JSON object merged into each endpoint request")
+    run.add_argument(
+        "--system-prompt-file",
+        help="UTF-8 file replacing the default task policy; decoded prompt saved in run metadata",
+    )
     run.add_argument("--output", default="runs/latest.json")
     run.add_argument("--report", help="Optional Markdown report path")
 
@@ -52,6 +56,7 @@ def build_parser() -> argparse.ArgumentParser:
     probe.add_argument("--base-url", default="http://127.0.0.1:8000/v1")
     probe.add_argument("--api-key-env", default="SMAB_API_KEY")
     probe.add_argument("--timeout", type=float, default=60.0)
+    probe.add_argument("--extra-body", help="JSON object with shared endpoint decoding parameters")
     probe.add_argument("--output", default="runs/probe.json")
     probe.add_argument("--report", help="Optional Markdown report path")
     return parser
@@ -92,7 +97,13 @@ def main(argv: list[str] | None = None) -> int:
 def _run(args: argparse.Namespace, cases: list[Any]) -> int:
     if args.repeats < 1:
         raise ValueError("--repeats must be at least 1")
-    extra_body = json.loads(args.extra_body) if args.extra_body else None
+    extra_body = _parse_extra_body(args.extra_body)
+    prompt_options: dict[str, str] = {}
+    if args.system_prompt_file:
+        system_prompt = Path(args.system_prompt_file).read_text(encoding="utf-8")
+        if not system_prompt.strip():
+            raise ValueError("--system-prompt-file must contain a nonempty UTF-8 prompt")
+        prompt_options["system_prompt"] = system_prompt
     api_key = os.environ.get(args.api_key_env)
     adapter = OpenAICompatibleAdapter(
         base_url=args.base_url,
@@ -112,6 +123,7 @@ def _run(args: argparse.Namespace, cases: list[Any]) -> int:
             schema_variant=args.schema_variant,
             seed=args.seed,
             repeat_index=repeat_index,
+            **prompt_options,
         )
         runs.append(BenchmarkRunner(adapter, config).run(cases))
     result = runs[0] if args.repeats == 1 else aggregate_runs(runs)
@@ -147,6 +159,7 @@ def _probe(args: argparse.Namespace) -> int:
         model=args.model,
         api_key=api_key,
         timeout=args.timeout,
+        extra_body=_parse_extra_body(args.extra_body) or {},
     )
     report = probe_endpoint(config)
     write_run(report, args.output)
@@ -165,6 +178,15 @@ def _probe(args: argparse.Namespace) -> int:
     if args.report:
         print(f"report_file={args.report}")
     return 0
+
+
+def _parse_extra_body(value: str | None) -> dict[str, Any] | None:
+    if value is None:
+        return None
+    parsed = json.loads(value)
+    if not isinstance(parsed, dict):
+        raise ValueError("--extra-body must be a JSON object")
+    return parsed
 
 
 if __name__ == "__main__":

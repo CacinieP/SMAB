@@ -101,6 +101,20 @@ class ProbeConfig:
     model: str
     api_key: str | None = None
     timeout: float = 60.0
+    extra_body: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        # These fields define the experiments themselves. Allowing a runtime
+        # profile to replace them could make a control falsely pass.
+        reserved = {
+            "model", "messages", "tools", "tool_choice", "parallel_tool_calls",
+            "response_format", "structured_outputs", "guided_json", "json_schema",
+        }
+        if not isinstance(self.extra_body, dict):
+            raise ValueError("probe extra_body must be a JSON object")
+        conflicts = sorted(reserved.intersection(self.extra_body))
+        if conflicts:
+            raise ValueError("probe extra_body cannot override experiment fields: " + ", ".join(conflicts))
 
 
 def probe_endpoint(config: ProbeConfig) -> dict[str, Any]:
@@ -110,7 +124,10 @@ def probe_endpoint(config: ProbeConfig) -> dict[str, Any]:
     headers = {"Content-Type": "application/json"}
     if config.api_key:
         headers["Authorization"] = f"Bearer {config.api_key}"
-    context = _ProbeContext(url=url, headers=headers, model=config.model, timeout=config.timeout)
+    context = _ProbeContext(
+        url=url, headers=headers, model=config.model, timeout=config.timeout,
+        extra_body=config.extra_body,
+    )
     checks = [
         _check_chat_completion,
         _check_native_tools,
@@ -126,14 +143,20 @@ def probe_endpoint(config: ProbeConfig) -> dict[str, Any]:
         _check_llamacpp_response_schema,
     ]
     results = [check(context) for check in checks]
+    summary = _summarize(results)
+    if summary["recommended_tool_format"] is not None and config.extra_body:
+        summary["recommended_extra_body"] = {
+            **config.extra_body, **(summary["recommended_extra_body"] or {}),
+        }
     return {
         "probe": {
             "endpoint": config.base_url,
             "model": config.model,
             "started_at": started.isoformat(),
             "finished_at": datetime.now(timezone.utc).isoformat(),
+            "extra_body": dict(config.extra_body),
         },
-        "summary": _summarize(results),
+        "summary": summary,
         "checks": [
             {
                 "name": item.name,
@@ -148,11 +171,15 @@ def probe_endpoint(config: ProbeConfig) -> dict[str, Any]:
 
 
 class _ProbeContext:
-    def __init__(self, *, url: str, headers: dict[str, str], model: str, timeout: float) -> None:
+    def __init__(
+        self, *, url: str, headers: dict[str, str], model: str, timeout: float,
+        extra_body: dict[str, Any] | None = None,
+    ) -> None:
         self.url = url
         self.headers = headers
         self.model = model
         self.timeout = timeout
+        self.extra_body = dict(extra_body or {})
 
     def post(
         self, payload: dict[str, Any]
@@ -225,6 +252,7 @@ def _base_payload(
         "temperature": 0.0,
         "max_tokens": 256,
     }
+    payload.update(context.extra_body)
     payload.update(overrides)
     # Extra request fields are merged at the top level, mirroring how the
     # benchmark adapter applies --extra-body; sending them nested would be a
@@ -331,7 +359,14 @@ def _matches_probe_schema(parsed: Any, schema: dict[str, Any]) -> bool:
 
 def _check_chat_completion(context: _ProbeContext) -> ProbeCheck:
     name = "chat_completion"
-    status, body, error, latency = _timed(context, _base_payload(context))
+    # Connectivity must not depend on a tool that this control does not send.
+    # Reusing PROBE_MESSAGES asks the model to call an undeclared get_weather
+    # and can produce a tool-only reply instead of ordinary assistant text.
+    messages = [
+        {"role": "system", "content": "You are a concise assistant."},
+        {"role": "user", "content": "Reply exactly HELLO without calling tools."},
+    ]
+    status, body, error, latency = _timed(context, _base_payload(context, messages=messages))
     if error:
         return _failed(name, error, latency)
     if status != 200:

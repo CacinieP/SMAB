@@ -330,6 +330,65 @@ def test_probe_sends_extra_body_fields_at_top_level(endpoint_factory) -> None:
     assert structured[0]["structured_outputs"]["json"]["type"] == "object"
 
 
+def test_probe_runtime_profile_matches_requests_and_recommendation(endpoint_factory) -> None:
+    seen: list[dict[str, Any]] = []
+
+    class _ProfileEndpoint(_ModernVLLMHandler):
+        def _route(self, payload):
+            seen.append(payload)
+            if payload.get("reasoning_effort") != "none":
+                return 200, _content_message("")
+            return super()._route(payload)
+
+    profile = {"reasoning_effort": "none", "seed": 0, "max_tokens": 512}
+    report = probe_endpoint(ProbeConfig(
+        base_url=endpoint_factory(_ProfileEndpoint), model="mock-model",
+        timeout=10.0, extra_body=profile,
+    ))
+    assert report["summary"]["native_tool_calling"]
+    assert report["probe"]["extra_body"] == profile
+    assert report["summary"]["recommended_extra_body"] == profile
+    assert seen and all(all(payload[key] == value for key, value in profile.items()) for payload in seen)
+    assert any(payload.get("tool_choice") == "none" for payload in seen)
+    assert any(payload.get("response_format", {}).get("type") == "json_schema" for payload in seen)
+    command = render_probe_markdown(report).split("```bash\n")[1].split("```", 1)[0]
+    args = shlex.split(command.replace("\\\n", ""))
+    assert json.loads(args[args.index("--extra-body") + 1]) == profile
+    assert "high_c" not in command
+
+
+@pytest.mark.parametrize("name", [
+    "model", "messages", "tools", "tool_choice", "parallel_tool_calls",
+    "response_format", "structured_outputs", "guided_json", "json_schema",
+])
+def test_probe_runtime_profile_cannot_replace_experiments(name) -> None:
+    with pytest.raises(ValueError, match="cannot override experiment fields"):
+        ProbeConfig(base_url="http://127.0.0.1:1/v1", model="mock", extra_body={name: None})
+
+
+def test_probe_runtime_profile_preserves_json_fallback(endpoint_factory) -> None:
+    profile = {"reasoning_effort": "none", "seed": 0}
+    report = probe_endpoint(ProbeConfig(
+        base_url=endpoint_factory(_BareHandler), model="mock", extra_body=profile,
+    ))
+    assert report["summary"]["recommended_extra_body"] == {**profile, "response_format": None}
+
+
+def test_plain_chat_control_does_not_request_an_undeclared_tool(endpoint_factory) -> None:
+    class _LiteralToolInstructions(_ModernVLLMHandler):
+        def _route(self, payload):
+            text = json.dumps(payload.get("messages", []))
+            if "tools" not in payload and "get_weather" in text:
+                return 200, _tool_call_message([SINGLE_CALL])
+            return super()._route(payload)
+
+    report = _report(endpoint_factory(_LiteralToolInstructions))
+    statuses = _statuses(report)
+    assert statuses["chat_completion"] == "ok"
+    assert statuses["native_tools"] == "ok"
+    assert report["summary"]["recommended_tool_format"] == "native"
+
+
 def _report(url: str) -> dict[str, Any]:
     return probe_endpoint(ProbeConfig(base_url=url, model="mock-model", timeout=2.0))
 

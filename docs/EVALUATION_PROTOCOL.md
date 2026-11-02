@@ -13,6 +13,10 @@
 
 微调前后必须使用完全相同的数据 commit 与推理设置。报告模型 checkpoint、量化、chat template、tool parser、context length、decoding 参数、硬件与 benchmark commit。
 
+提示词优化可通过 `smab run --system-prompt-file prompts/policy.txt` 固定任务策略。文件须为非空 UTF-8，完整替换默认 `RunConfig.system_prompt`，每次运行的元数据会保存实际发送的文本（CRLF 换行按文本读取规则归一化为 LF）。它不替换用户任务、工具返回或多轮历史；`json` adapter 仍前置自己的 JSON 协议和工具 schema。比较优化前后时保留其余配置和评分器不变，并区分用于诊断的案例与冻结后的验证案例。
+
+端点探测与正式测试应使用相同的解码设置，例如两条命令都传 `--extra-body '{"reasoning_effort":"none","seed":0}'`。该参数须为 JSON 对象；probe 会拒绝覆盖探测专用消息、工具或输出约束的字段。CLI 的 `--seed` 固定 schema 扰动；模型解码 seed 应在服务端支持时显式经 `--extra-body` 提供并记录。
+
 ## 推荐判读顺序
 
 1. 先用 `smab probe` 确认端点能力（native tools、`tool_choice` 档位、约束解码方言），排除框架/parser 配置问题；
