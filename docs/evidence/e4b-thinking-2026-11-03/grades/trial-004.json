@@ -1,0 +1,97 @@
+{
+  "instance_id": "pallets__flask-5063",
+  "status": "graded",
+  "resolved": false,
+  "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "base_commit": "182ce3dd15dfa3537391c3efaf9c3ff407d134d4",
+  "base_snapshot_commit": "e1dc2646e96cac0e771f271336360b8d849510f7",
+  "base_archive_sha256": "65ad2f841eab91d6f8711f4ddcf5fdf972aad0a62f300b422af56a9628e4e2ed",
+  "gold_patch_sha256": "f9c1ef426acac91e34d551f80f34dfe27fc124ac316af71d70eec1764b4a6497",
+  "test_patch_sha256": "e5b1124e11d391cc01f7d9d03ada6ccd629a817a3334d5980884ed276237bf96",
+  "changed_files": [],
+  "subject_module_relative_path": "src/flask/__init__.py",
+  "actual_import_from_candidate_snapshot": true,
+  "python_version": "Python 3.11.15",
+  "test_process_exit_code": 1,
+  "test_outcomes": {
+    "FAIL_TO_PASS": {
+      "tests/test_cli.py::TestRoutes::test_subdomain": "call:failed",
+      "tests/test_cli.py::TestRoutes::test_host": "call:failed"
+    },
+    "PASS_TO_PASS": {
+      "tests/test_cli.py::test_cli_name": "passed",
+      "tests/test_cli.py::test_find_best_app": "passed",
+      "tests/test_cli.py::test_prepare_import[test-path0-test]": "passed",
+      "tests/test_cli.py::test_prepare_import[test.py-path1-test]": "passed",
+      "tests/test_cli.py::test_prepare_import[a/test-path2-test]": "passed",
+      "tests/test_cli.py::test_prepare_import[test/__init__.py-path3-test]": "passed",
+      "tests/test_cli.py::test_prepare_import[test/__init__-path4-test]": "passed",
+      "tests/test_cli.py::test_prepare_import[value5-path5-cliapp.inner1]": "passed",
+      "tests/test_cli.py::test_prepare_import[value6-path6-cliapp.inner1.inner2]": "passed",
+      "tests/test_cli.py::test_prepare_import[test.a.b-path7-test.a.b]": "passed",
+      "tests/test_cli.py::test_prepare_import[value8-path8-cliapp.app]": "passed",
+      "tests/test_cli.py::test_prepare_import[value9-path9-cliapp.message.txt]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.app-None-testapp]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.app-testapp-testapp]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory-None-app]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory-create_app-app]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory-create_app()-app]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory-create_app2(\"foo\", \"bar\")-app2_foo_bar]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory-create_app2(\"foo\", \"bar\", )-app2_foo_bar]": "passed",
+      "tests/test_cli.py::test_locate_app[cliapp.factory- create_app () -app]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[notanapp.py-None]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp/app-None]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.app-notanapp]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.factory-create_app2(\"foo\")]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.factory-create_app(]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.factory-no_app]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.importerrorapp-None]": "passed",
+      "tests/test_cli.py::test_locate_app_raises[cliapp.message.txt-None]": "passed",
+      "tests/test_cli.py::test_locate_app_suppress_raise": "passed",
+      "tests/test_cli.py::test_get_version": "passed",
+      "tests/test_cli.py::test_scriptinfo": "passed",
+      "tests/test_cli.py::test_app_cli_has_app_context": "passed",
+      "tests/test_cli.py::test_with_appcontext": "passed",
+      "tests/test_cli.py::test_appgroup_app_context": "passed",
+      "tests/test_cli.py::test_flaskgroup_app_context": "passed",
+      "tests/test_cli.py::test_flaskgroup_debug[True]": "passed",
+      "tests/test_cli.py::test_flaskgroup_debug[False]": "passed",
+      "tests/test_cli.py::test_flaskgroup_nested": "passed",
+      "tests/test_cli.py::test_no_command_echo_loading_error": "passed",
+      "tests/test_cli.py::test_help_echo_loading_error": "passed",
+      "tests/test_cli.py::test_help_echo_exception": "passed",
+      "tests/test_cli.py::TestRoutes::test_simple": "passed",
+      "tests/test_cli.py::TestRoutes::test_sort": "passed",
+      "tests/test_cli.py::TestRoutes::test_all_methods": "passed",
+      "tests/test_cli.py::TestRoutes::test_no_routes": "passed",
+      "tests/test_cli.py::test_load_dotenv": "passed",
+      "tests/test_cli.py::test_dotenv_path": "passed",
+      "tests/test_cli.py::test_dotenv_optional": "passed",
+      "tests/test_cli.py::test_disable_dotenv_from_env": "passed",
+      "tests/test_cli.py::test_run_cert_path": "passed",
+      "tests/test_cli.py::test_run_cert_adhoc": "passed",
+      "tests/test_cli.py::test_run_cert_import": "passed",
+      "tests/test_cli.py::test_run_cert_no_ssl": "passed",
+      "tests/test_cli.py::test_cli_blueprints": "passed",
+      "tests/test_cli.py::test_cli_empty": "passed"
+    }
+  },
+  "selected_node_counts": {
+    "FAIL_TO_PASS": {
+      "required": 2,
+      "passed": 0,
+      "status_counts": {
+        "call:failed": 2
+      }
+    },
+    "PASS_TO_PASS": {
+      "required": 55,
+      "passed": 55,
+      "status_counts": {
+        "passed": 55
+      }
+    }
+  },
+  "collection_error_count": 0,
+  "error_category": null
+}

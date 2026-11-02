@@ -1,0 +1,197 @@
+{
+  "tasks": [
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "6995257cf470d2143ad1683824962de4071c0eb7",
+      "source_snapshot_sha256": "9c364deaa72bdede13f623d90d7a6996cb83bd3d0f973c50030061663cdf30fc",
+      "raw_source_tree_sha256": "3eff2371315e6ae0e5988376554724482b240d9f559fb0da8ba28246a2ac3077",
+      "source_archive_sha256": "ef5724765f1ee443c9882a9309ea4f097c6c0a82ab8aeafdb187d1d6cd9fdd5e",
+      "source_archive_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/6995257cf470d2143ad1683824962de4071c0eb7",
+      "gold_patch_sha256": "fa7c8fe4ef668668432882ab3397c23349d57de6f54919aeccbc851a79c3aca9",
+      "test_patch_sha256": "ac7917b3fc8ece1dcdc386e506ca0f85153df928912f15cf264c46b3e08565f6",
+      "python_version": "Python 3.11.15",
+      "installed_pins_sha256": "40ba7de55c551cf12b34ab3375c6f10e2a0672425a11c7eda4cd1354cbc7ca1f",
+      "qualified": true,
+      "status": "ready",
+      "checks": {
+        "baseline_all_F2P_fail": true,
+        "baseline_all_P2P_pass": true,
+        "gold_all_F2P_and_P2P_pass": true
+      },
+      "selected_preflight_outcomes": {
+        "baseline": {
+          "FAIL_TO_PASS": {
+            "required": 1,
+            "passed": 0,
+            "status_counts": {
+              "call:failed": 1
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 114,
+            "passed": 114,
+            "status_counts": {
+              "passed": 114
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 1
+        },
+        "gold": {
+          "FAIL_TO_PASS": {
+            "required": 1,
+            "passed": 1,
+            "status_counts": {
+              "passed": 1
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 114,
+            "passed": 114,
+            "status_counts": {
+              "passed": 114
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 0
+        }
+      },
+      "expanded_fixed_node_counts": {
+        "FAIL_TO_PASS": 1,
+        "PASS_TO_PASS": 115
+      },
+      "expanded_fixed_nodes_sha256": "1909b5501b8645f9208a13995bf9efc396c0635a8e81cfa28c4e91e24e418a64",
+      "scope": "Selected F2P/P2P nodes only. Discovery can run broader public targets; its exit code is retained separately."
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "repo": "pallets/flask",
+      "base_commit": "182ce3dd15dfa3537391c3efaf9c3ff407d134d4",
+      "source_snapshot_sha256": "9cfb04c1cff669d5bd0a946e329689b63206f48641fb71f58d8c1ff111675e8f",
+      "raw_source_tree_sha256": "0ea26eb961b18f85fb179a3fbde3a657d33d8f1a790794f91502d299ca662046",
+      "source_archive_sha256": "65ad2f841eab91d6f8711f4ddcf5fdf972aad0a62f300b422af56a9628e4e2ed",
+      "source_archive_url": "https://codeload.github.com/pallets/flask/tar.gz/182ce3dd15dfa3537391c3efaf9c3ff407d134d4",
+      "gold_patch_sha256": "f9c1ef426acac91e34d551f80f34dfe27fc124ac316af71d70eec1764b4a6497",
+      "test_patch_sha256": "e5b1124e11d391cc01f7d9d03ada6ccd629a817a3334d5980884ed276237bf96",
+      "python_version": "Python 3.11.15",
+      "installed_pins_sha256": "5c945eaccdb8042652c6c121693c58b92868049fcd6eca2321047aafdb390276",
+      "qualified": true,
+      "status": "ready",
+      "checks": {
+        "baseline_all_F2P_fail": true,
+        "baseline_all_P2P_pass": true,
+        "gold_all_F2P_and_P2P_pass": true
+      },
+      "selected_preflight_outcomes": {
+        "baseline": {
+          "FAIL_TO_PASS": {
+            "required": 2,
+            "passed": 0,
+            "status_counts": {
+              "call:failed": 2
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 54,
+            "passed": 54,
+            "status_counts": {
+              "passed": 54
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 1
+        },
+        "gold": {
+          "FAIL_TO_PASS": {
+            "required": 2,
+            "passed": 2,
+            "status_counts": {
+              "passed": 2
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 54,
+            "passed": 54,
+            "status_counts": {
+              "passed": 54
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 0
+        }
+      },
+      "expanded_fixed_node_counts": {
+        "FAIL_TO_PASS": 2,
+        "PASS_TO_PASS": 55
+      },
+      "expanded_fixed_nodes_sha256": "d5bd3b97d674d328d92e18f2362b0f23672edf28410146f32f1742fceb18ba26",
+      "scope": "Selected F2P/P2P nodes only. Discovery can run broader public targets; its exit code is retained separately."
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "2f7415cfbc4b6ca62f9013f1abd27136f46b9653",
+      "source_snapshot_sha256": "e85bbfca3c2aa124d7ef96fb77e1d753a6b42dfeac5f6fbbd1c0f19070004fd1",
+      "raw_source_tree_sha256": "f29b8549d29660501285dffa5644b9199c1cc3d13492dc3e9135474abbd31233",
+      "source_archive_sha256": "2d330522612e789b64668c6a8d20f9925e95aca7d12cdd70ec7d7f4d8eb1e661",
+      "source_archive_url": "https://codeload.github.com/pytest-dev/pytest/tar.gz/2f7415cfbc4b6ca62f9013f1abd27136f46b9653",
+      "gold_patch_sha256": "2ce6f1a00a78b5250cd1469fe57656b2902bc990179446189780997251af128e",
+      "test_patch_sha256": "2de425c018454ccdc21c39faab9d52436f7acfbde774b65f5df24354881fd6d6",
+      "python_version": "Python 3.11.15",
+      "installed_pins_sha256": "b5a9348b4f57ea96027d55e7bcaad5f349b4e234c6a2db2be95996bb6d2642c6",
+      "qualified": true,
+      "status": "ready",
+      "checks": {
+        "baseline_all_F2P_fail": true,
+        "baseline_all_P2P_pass": true,
+        "gold_all_F2P_and_P2P_pass": true
+      },
+      "selected_preflight_outcomes": {
+        "baseline": {
+          "FAIL_TO_PASS": {
+            "required": 2,
+            "passed": 0,
+            "status_counts": {
+              "call:failed": 2
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 129,
+            "passed": 129,
+            "status_counts": {
+              "passed": 129
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 1
+        },
+        "gold": {
+          "FAIL_TO_PASS": {
+            "required": 2,
+            "passed": 2,
+            "status_counts": {
+              "passed": 2
+            }
+          },
+          "PASS_TO_PASS": {
+            "required": 129,
+            "passed": 129,
+            "status_counts": {
+              "passed": 129
+            }
+          },
+          "collection_error_count": 0,
+          "discovery_process_exit_code": 0
+        }
+      },
+      "expanded_fixed_node_counts": {
+        "FAIL_TO_PASS": 2,
+        "PASS_TO_PASS": 129
+      },
+      "expanded_fixed_nodes_sha256": "0030626cb2fe9c4145e558e1d5418e0d40a5adeea1046e995049f050703a5d0f",
+      "scope": "Selected F2P/P2P nodes only. Discovery can run broader public targets; its exit code is retained separately."
+    }
+  ],
+  "source_study": "e4b-repair-ab locked preflight, same three snapshots"
+}

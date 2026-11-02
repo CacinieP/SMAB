@@ -1,0 +1,453 @@
+{
+  "trial": "trial-002",
+  "instance_id": "pytest-dev__pytest-11143",
+  "thinking": "on",
+  "seed": 0,
+  "state": "graded",
+  "resolved": false,
+  "recorded_resolved": false,
+  "grade_resolved": false,
+  "grade_status": "graded",
+  "counts": {
+    "llm_calls": 9,
+    "harness_counted_tool_calls": 7,
+    "all_trace_tool_calls": 8,
+    "trace_tool_responses": 8
+  },
+  "wall_process_seconds": 48.31,
+  "driver_seconds": 47.20605633299783,
+  "grade_seconds": 3.027,
+  "outer_deadline_exceeded": false,
+  "patch_kind": "explicit-nonempty",
+  "nonempty_patch": true,
+  "explicit_submission": true,
+  "fallback_patch": false,
+  "patch_bytes": 805,
+  "patch_sha256": "46017310f21ab0e39b69ded6930459ba7bc35f3583bc3627a397786bc267c05a",
+  "grade_failure_signals": {
+    "test_process_exit_code": 1,
+    "nonpass_required_node_count": 1,
+    "missing_required_node_count": 0,
+    "exception_type_mentions_in_test_output": [],
+    "exception_mentions_scope": "Heuristic mentions only; expected/base test messages can include exception names. Corroborate with missing/import evidence."
+  },
+  "termination_evidence": {
+    "harness_session_timeout_reported": false,
+    "unmatched_api_requests": 0,
+    "last_recorded_response": {
+      "call_id": "0009",
+      "status": "model_response",
+      "thinking_present": true,
+      "thinking_characters": 167,
+      "done_reason": "stop",
+      "provider_done": true,
+      "visible_characters": 542,
+      "tool_call_count": 0,
+      "usage": {
+        "prompt_eval_count": 19552,
+        "eval_count": 172,
+        "thinking_eval_count": null,
+        "total_duration": 1315396792,
+        "load_duration": 1707667,
+        "prompt_eval_duration": 158135000,
+        "eval_duration": 1104151000
+      },
+      "api_wall_seconds": 1.319604915999662,
+      "request_sha256": "b6fd6ae10971c3a78f981e3390ee64c85f8f239243291cc5473987277ed61a12",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "effective_think": true,
+      "response_sha256": "c77bb2d661d38e1b91fc7ce3d229f1182e9eb666745bfa0945ccb7c8c824bf10"
+    }
+  },
+  "api": {
+    "request_count": 9,
+    "model_response_count": 9,
+    "error_count": 0,
+    "profile_violations": [],
+    "request_thinking_history_field_count": 0,
+    "thinking_response_count": 9,
+    "thinking_characters": 14902,
+    "prompt_eval_count": 124928,
+    "eval_count": 4530,
+    "provider_thinking_eval_count": null,
+    "api_wall_seconds": 40.8198753729921,
+    "provider_total_seconds": 40.778698082999995,
+    "provider_load_seconds": 0.014214249999999998,
+    "provider_prompt_eval_seconds": 6.253762999,
+    "provider_eval_seconds": 33.95424,
+    "calls": [
+      {
+        "call_id": "0001",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 1232,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 291,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 7380,
+          "eval_count": 435,
+          "thinking_eval_count": null,
+          "total_duration": 5145911583,
+          "load_duration": 1174208,
+          "prompt_eval_duration": 2048132999,
+          "eval_duration": 2872753000
+        },
+        "api_wall_seconds": 5.151046040999063,
+        "request_sha256": "e804ff3e05749a2d3bde69271daf82fa6d9e38f20eb305e4848ca8b196e3bed6",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "b4844dbc74572f3b4c04f8f4cf8cb7a95aecccdd849a073f8613ffdee26c6ae8"
+      },
+      {
+        "call_id": "0002",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 802,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 0,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 9090,
+          "eval_count": 256,
+          "thinking_eval_count": null,
+          "total_duration": 2335007917,
+          "load_duration": 1660917,
+          "prompt_eval_duration": 552305000,
+          "eval_duration": 1759828000
+        },
+        "api_wall_seconds": 2.339896958001191,
+        "request_sha256": "abcd82bc4362d77c31cdc64f9d5dc7ea4d2c04c020ffb074b2b7cb029a950611",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "4f71416b9940c901d8f39d8dea46823190e33a11fd6fb7e141f6922749dc512a"
+      },
+      {
+        "call_id": "0003",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 2234,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 0,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 10979,
+          "eval_count": 647,
+          "thinking_eval_count": null,
+          "total_duration": 5278957791,
+          "load_duration": 1759541,
+          "prompt_eval_duration": 617582000,
+          "eval_duration": 4620349000
+        },
+        "api_wall_seconds": 5.283953749996726,
+        "request_sha256": "6552836211578d30ab67fdc43b130d118a2a30af16ae02dbb82a92ae7bbd8718",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "68270db35416b5a015a02fe7c77acb106322bd77a34fbccc1d3eb15c9a1bc02e"
+      },
+      {
+        "call_id": "0004",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 4430,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 396,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 12807,
+          "eval_count": 1389,
+          "thinking_eval_count": null,
+          "total_duration": 10413636000,
+          "load_duration": 1725916,
+          "prompt_eval_duration": 595973000,
+          "eval_duration": 9776539000
+        },
+        "api_wall_seconds": 10.418246207998891,
+        "request_sha256": "df79b52f0d8cd52ad0b5e7923d152dc9a3228b618862897195b62fb23cd758ee",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "047ab83885c22c89aaf6df44035807c5ad7c8cccff84fbf63fadb31d60068cd0"
+      },
+      {
+        "call_id": "0005",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 714,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 0,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 13268,
+          "eval_count": 194,
+          "thinking_eval_count": null,
+          "total_duration": 1729475542,
+          "load_duration": 1820750,
+          "prompt_eval_duration": 185083000,
+          "eval_duration": 1500172000
+        },
+        "api_wall_seconds": 1.7343277079999098,
+        "request_sha256": "587fa4805acd918b6a347cf065ba59c09d6c3820ac5db04f1f2e44c64dc454b5",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "f1558dc3b76cdc79a6864c5d5362d61d5f794d730b8c2f00802a8c5fb5bfa4c4"
+      },
+      {
+        "call_id": "0006",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 1702,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 0,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 15275,
+          "eval_count": 392,
+          "thinking_eval_count": null,
+          "total_duration": 4234171750,
+          "load_duration": 1444250,
+          "prompt_eval_duration": 668213000,
+          "eval_duration": 3522279000
+        },
+        "api_wall_seconds": 4.238378999998531,
+        "request_sha256": "6973499f01fbe59618a528ed4454ecd03c756854741bc088a130627bce44ab95",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "d747978fe271b06923532da775022265a739a8453ec25b5eb851ffec4b34459b"
+      },
+      {
+        "call_id": "0007",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 1462,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 0,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 17284,
+          "eval_count": 344,
+          "thinking_eval_count": null,
+          "total_duration": 3715725125,
+          "load_duration": 1385084,
+          "prompt_eval_duration": 697203000,
+          "eval_duration": 2970930000
+        },
+        "api_wall_seconds": 3.7197258329979377,
+        "request_sha256": "21b5c4b4483c10e846ad2e9d31d17bc016a1a3978e90cb749e67be64b5233b82",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "22eab0c3c717620491f4873cd67184e24298b73c1549f03aafbf3a5fc84c95be"
+      },
+      {
+        "call_id": "0008",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 2159,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 892,
+        "tool_call_count": 1,
+        "usage": {
+          "prompt_eval_count": 19293,
+          "eval_count": 701,
+          "thinking_eval_count": null,
+          "total_duration": 6610415583,
+          "load_duration": 1535917,
+          "prompt_eval_duration": 731136000,
+          "eval_duration": 5827239000
+        },
+        "api_wall_seconds": 6.6146949590001896,
+        "request_sha256": "a12b717225a259456a357c2ed00cb4b2559f409ba8188666b5cda52a3e9a31c5",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "3697d3665d18693a4ea3f867b62a68d344740428acfdcda22d2ac26dfd3d4460"
+      },
+      {
+        "call_id": "0009",
+        "status": "model_response",
+        "thinking_present": true,
+        "thinking_characters": 167,
+        "done_reason": "stop",
+        "provider_done": true,
+        "visible_characters": 542,
+        "tool_call_count": 0,
+        "usage": {
+          "prompt_eval_count": 19552,
+          "eval_count": 172,
+          "thinking_eval_count": null,
+          "total_duration": 1315396792,
+          "load_duration": 1707667,
+          "prompt_eval_duration": 158135000,
+          "eval_duration": 1104151000
+        },
+        "api_wall_seconds": 1.319604915999662,
+        "request_sha256": "b6fd6ae10971c3a78f981e3390ee64c85f8f239243291cc5473987277ed61a12",
+        "model": "gemma4:e4b",
+        "options": {
+          "temperature": 0.0,
+          "num_predict": 2048,
+          "num_ctx": 32768,
+          "seed": 0
+        },
+        "effective_think": true,
+        "response_sha256": "c77bb2d661d38e1b91fc7ce3d229f1182e9eb666745bfa0945ccb7c8c824bf10"
+      }
+    ],
+    "done_reasons": {
+      "stop": 9
+    },
+    "length_response_count": 0,
+    "error_categories": {},
+    "full_prompt_delivered_every_request": true,
+    "skill_tools_advertised_every_request": true,
+    "provider_decode_tokens_per_second": 133.41485481636462
+  },
+  "behavior": {
+    "tool_call_counts": {
+      "read_file": 3,
+      "edit_file": 1,
+      "run_command": 3,
+      "submit_patch": 1
+    },
+    "skill_action_calls": {},
+    "continuation_nudge_events": 0,
+    "maximum_continuation_nudges_marker": false,
+    "successful_checkpoint_responses": 0,
+    "successful_rollback_responses": 0,
+    "skill_verify_passed_flag_count": 0,
+    "skill_review_ready_flag_count": 0,
+    "skill_review_current_flag_count": 0,
+    "test_command_clues": [
+      {
+        "test_runner_command": true,
+        "exit_code": 2,
+        "zero_selected_test_output": false,
+        "observed_passing_test_count": 0,
+        "passing_nonzero_test_command_clue": false,
+        "collection_problem_mentioned": true,
+        "source": "run_command",
+        "after_last_official_edit": true
+      },
+      {
+        "test_runner_command": true,
+        "exit_code": 2,
+        "zero_selected_test_output": false,
+        "observed_passing_test_count": 0,
+        "passing_nonzero_test_command_clue": false,
+        "collection_problem_mentioned": true,
+        "source": "run_command",
+        "after_last_official_edit": true
+      },
+      {
+        "test_runner_command": true,
+        "exit_code": 2,
+        "zero_selected_test_output": false,
+        "observed_passing_test_count": 0,
+        "passing_nonzero_test_command_clue": false,
+        "collection_problem_mentioned": true,
+        "source": "run_command",
+        "after_last_official_edit": true
+      }
+    ],
+    "nonzero_passing_test_command_clues": 0,
+    "zero_selected_test_command_clues": 0,
+    "scope": "Typed trace/output clues, not correctness proof. Command-to-response pairing follows tool-name order; last edit covers official edit/write tools only. No raw output exported."
+  },
+  "invariant_checks": {
+    "generation_profile": true,
+    "budget_profile": true,
+    "thinking_mode": true,
+    "same_agent_assets": true,
+    "driver_matches_freeze": true,
+    "snapshot_matches_freeze": true,
+    "prepared_venv": true,
+    "prepared_python": true,
+    "only_agent_visible_fields": true,
+    "api_profile": true,
+    "full_prompt_delivery": true,
+    "no_reasoning_history_field": true,
+    "agent_subject_source": true,
+    "model_calls_within_budget": true,
+    "counted_tools_within_budget": true,
+    "grade_pretest_source": true,
+    "grade_runtime_source": true,
+    "graded_returned_patch": true,
+    "grade_base_commit": true
+  },
+  "invariant_violations": [],
+  "source_binding": {
+    "snapshot_sha256": "9c364deaa72bdede13f623d90d7a6996cb83bd3d0f973c50030061663cdf30fc",
+    "target_python": "Python 3.11.15",
+    "driver_sha256": "98e3ed68b7ac28f6385fb2c1333c4679007d801660d50fe4047bb46063669b5b",
+    "preface_sha256": "2274df0045ae849c732eb3495c00572339f07fb03506f46f82cc5ba4241175a3"
+  },
+  "harness_error_category": null,
+  "grade_error_category": null,
+  "grade_artifact": "grades/trial-002.json",
+  "patch_artifact": "patches/trial-002.patch",
+  "patch_published": true,
+  "patch_withheld_reason": null,
+  "patch_subject_files": [
+    "src/_pytest/assertion/rewrite.py"
+  ]
+}
