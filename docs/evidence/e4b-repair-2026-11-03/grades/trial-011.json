@@ -1,0 +1,61 @@
+{
+  "instance_id": "pallets__flask-4992",
+  "status": "graded",
+  "resolved": false,
+  "candidate_patch_sha256": "d668b4039bfb8131099d416e6d8a98e13bc8b9d437bebb6d46614149446d1028",
+  "base_commit": "4c288bc97ea371817199908d0d9b12de9dae327e",
+  "base_snapshot_commit": "dd00eddf0b5729c3d180e6eca9ffdff2d2255cee",
+  "base_archive_sha256": "3643d985acd981e2787a937fe773d8912c95988a28e8ee79832f4c5530e29896",
+  "gold_patch_sha256": "db912cc1331807c9b0715766eb45a5fac8c4036a99dd54c9ce998b675d0d8697",
+  "test_patch_sha256": "851c94393511592a1e3b65ea1d909b73b342ef55388819c6bd9632edb71ad304",
+  "changed_files": [
+    "src/flask/config.py"
+  ],
+  "subject_module_relative_path": "src/flask/__init__.py",
+  "actual_import_from_candidate_snapshot": true,
+  "python_version": "Python 3.11.15",
+  "test_process_exit_code": 1,
+  "test_outcomes": {
+    "FAIL_TO_PASS": {
+      "tests/test_config.py::test_config_from_file_toml": "call:failed"
+    },
+    "PASS_TO_PASS": {
+      "tests/test_config.py::test_config_from_pyfile": "passed",
+      "tests/test_config.py::test_config_from_object": "passed",
+      "tests/test_config.py::test_config_from_file_json": "passed",
+      "tests/test_config.py::test_from_prefixed_env": "passed",
+      "tests/test_config.py::test_from_prefixed_env_custom_prefix": "passed",
+      "tests/test_config.py::test_from_prefixed_env_nested": "passed",
+      "tests/test_config.py::test_config_from_mapping": "passed",
+      "tests/test_config.py::test_config_from_class": "passed",
+      "tests/test_config.py::test_config_from_envvar": "passed",
+      "tests/test_config.py::test_config_from_envvar_missing": "passed",
+      "tests/test_config.py::test_config_missing": "passed",
+      "tests/test_config.py::test_config_missing_file": "passed",
+      "tests/test_config.py::test_custom_config_class": "passed",
+      "tests/test_config.py::test_session_lifetime": "passed",
+      "tests/test_config.py::test_get_namespace": "passed",
+      "tests/test_config.py::test_from_pyfile_weird_encoding[utf-8]": "passed",
+      "tests/test_config.py::test_from_pyfile_weird_encoding[iso-8859-15]": "passed",
+      "tests/test_config.py::test_from_pyfile_weird_encoding[latin-1]": "passed"
+    }
+  },
+  "selected_node_counts": {
+    "FAIL_TO_PASS": {
+      "required": 1,
+      "passed": 0,
+      "status_counts": {
+        "call:failed": 1
+      }
+    },
+    "PASS_TO_PASS": {
+      "required": 18,
+      "passed": 18,
+      "status_counts": {
+        "passed": 18
+      }
+    }
+  },
+  "collection_error_count": 0,
+  "error_category": null
+}

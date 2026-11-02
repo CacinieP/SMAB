@@ -1,0 +1,121 @@
+{
+  "verified_at_utc": "2026-11-02T18:59:25.475812+00:00",
+  "status": "PASS",
+  "primary_trials": 14,
+  "paired_tasks": 7,
+  "frozen_hashes_match": 73,
+  "all_profile_and_prompt_delivery_match": true,
+  "actual_nonempty_thinking_messages": 0,
+  "valid_model_responses": 356,
+  "raw_api_errors_primary": 0,
+  "maximum_logical_model_calls": 41,
+  "maximum_counted_tools": 26,
+  "maximum_whole_driver_process_seconds": 118.456,
+  "resolved_by_arm": {
+    "baseline": 1,
+    "optimized": 1
+  },
+  "checks": [
+    {
+      "trial": "trial-001",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 30,
+      "resolved": false
+    },
+    {
+      "trial": "trial-002",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 25,
+      "resolved": false
+    },
+    {
+      "trial": "trial-003",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 29,
+      "resolved": false
+    },
+    {
+      "trial": "trial-004",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 37,
+      "resolved": false
+    },
+    {
+      "trial": "trial-005",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 17,
+      "resolved": false
+    },
+    {
+      "trial": "trial-006",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 22,
+      "resolved": false
+    },
+    {
+      "trial": "trial-007",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 39,
+      "resolved": false
+    },
+    {
+      "trial": "trial-008",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 39,
+      "resolved": false
+    },
+    {
+      "trial": "trial-009",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 13,
+      "resolved": true
+    },
+    {
+      "trial": "trial-010",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 12,
+      "resolved": true
+    },
+    {
+      "trial": "trial-011",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 14,
+      "resolved": false
+    },
+    {
+      "trial": "trial-012",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 17,
+      "resolved": false
+    },
+    {
+      "trial": "trial-013",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 21,
+      "resolved": false
+    },
+    {
+      "trial": "trial-014",
+      "full_frozen_prompt_delivered_every_request": true,
+      "skill_tools_advertised": true,
+      "valid_model_responses": 41,
+      "resolved": false
+    }
+  ],
+  "source_evidence_sha256": "6b19650e7db9775143f24d1764ef69b0f0d2ac1ed59b7862ad352e3c2dc365b7",
+  "length_response_count": 6,
+  "verification_scope": "Local owner checked private request contents; public hashes/filtered flags do not expose or independently reproduce those contents"
+}

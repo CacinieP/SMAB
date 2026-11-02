@@ -1,0 +1,94 @@
+{
+  "instance_id": "pallets__flask-4045",
+  "status": "graded",
+  "resolved": false,
+  "candidate_patch_sha256": "29a9949e7f8c147b4fcfed1e763e07498188d3acf91c3a0a3dda895fcb5905c4",
+  "base_commit": "d8c37f43724cd9fb0870f77877b7c4c7e38a19e0",
+  "base_snapshot_commit": "41905944d8a0b1081a798dce3922d3893bebfb8a",
+  "base_archive_sha256": "844fa3af247aa5004e4691f56ced6cbb1a26c6e6484385d1026ce970f28f273e",
+  "gold_patch_sha256": "6c4055e1cb35cf9c5d50bbba639af1787d6f5d5146f9539cedc364a43d01c687",
+  "test_patch_sha256": "def1da53a3857f67b571f108abde6fcdac61da5c7820c0749fa7c487fe87a62a",
+  "changed_files": [
+    "src/flask/blueprints.py"
+  ],
+  "subject_module_relative_path": "src/flask/__init__.py",
+  "actual_import_from_candidate_snapshot": true,
+  "python_version": "Python 3.11.15",
+  "test_process_exit_code": 1,
+  "test_outcomes": {
+    "FAIL_TO_PASS": {
+      "tests/test_blueprints.py::test_dotted_name_not_allowed": "call:failed",
+      "tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots": "call:failed"
+    },
+    "PASS_TO_PASS": {
+      "tests/test_basic.py::test_method_route_no_methods": "passed",
+      "tests/test_basic.py::test_disallow_string_for_allowed_methods": "passed",
+      "tests/test_basic.py::test_error_handler_unknown_code": "passed",
+      "tests/test_basic.py::test_request_locals": "passed",
+      "tests/test_basic.py::test_exception_propagation": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-True-False-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-False-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-False-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-False-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[None-False-False-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-True-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-True-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-True-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-True-False-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-False-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-False-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-False-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[True-False-False-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-True-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-True-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-True-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-True-False-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-False-True-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-False-True-False]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-False-False-True]": "passed",
+      "tests/test_basic.py::test_werkzeug_passthrough_errors[False-False-False-False]": "passed",
+      "tests/test_basic.py::test_get_method_on_g": "passed",
+      "tests/test_basic.py::test_g_iteration_protocol": "passed",
+      "tests/test_basic.py::test_run_defaults": "passed",
+      "tests/test_basic.py::test_run_server_port": "passed",
+      "tests/test_basic.py::test_run_from_config[None-None-pocoo.org:8080-pocoo.org-8080]": "passed",
+      "tests/test_basic.py::test_run_from_config[localhost-None-pocoo.org:8080-localhost-8080]": "passed",
+      "tests/test_basic.py::test_run_from_config[None-80-pocoo.org:8080-pocoo.org-80]": "passed",
+      "tests/test_basic.py::test_run_from_config[localhost-80-pocoo.org:8080-localhost-80]": "passed",
+      "tests/test_basic.py::test_run_from_config[localhost-0-localhost:8080-localhost-0]": "passed",
+      "tests/test_basic.py::test_run_from_config[None-None-localhost:8080-localhost-8080]": "passed",
+      "tests/test_basic.py::test_run_from_config[None-None-localhost:0-localhost-0]": "passed",
+      "tests/test_basic.py::test_app_freed_on_zero_refcount": "passed",
+      "tests/test_blueprints.py::test_template_filter": "passed",
+      "tests/test_blueprints.py::test_add_template_filter": "passed",
+      "tests/test_blueprints.py::test_template_filter_with_name": "passed",
+      "tests/test_blueprints.py::test_add_template_filter_with_name": "passed",
+      "tests/test_blueprints.py::test_template_test": "passed",
+      "tests/test_blueprints.py::test_add_template_test": "passed",
+      "tests/test_blueprints.py::test_template_test_with_name": "passed",
+      "tests/test_blueprints.py::test_add_template_test_with_name": "passed",
+      "tests/test_blueprints.py::test_template_global": "passed"
+    }
+  },
+  "selected_node_counts": {
+    "FAIL_TO_PASS": {
+      "required": 2,
+      "passed": 0,
+      "status_counts": {
+        "call:failed": 2
+      }
+    },
+    "PASS_TO_PASS": {
+      "required": 50,
+      "passed": 50,
+      "status_counts": {
+        "passed": 50
+      }
+    }
+  },
+  "collection_error_count": 0,
+  "error_category": null
+}

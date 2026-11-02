@@ -1,0 +1,98 @@
+{
+  "instance_id": "pytest-dev__pytest-9359",
+  "status": "graded",
+  "resolved": false,
+  "candidate_patch_sha256": "9e949afcf26468b5c63f75b472db56a34c533bb700ca768845744d39091cb63f",
+  "base_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+  "base_snapshot_commit": "4dbd8cca96826b6f43e5606e9467c136e7799edc",
+  "base_archive_sha256": "72bd646a146371e9d599406e97286a0717f7d56b16d090419b4f6c5800dc095f",
+  "gold_patch_sha256": "2d9598fe2b5eaf3e92ba22058dc2acc4b5d13dd0f2ef1e4fc6b7541e0db6055d",
+  "test_patch_sha256": "44dafb9d328533b6fdd3cc6a57c2e3ed0cd4f1fb5ec23f116aac47508eac4662",
+  "changed_files": [
+    "src/_pytest/_code/code.py",
+    "src/_pytest/assertion/util.py"
+  ],
+  "subject_module_relative_path": null,
+  "actual_import_from_candidate_snapshot": false,
+  "python_version": "Python 3.11.15",
+  "test_process_exit_code": 1,
+  "test_outcomes": {
+    "FAIL_TO_PASS": {
+      "testing/code/test_source.py::test_decorator": "missing"
+    },
+    "PASS_TO_PASS": {
+      "testing/code/test_source.py::test_source_str_function": "missing",
+      "testing/code/test_source.py::test_source_from_function": "missing",
+      "testing/code/test_source.py::test_source_from_method": "missing",
+      "testing/code/test_source.py::test_source_from_lines": "missing",
+      "testing/code/test_source.py::test_source_from_inner_function": "missing",
+      "testing/code/test_source.py::test_source_strips": "missing",
+      "testing/code/test_source.py::test_source_strip_multiline": "missing",
+      "testing/code/test_source.py::TestAccesses::test_getrange": "missing",
+      "testing/code/test_source.py::TestAccesses::test_getrange_step_not_supported": "missing",
+      "testing/code/test_source.py::TestAccesses::test_getline": "missing",
+      "testing/code/test_source.py::TestAccesses::test_len": "missing",
+      "testing/code/test_source.py::TestAccesses::test_iter": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatement": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_triple_quoted": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_within_constructs": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_bug": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_bug2": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_ast_issue58": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_out_of_bounds_py3": "missing",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_with_syntaxerror_issue7": "missing",
+      "testing/code/test_source.py::test_getstartingblock_singleline": "missing",
+      "testing/code/test_source.py::test_getline_finally": "missing",
+      "testing/code/test_source.py::test_getfuncsource_dynamic": "missing",
+      "testing/code/test_source.py::test_getfuncsource_with_multine_string": "missing",
+      "testing/code/test_source.py::test_deindent": "missing",
+      "testing/code/test_source.py::test_source_of_class_at_eof_without_newline": "missing",
+      "testing/code/test_source.py::test_source_fallback": "missing",
+      "testing/code/test_source.py::test_findsource_fallback": "missing",
+      "testing/code/test_source.py::test_findsource": "missing",
+      "testing/code/test_source.py::test_getfslineno": "missing",
+      "testing/code/test_source.py::test_code_of_object_instance_with_call": "missing",
+      "testing/code/test_source.py::test_oneline": "missing",
+      "testing/code/test_source.py::test_comment_and_no_newline_at_end": "missing",
+      "testing/code/test_source.py::test_oneline_and_comment": "missing",
+      "testing/code/test_source.py::test_comments": "missing",
+      "testing/code/test_source.py::test_comment_in_statement": "missing",
+      "testing/code/test_source.py::test_source_with_decorator": "missing",
+      "testing/code/test_source.py::test_single_line_else": "missing",
+      "testing/code/test_source.py::test_single_line_finally": "missing",
+      "testing/code/test_source.py::test_issue55": "missing",
+      "testing/code/test_source.py::test_multiline": "missing",
+      "testing/code/test_source.py::TestTry::test_body": "missing",
+      "testing/code/test_source.py::TestTry::test_except_line": "missing",
+      "testing/code/test_source.py::TestTry::test_except_body": "missing",
+      "testing/code/test_source.py::TestTry::test_else": "missing",
+      "testing/code/test_source.py::TestTryFinally::test_body": "missing",
+      "testing/code/test_source.py::TestTryFinally::test_finally": "missing",
+      "testing/code/test_source.py::TestIf::test_body": "missing",
+      "testing/code/test_source.py::TestIf::test_elif_clause": "missing",
+      "testing/code/test_source.py::TestIf::test_elif": "missing",
+      "testing/code/test_source.py::TestIf::test_else": "missing",
+      "testing/code/test_source.py::test_semicolon": "missing",
+      "testing/code/test_source.py::test_def_online": "missing",
+      "testing/code/test_source.py::test_getstartingblock_multiline": "missing"
+    }
+  },
+  "selected_node_counts": {
+    "FAIL_TO_PASS": {
+      "required": 1,
+      "passed": 0,
+      "status_counts": {
+        "missing": 1
+      }
+    },
+    "PASS_TO_PASS": {
+      "required": 54,
+      "passed": 0,
+      "status_counts": {
+        "missing": 54
+      }
+    }
+  },
+  "collection_error_count": 0,
+  "error_category": null
+}

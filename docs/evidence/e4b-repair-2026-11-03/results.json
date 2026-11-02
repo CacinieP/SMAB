@@ -1,0 +1,175 @@
+{
+  "trial_artifacts": [
+    "trials/trial-001.json",
+    "trials/trial-002.json",
+    "trials/trial-003.json",
+    "trials/trial-004.json",
+    "trials/trial-005.json",
+    "trials/trial-006.json",
+    "trials/trial-007.json",
+    "trials/trial-008.json",
+    "trials/trial-009.json",
+    "trials/trial-010.json",
+    "trials/trial-011.json",
+    "trials/trial-012.json",
+    "trials/trial-013.json",
+    "trials/trial-014.json"
+  ],
+  "resolved_by_arm": {
+    "baseline": 1,
+    "optimized": 1
+  },
+  "paired": {
+    "B_wins": 0,
+    "B_losses": 0,
+    "both_pass": 1,
+    "both_fail": 6,
+    "ties": 7
+  },
+  "complete_valid_pairs": 7,
+  "length_endings": {
+    "total": 6,
+    "by_trial": {
+      "trial-001": 1,
+      "trial-002": 0,
+      "trial-003": 0,
+      "trial-004": 2,
+      "trial-005": 0,
+      "trial-006": 0,
+      "trial-007": 1,
+      "trial-008": 0,
+      "trial-009": 0,
+      "trial-010": 0,
+      "trial-011": 0,
+      "trial-012": 0,
+      "trial-013": 0,
+      "trial-014": 2
+    },
+    "events": [
+      {
+        "trial": "trial-001",
+        "call_id": "0014",
+        "prompt_eval_count": 12753,
+        "eval_count": 2048
+      },
+      {
+        "trial": "trial-004",
+        "call_id": "0033",
+        "prompt_eval_count": 32731,
+        "eval_count": 36
+      },
+      {
+        "trial": "trial-004",
+        "call_id": "0035",
+        "prompt_eval_count": 32758,
+        "eval_count": 10
+      },
+      {
+        "trial": "trial-007",
+        "call_id": "0022",
+        "prompt_eval_count": 19484,
+        "eval_count": 2048
+      },
+      {
+        "trial": "trial-014",
+        "call_id": "0016",
+        "prompt_eval_count": 17738,
+        "eval_count": 2048
+      },
+      {
+        "trial": "trial-014",
+        "call_id": "0036",
+        "prompt_eval_count": 32392,
+        "eval_count": 373
+      }
+    ]
+  },
+  "cost_by_arm": {
+    "baseline": {
+      "mean_process_wall_seconds_valid": 57.21471428571429,
+      "mean_driver_seconds_valid": 56.515215363285925,
+      "mean_llm_calls_valid": 24.857142857142858,
+      "mean_counted_tools_valid": 14.857142857142858,
+      "mean_all_trace_tools_valid": 16.142857142857142,
+      "mean_prompt_eval_count_valid": 406205.28571428574,
+      "mean_eval_count_valid": 4944.714285714285,
+      "mean_api_wall_seconds_valid": 50.59935322042812,
+      "mean_provider_total_seconds_valid": 50.488414184,
+      "total_prompt_eval_count": 2843437,
+      "total_eval_count": 34613,
+      "total_llm_calls": 174,
+      "total_official_counted_tools": 104
+    },
+    "optimized": {
+      "mean_process_wall_seconds_valid": 57.067142857142855,
+      "mean_driver_seconds_valid": 56.22214382742771,
+      "mean_llm_calls_valid": 26,
+      "mean_counted_tools_valid": 15.571428571428571,
+      "mean_all_trace_tools_valid": 17.857142857142858,
+      "mean_prompt_eval_count_valid": 432979.28571428574,
+      "mean_eval_count_valid": 5176.857142857143,
+      "mean_api_wall_seconds_valid": 50.472924844854525,
+      "mean_provider_total_seconds_valid": 50.35625861928571,
+      "total_prompt_eval_count": 3030855,
+      "total_eval_count": 36238,
+      "total_llm_calls": 182,
+      "total_official_counted_tools": 109
+    }
+  },
+  "patch_kinds_by_arm": {
+    "baseline": {
+      "explicit-empty": 2,
+      "empty-no-submission": 2,
+      "explicit-nonempty": 3
+    },
+    "optimized": {
+      "explicit-nonempty": 6,
+      "explicit-empty": 1
+    }
+  },
+  "task_pairs": [
+    {
+      "instance_id": "pallets__flask-4045",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pallets__flask-4992",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-8906",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-9359",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "A_resolved": true,
+      "B_resolved": true,
+      "outcome": "both_pass"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "A_resolved": false,
+      "B_resolved": false,
+      "outcome": "both_fail"
+    }
+  ],
+  "interpretation": "Exact local single-seed observations; seven distinct task units, no population or official benchmark claim"
+}

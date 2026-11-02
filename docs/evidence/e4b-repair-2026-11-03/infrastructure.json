@@ -1,0 +1,43 @@
+{
+  "retained_attempts": [
+    {
+      "archive": "attempt-1",
+      "effective_model_responses": 0,
+      "primary_model_samples": 0,
+      "reason_category": "service_unavailable_before_model_response",
+      "process_records": [
+        {
+          "trial": "trial-001",
+          "instance_id": "pytest-dev__pytest-8906",
+          "arm": "baseline",
+          "request_count": 6,
+          "model_response_count": 0,
+          "error_count": 6,
+          "error_types": {
+            "connection_refused": 6
+          },
+          "process_wall_seconds": 90.299
+        },
+        {
+          "trial": "trial-002",
+          "instance_id": "pytest-dev__pytest-8906",
+          "arm": "optimized",
+          "request_count": 6,
+          "model_response_count": 0,
+          "error_count": 6,
+          "error_types": {
+            "connection_refused": 6
+          },
+          "process_wall_seconds": null
+        }
+      ]
+    }
+  ],
+  "retry": {
+    "attempt": 2,
+    "availability_guard_sha256": "7fc07e5da3bdfb1fb1ff104f2746d72180d0fdf8a8814b0b7b33c997c80a0cf3",
+    "original_frozen_files_unchanged": true
+  },
+  "integrity_event_count": 1,
+  "integrity_event_summary": "Proposed grader guard withdrawn before candidate grading; original frozen grader restored. No prompt/runtime change."
+}

@@ -1,0 +1,97 @@
+{
+  "instance_id": "pytest-dev__pytest-9359",
+  "status": "graded",
+  "resolved": false,
+  "candidate_patch_sha256": "7e5fadcee0a8bad0f7086631b6d864f01e47eb2e5621b79b8c63e74b6bfd812a",
+  "base_commit": "e2ee3144ed6e241dea8d96215fcdca18b3892551",
+  "base_snapshot_commit": "4dbd8cca96826b6f43e5606e9467c136e7799edc",
+  "base_archive_sha256": "72bd646a146371e9d599406e97286a0717f7d56b16d090419b4f6c5800dc095f",
+  "gold_patch_sha256": "2d9598fe2b5eaf3e92ba22058dc2acc4b5d13dd0f2ef1e4fc6b7541e0db6055d",
+  "test_patch_sha256": "44dafb9d328533b6fdd3cc6a57c2e3ed0cd4f1fb5ec23f116aac47508eac4662",
+  "changed_files": [
+    "src/pytest/__init__.py"
+  ],
+  "subject_module_relative_path": "src/pytest/__init__.py",
+  "actual_import_from_candidate_snapshot": true,
+  "python_version": "Python 3.11.15",
+  "test_process_exit_code": 1,
+  "test_outcomes": {
+    "FAIL_TO_PASS": {
+      "testing/code/test_source.py::test_decorator": "call:failed"
+    },
+    "PASS_TO_PASS": {
+      "testing/code/test_source.py::test_source_str_function": "passed",
+      "testing/code/test_source.py::test_source_from_function": "passed",
+      "testing/code/test_source.py::test_source_from_method": "passed",
+      "testing/code/test_source.py::test_source_from_lines": "passed",
+      "testing/code/test_source.py::test_source_from_inner_function": "passed",
+      "testing/code/test_source.py::test_source_strips": "passed",
+      "testing/code/test_source.py::test_source_strip_multiline": "passed",
+      "testing/code/test_source.py::TestAccesses::test_getrange": "passed",
+      "testing/code/test_source.py::TestAccesses::test_getrange_step_not_supported": "passed",
+      "testing/code/test_source.py::TestAccesses::test_getline": "passed",
+      "testing/code/test_source.py::TestAccesses::test_len": "passed",
+      "testing/code/test_source.py::TestAccesses::test_iter": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatement": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_triple_quoted": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_within_constructs": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_bug": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_bug2": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_ast_issue58": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_out_of_bounds_py3": "passed",
+      "testing/code/test_source.py::TestSourceParsing::test_getstatementrange_with_syntaxerror_issue7": "passed",
+      "testing/code/test_source.py::test_getstartingblock_singleline": "passed",
+      "testing/code/test_source.py::test_getline_finally": "passed",
+      "testing/code/test_source.py::test_getfuncsource_dynamic": "passed",
+      "testing/code/test_source.py::test_getfuncsource_with_multine_string": "passed",
+      "testing/code/test_source.py::test_deindent": "passed",
+      "testing/code/test_source.py::test_source_of_class_at_eof_without_newline": "passed",
+      "testing/code/test_source.py::test_source_fallback": "passed",
+      "testing/code/test_source.py::test_findsource_fallback": "passed",
+      "testing/code/test_source.py::test_findsource": "passed",
+      "testing/code/test_source.py::test_getfslineno": "passed",
+      "testing/code/test_source.py::test_code_of_object_instance_with_call": "passed",
+      "testing/code/test_source.py::test_oneline": "passed",
+      "testing/code/test_source.py::test_comment_and_no_newline_at_end": "passed",
+      "testing/code/test_source.py::test_oneline_and_comment": "passed",
+      "testing/code/test_source.py::test_comments": "passed",
+      "testing/code/test_source.py::test_comment_in_statement": "passed",
+      "testing/code/test_source.py::test_source_with_decorator": "passed",
+      "testing/code/test_source.py::test_single_line_else": "passed",
+      "testing/code/test_source.py::test_single_line_finally": "passed",
+      "testing/code/test_source.py::test_issue55": "passed",
+      "testing/code/test_source.py::test_multiline": "passed",
+      "testing/code/test_source.py::TestTry::test_body": "passed",
+      "testing/code/test_source.py::TestTry::test_except_line": "passed",
+      "testing/code/test_source.py::TestTry::test_except_body": "passed",
+      "testing/code/test_source.py::TestTry::test_else": "passed",
+      "testing/code/test_source.py::TestTryFinally::test_body": "passed",
+      "testing/code/test_source.py::TestTryFinally::test_finally": "passed",
+      "testing/code/test_source.py::TestIf::test_body": "passed",
+      "testing/code/test_source.py::TestIf::test_elif_clause": "passed",
+      "testing/code/test_source.py::TestIf::test_elif": "passed",
+      "testing/code/test_source.py::TestIf::test_else": "passed",
+      "testing/code/test_source.py::test_semicolon": "passed",
+      "testing/code/test_source.py::test_def_online": "passed",
+      "testing/code/test_source.py::test_getstartingblock_multiline": "passed"
+    }
+  },
+  "selected_node_counts": {
+    "FAIL_TO_PASS": {
+      "required": 1,
+      "passed": 0,
+      "status_counts": {
+        "call:failed": 1
+      }
+    },
+    "PASS_TO_PASS": {
+      "required": 54,
+      "passed": 54,
+      "status_counts": {
+        "passed": 54
+      }
+    }
+  },
+  "collection_error_count": 0,
+  "error_category": null
+}
