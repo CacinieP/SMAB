@@ -39,7 +39,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--extra-body", help="JSON object merged into each endpoint request")
     run.add_argument(
         "--system-prompt-file",
-        help="UTF-8 file replacing the default task policy; saved verbatim in run metadata",
+        help="UTF-8 file replacing the default task policy; decoded prompt saved in run metadata",
     )
     run.add_argument("--output", default="runs/latest.json")
     run.add_argument("--report", help="Optional Markdown report path")
