@@ -1,0 +1,148 @@
+{
+  "frozen_at_utc": "2026-11-02T16:19:23.466048+00:00",
+  "frozen_at_asia_shanghai": "2026-11-03T00:19:23.466048+08:00",
+  "source_candidate": "candidate-v3",
+  "prompt_file": "prompts/optimized.txt",
+  "sha256": "114c2efea5361813cea2caf426e32ef6f6c4711a5954bfa602fb791208e5cc3e",
+  "applies_to": [
+    "gemma4:e4b",
+    "gemma4:e2b"
+  ],
+  "selection_basis": "Core-only development; restore recovery and nonempty final response while retaining result-grounding policy. Original and shuffled core perfect rate improves for both; alias E2B retains one strict-score failure. No further prompt selection from confirmation.",
+  "known_limitations": [
+    "E2B aliased core: recover_001 improved, arg_003 regressed due to minute-vs-second timestamp string precision; retain original scoring.",
+    "Manual E2B core audit still found accepted status mixed with completion-like wording; perfect score does not establish status truthfulness."
+  ],
+  "core_results": [
+    {
+      "file": "development-trials/e4b-native-aliased-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e4b-native-original-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e4b-native-shuffled-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e4b-native-shuffled-seed42-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e2b-native-aliased-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 0.9935,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 0.9412,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 0.9412,
+          "2": 0.9412,
+          "3": 0.9412
+        }
+      }
+    },
+    {
+      "file": "development-trials/e2b-native-original-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e2b-native-shuffled-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    },
+    {
+      "file": "development-trials/e2b-native-shuffled-seed42-core-candidate-v3-r3.json",
+      "summary": {
+        "overall_mean": 1.0,
+        "overall_stddev": 0.0,
+        "perfect_case_rate_mean": 1.0,
+        "perfect_case_rate_stddev": 0.0,
+        "pass_at_k": {
+          "1": 1.0,
+          "2": 1.0,
+          "3": 1.0
+        }
+      }
+    }
+  ],
+  "confirmation_evaluation_started_before_freeze": false,
+  "confirmation_scenario_content_reviewed_for_prompt_design": false,
+  "confirmation_plan": {
+    "ood_cases": 11,
+    "schema_profiles": [
+      "original seed0",
+      "shuffled seed0",
+      "shuffled seed42",
+      "aliased seed0"
+    ],
+    "supplementary_cases": 13,
+    "supplementary_schema": "original seed0",
+    "policies": [
+      "default",
+      "optimized"
+    ],
+    "repeats": 3
+  }
+}

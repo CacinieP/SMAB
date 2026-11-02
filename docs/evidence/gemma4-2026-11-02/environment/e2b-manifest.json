@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "config": {
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "digest": "sha256:3ff8a734c316b74964b7c7f7318e56ad85077da655a985aaa73f466c450d993a",
+    "size": 241
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.ollama.image.model",
+      "digest": "sha256:6dd7ac24fe13a238898e16e253ebc7a72fa27fb83f2658c2f6c241df3af5937d",
+      "size": 3502493472,
+      "from": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2"
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.projector",
+      "digest": "sha256:7ba3bbacdf1b6959c27f0470defa080942c5a1f37e539b09ff1668c1e6265900",
+      "size": 986833664,
+      "from": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2"
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.draft",
+      "digest": "sha256:dd57b3b7308f65058f87be2e546c0aed07c84731426980f5aff28160fe1df9fb",
+      "size": 97817696,
+      "from": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2"
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.template",
+      "digest": "sha256:b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "size": 13,
+      "from": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2"
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.license",
+      "digest": "sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "size": 11355,
+      "from": "gemma4-validation-20260929:e2b-imatrix-attention-q6-q8-draft2"
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.params",
+      "digest": "sha256:2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "size": 64
+    }
+  ],
+  "runner": "llamacpp",
+  "format": "gguf"
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "benchmark_files": 52,
+  "confirmation_files": 20,
+  "raw_artifacts": 56,
+  "episode_attempts": 2316,
+  "distinct_cases": 41,
+  "checks": [
+    "compressed and raw SHA256",
+    "all expected runs and repetitions",
+    "frozen prompt unchanged",
+    "confirmation starts after freeze",
+    "dataset and core source hashes unchanged",
+    "report links exist"
+  ]
+}

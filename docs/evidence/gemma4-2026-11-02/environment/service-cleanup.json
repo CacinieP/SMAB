@@ -1,0 +1,28 @@
+{
+  "requested_by": "root after all 52 evaluations completed",
+  "server_pid": 60758,
+  "exec_session_id": 46117,
+  "host": "127.0.0.1:11435",
+  "started_at_utc": "2026-11-02T16:28:31.436439+00:00",
+  "listener_pids_before": [
+    60758
+  ],
+  "default_11434_listener_pids_before": [
+    60580
+  ],
+  "signals_sent": [
+    {
+      "pid": 60758,
+      "signal": "SIGTERM"
+    }
+  ],
+  "cache_action": "none; model weights retained",
+  "listener_pids_after": [],
+  "default_11434_listener_pids_after": [
+    60580
+  ],
+  "port_11435_closed": true,
+  "default_11434_listener_unchanged": true,
+  "finished_at_utc": "2026-11-02T16:28:31.717197+00:00",
+  "success": true
+}

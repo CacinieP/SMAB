@@ -1,0 +1,126 @@
+{
+  "server": {
+    "pid": 60758,
+    "settings": {
+      "OLLAMA_HOST": "127.0.0.1:11435",
+      "OLLAMA_MODELS": "<LOCAL_WORKSPACE>/work/ollama-models",
+      "OLLAMA_NUM_PARALLEL": "1",
+      "OLLAMA_CONTEXT_LENGTH": "32768",
+      "OLLAMA_MAX_LOADED_MODELS": "1",
+      "OLLAMA_KEEP_ALIVE": "30m"
+    },
+    "created_for": "SMAB E4B/E2B benchmarking",
+    "stop_only_after_parent_benchmark_complete": true,
+    "persistent_exec_session_id": 46117,
+    "previous_unmanaged_pid": 58922,
+    "previous_pid_gone": true,
+    "lifecycle": "held by active exec_command session; keep running until benchmark owner requests stop"
+  },
+  "startup_settings_observed": {
+    "OLLAMA_NUM_PARALLEL": "1",
+    "OLLAMA_CONTEXT_LENGTH": "32768",
+    "OLLAMA_MAX_LOADED_MODELS": "1"
+  },
+  "model": "gemma4:e4b",
+  "manifest_sha256": "dc35e8d9c6061baa6f0fa870975ab6932e2542b579b13ea0f199fa4bb7300c9c",
+  "total_blob_bytes": 6583656505,
+  "details": {
+    "parent_model": "gemma4-validation-20260929:e4b-imatrix-attention-q6-q8-draft2",
+    "format": "gguf",
+    "family": "gemma4",
+    "families": [
+      "gemma4"
+    ],
+    "parameter_size": "7.5B",
+    "quantization_level": "Q4_K_M",
+    "runner": "llamacpp"
+  },
+  "thinking": {
+    "values": [
+      false,
+      true
+    ],
+    "default": true
+  },
+  "context_length_observed": 32768,
+  "request_parameters": {
+    "temperature": 0,
+    "max_tokens": 2048,
+    "reasoning_effort": "none",
+    "stream": false
+  },
+  "official_reasoning_control_doc": "https://docs.ollama.com/api/openai-compatibility",
+  "hardware_from_server_log": "Apple M5 Max / Metal",
+  "version": "0.40.13",
+  "live_health_evidence": "smab-live-health.json",
+  "runtime_hardware_evidence": "smab-runtime-hardware.txt",
+  "blobs": [
+    {
+      "media_type": "application/vnd.docker.container.image.v1+json",
+      "expected_sha256": "7ca1ae564b24fefd47da34cc579b906b75024860ed4e5bfbfa6d6cbd9777cee5",
+      "actual_sha256": "7ca1ae564b24fefd47da34cc579b906b75024860ed4e5bfbfa6d6cbd9777cee5",
+      "expected_bytes": 241,
+      "actual_bytes": 241,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.model",
+      "expected_sha256": "370c2879f17648d337b0ab4e208fdce348e24d1060064e93d7645daafd56d39c",
+      "actual_sha256": "370c2879f17648d337b0ab4e208fdce348e24d1060064e93d7645daafd56d39c",
+      "expected_bytes": 5493439296,
+      "actual_bytes": 5493439296,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.projector",
+      "expected_sha256": "4cb21b935cd7e79daed76f3154e82f2f160ad7a9d8d22cb5f14c7b93d5fb38ba",
+      "actual_sha256": "4cb21b935cd7e79daed76f3154e82f2f160ad7a9d8d22cb5f14c7b93d5fb38ba",
+      "expected_bytes": 991552256,
+      "actual_bytes": 991552256,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.draft",
+      "expected_sha256": "05612e54110f8f68bade01dfcc546cdc6914d11dde0b650a65f263f0f87bbbd2",
+      "actual_sha256": "05612e54110f8f68bade01dfcc546cdc6914d11dde0b650a65f263f0f87bbbd2",
+      "expected_bytes": 98653280,
+      "actual_bytes": 98653280,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.template",
+      "expected_sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "actual_sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "expected_bytes": 13,
+      "actual_bytes": 13,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.license",
+      "expected_sha256": "7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "actual_sha256": "7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "expected_bytes": 11355,
+      "actual_bytes": 11355,
+      "verified": true
+    },
+    {
+      "media_type": "application/vnd.ollama.image.params",
+      "expected_sha256": "2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "actual_sha256": "2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "expected_bytes": 64,
+      "actual_bytes": 64,
+      "verified": true
+    }
+  ],
+  "all_blob_sha256_verified": true,
+  "smab_core_baseline_parameters": {
+    "temperature": 0,
+    "max_tokens": 512,
+    "reasoning_effort": "none",
+    "seed": 0,
+    "repeats": 3,
+    "context_length": 32768
+  },
+  "readiness_smoke_output_limit": 2048,
+  "startup_log_source": "smab-server-persistent.log"
+}

@@ -1,0 +1,45 @@
+{
+  "status": "verified",
+  "manifest_sha256": "b37049369adfe3d2b653af0ab301a062ca5cbe96ace6aa0d3f2559ee9b563fc2",
+  "layers": [
+    {
+      "digest": "sha256:b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+      "size": 13,
+      "status": "verified_existing"
+    },
+    {
+      "digest": "sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "size": 11355,
+      "status": "verified_existing"
+    },
+    {
+      "digest": "sha256:2365fbb6d97bf654fdda0353b7505baa2254c662122cff0f153e4b47e6220ded",
+      "size": 64,
+      "status": "verified_existing"
+    },
+    {
+      "digest": "sha256:3ff8a734c316b74964b7c7f7318e56ad85077da655a985aaa73f466c450d993a",
+      "size": 241,
+      "status": "downloaded_verified"
+    },
+    {
+      "digest": "sha256:6dd7ac24fe13a238898e16e253ebc7a72fa27fb83f2658c2f6c241df3af5937d",
+      "size": 3502493472,
+      "status": "downloaded_verified"
+    },
+    {
+      "digest": "sha256:7ba3bbacdf1b6959c27f0470defa080942c5a1f37e539b09ff1668c1e6265900",
+      "size": 986833664,
+      "status": "downloaded_verified"
+    },
+    {
+      "digest": "sha256:dd57b3b7308f65058f87be2e546c0aed07c84731426980f5aff28160fe1df9fb",
+      "size": 97817696,
+      "status": "downloaded_verified"
+    }
+  ],
+  "duration_seconds": 2610.2,
+  "manifest_path": "<LOCAL_WORKSPACE>/work/ollama-models/manifests/registry.ollama.ai/library/gemma4/e2b",
+  "tag": "gemma4:e2b",
+  "source": "https://registry.ollama.ai/v2/library/gemma4/manifests/e2b"
+}
