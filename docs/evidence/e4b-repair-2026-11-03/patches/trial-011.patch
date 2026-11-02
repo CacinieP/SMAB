@@ -1,0 +1,38 @@
+diff --git a/src/flask/config.py b/src/flask/config.py
+index d4fc310..cce5b2a 100644
+--- a/src/flask/config.py
++++ b/src/flask/config.py
+@@ -233,6 +233,7 @@ class Config(dict):
+         self,
+         filename: str,
+         load: t.Callable[[t.IO[t.Any]], t.Mapping],
++        mode: str = "r",
+         silent: bool = False,
+     ) -> bool:
+         """Update the values in the config from a file that is loaded
+@@ -245,7 +246,7 @@ class Config(dict):
+             app.config.from_file("config.json", load=json.load)
+ 
+             import toml
+-            app.config.from_file("config.toml", load=toml.load)
++            app.config.from_file("config.toml", load=toml.load, mode="rb")
+ 
+         :param filename: The path to the data file. This can be an
+             absolute path or relative to the config root path.
+@@ -253,6 +254,7 @@ class Config(dict):
+             mapping of loaded data from the file.
+         :type load: ``Callable[[Reader], Mapping]`` where ``Reader``
+             implements a ``read`` method.
++        :param mode: The file opening mode (e.g., "r", "rb").
+         :param silent: Ignore the file if it doesn't exist.
+         :return: ``True`` if the file was loaded successfully.
+ 
+@@ -261,7 +263,7 @@ class Config(dict):
+         filename = os.path.join(self.root_path, filename)
+ 
+         try:
+-            with open(filename) as f:
++            with open(filename, mode) as f:
+                 obj = load(f)
+         except OSError as e:
+             if silent and e.errno in (errno.ENOENT, errno.EISDIR):

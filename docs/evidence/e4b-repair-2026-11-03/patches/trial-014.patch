@@ -1,0 +1,65 @@
+diff --git a/src/flask/blueprints.py b/src/flask/blueprints.py
+index 5fb84d8..f5280fc 100644
+--- a/src/flask/blueprints.py
++++ b/src/flask/blueprints.py
+@@ -148,6 +148,60 @@ class Blueprint(Scaffold):
+     :param root_path: By default, the blueprint will automatically set
+         this based on ``import_name``. In certain situations this
+         automatic detection can fail, so the path can be specified
++    \"\"\"
++    def __init__(
++        self,
++        name: str,
++        import_name: str,
++        static_folder: t.Optional[str] = None,
++        static_url_path: t.Optional[str] = None,
++        template_folder: t.Optional[str] = None,
++        root_path: t.Optional[str] = None,
++        url_prefix: t.Optional[str] = None,
++        subdomain: t.Optional[str] = None,
++        url_defaults: t.Optional[t.Dict[str, t.Any]] = None,
++    ) -> None:
++        if "." in name:
++            raise ValueError("Blueprint name cannot contain dots.")
++
++        super().__init__(
++            import_name=import_name,
++            static_folder=static_folder,
++            static_url_path=static_url_path,
++            template_folder=template_folder,
++            root_path=root_path,
++        )
++        self.name = name
++        self.url_prefix = url_prefix
++        self.subdomain = subdomain
++        self.url_values_defaults = url_defaults or {}
++    \"\"\"
++    def __init__(
++        self,
++        name: str,
++        import_name: str,
++        static_folder: t.Optional[str] = None,
++        static_url_path: t.Optional[str] = None,
++        template_folder: t.Optional[str] = None,
++        root_path: t.Optional[str] = None,
++        url_prefix: t.Optional[str] = None,
++        subdomain: t.Optional[str] = None,
++        url_defaults: t.Optional[t.Dict[str, t.Any]] = None,
++    ) -> None:
++        if "." in name:
++            raise ValueError("Blueprint name cannot contain dots.")
++
++        super().__init__(
++            import_name=import_name,
++            static_folder=static_folder,
++            static_url_path=static_url_path,
++            template_folder=template_folder,
++            root_path=root_path,
++        )
++        self.name = name
++        self.url_prefix = url_prefix
++        self.subdomain = subdomain
++        self.url_values_defaults = url_defaults or {}
+         manually instead.
+ 
+     .. versionchanged:: 1.1.0

@@ -150,6 +150,8 @@ The OOD and supplementary sets are public synthetic benchmark data. Withholding 
 
 ## Conclusions and next investment
 
+A subsequent [fixed-budget repository-repair pilot](E4B_REPOSITORY_REPAIR.md) tested transfer of this policy on seven real Flask/pytest tasks. The existing coding baseline and the appended-policy candidate both passed 1/7, on the same task. The synthetic tool results below therefore do not justify promoting the candidate as a coding-agent upgrade.
+
 Use **E4B as the mainline** for the next agent prototype and retain **E2B as an inference-cost control**. Under frozen v3, E4B scores higher on each measured OOD schema and more consistently retains receipts on supplementary tasks. E2B is faster in the no-thinking core comparison, but has uneven confirmation transfer, an aliased regression, argument-sign errors and extra recovery calls. This is a choice for these measured stacks and the next experiment, not a general ranking across backends or workloads.
 
 The most useful next investment is prompt and external orchestration, followed by validation on more diverse executable tasks. E4B's main confirmed gain is final receipt retention; E2B also shows local tool-use and retry improvements, with regressions and residual failures. A controller can record returned identifiers and status, require nonempty evidence-grounded finalization, bound safe retries, and validate completion before reporting it. Those controller changes are a proposed follow-up, not a capability implemented or measured by this prompt experiment.

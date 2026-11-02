@@ -1,0 +1,739 @@
+{
+  "trial": "trial-002",
+  "instance_id": "pytest-dev__pytest-8906",
+  "arm": "optimized",
+  "seed": 0,
+  "state": "graded",
+  "resolved": false,
+  "recorded_resolved": false,
+  "snapshot_sha256": "2330e2ce453fddd3e9d36b85039ee14bd7f26391b50a67a8a8595e1716ce9338",
+  "python_version": "Python 3.9.25",
+  "generation": {
+    "max_output_tokens": 2048,
+    "temperature": 0,
+    "seed": 0,
+    "think": false,
+    "num_ctx": 32768
+  },
+  "budget": {
+    "model_turns": 48,
+    "official_counted_tools": 40,
+    "agent_seconds": 300,
+    "command_seconds": 60,
+    "outer_seconds": 450
+  },
+  "counts": {
+    "llm_calls": 25,
+    "official_counted_tools": 17,
+    "all_trace_tools": 18,
+    "trace_tool_responses": 18
+  },
+  "wall_seconds": {
+    "wall_process_seconds": 53.2,
+    "driver_seconds": 52.32657074999952,
+    "grade_wall_seconds": 1.007
+  },
+  "outer_deadline_exceeded": false,
+  "driver_exit_code": 0,
+  "patch_kind": "explicit-nonempty",
+  "nonempty_patch": true,
+  "explicit_submission": true,
+  "fallback_patch": false,
+  "working_diff_nonempty": true,
+  "patch_bytes": 1389,
+  "patch_sha256": "81533a1cfe4cdcda617c369cfd5df6c42888d5f345179123f74607f57c851491",
+  "patch_artifact": "patches/trial-002.patch",
+  "patch_published": true,
+  "patch_withheld_reason": null,
+  "patch_subject_files": [
+    "src/_pytest/mark/__init__.py"
+  ],
+  "grade_artifact": "grades/trial-002.json",
+  "harness_error_category": null,
+  "grade_error_category": null,
+  "grade_failure_signals": {
+    "test_process_exit_code": 1,
+    "nonpass_required_node_count": 86,
+    "missing_required_node_count": 86,
+    "collection_error_count": 0,
+    "exception_type_mentions_in_test_output": [
+      "IndentationError"
+    ],
+    "exception_mentions_scope": "Heuristic text matches only; expected/base test messages can mention exceptions without a candidate startup failure. Corroborate with missing-node and import evidence."
+  },
+  "invariant_checks": {
+    "generation_matches_profile": true,
+    "budget_matches_profile": true,
+    "driver_matches_freeze": true,
+    "snapshot_matches_freeze": true,
+    "agent_assets_match_arm": true,
+    "only_agent_visible_task_fields": true,
+    "prepared_target_environment": true,
+    "prepared_target_python": true,
+    "api_request_profile": true,
+    "model_turn_count_within_budget": true,
+    "counted_tools_within_budget": true,
+    "agent_imports_current_snapshot": true,
+    "grade_pretest_source_discovery": true,
+    "grade_uses_current_snapshot": null,
+    "grade_base_commit_matches": true,
+    "grade_uses_returned_patch": true
+  },
+  "api_usage": {
+    "request_count": 25,
+    "response_count": 25,
+    "model_response_count": 25,
+    "error_count": 0,
+    "error_types": {},
+    "api_response_wall_seconds": 48.70371666799838,
+    "api_error_wall_seconds": 0.0,
+    "prompt_eval_count": 471663,
+    "eval_count": 4916,
+    "provider_total_duration_seconds": 48.595807124,
+    "provider_load_duration_seconds": 0.044558998999999995,
+    "provider_prompt_eval_duration_seconds": 11.284822000000002,
+    "provider_eval_duration_seconds": 35.89369799999999,
+    "provider_field_observations": {
+      "prompt_eval_count": 25,
+      "eval_count": 25,
+      "total_duration": 25,
+      "load_duration": 25,
+      "prompt_eval_duration": 25,
+      "eval_duration": 25
+    },
+    "done_reasons": {
+      "stop": 25
+    },
+    "length_events": [],
+    "api_observed_wall_seconds": 48.70371666799838,
+    "length_response_count": 0,
+    "provider_decode_tokens_per_second": 136.95997553665273
+  },
+  "provider_calls": [
+    {
+      "call_id": "0001",
+      "request_sha256": "68cfd577d4319814e4b359762ba3e84a35fe2a084e47f4d6aa38f78921b83ceb",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "93915541592e9cc6578a5845a8a63cf48b2ccd7bedcca5cb4947129711ad411c",
+      "api_wall_seconds": 3.969425167000736,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 6267,
+        "eval_count": 301,
+        "total_duration": 3965423541,
+        "load_duration": 1383500,
+        "prompt_eval_duration": 1607202000,
+        "eval_duration": 2257538000
+      }
+    },
+    {
+      "call_id": "0002",
+      "request_sha256": "d85cb448d2d9914645ffe7de1893d1676982e347461f26b0ace9c021d21966c5",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "b3706a6b124f01fc3891cf8407a85ad61da6c566f94b110fa38cdda8aa076955",
+      "api_wall_seconds": 0.5444026659970405,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 8052,
+        "eval_count": 1,
+        "total_duration": 539812500,
+        "load_duration": 1310417,
+        "prompt_eval_duration": 517826000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0003",
+      "request_sha256": "4791448810650a16e20a852aeba12b3087e29d84951369a6398926b5eed6d4a6",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "7e76a46963710c395ddb623005a7012d6c5a6279ba7558661dcbdb52e5af7cd2",
+      "api_wall_seconds": 0.2148111249989597,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 8083,
+        "eval_count": 20,
+        "total_duration": 209852459,
+        "load_duration": 1739792,
+        "prompt_eval_duration": 76523000,
+        "eval_duration": 109000000
+      }
+    },
+    {
+      "call_id": "0004",
+      "request_sha256": "a5f2f8e3a347db203914e51fde39f173d2903fb19f6487b5dac067da693a1683",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "1d5592dc261168deeccf90e9e063d4bfde688775bc6afb6212e8f7474460fec1",
+      "api_wall_seconds": 0.23399833399889758,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 8153,
+        "eval_count": 23,
+        "total_duration": 229313208,
+        "load_duration": 1288083,
+        "prompt_eval_duration": 78641000,
+        "eval_duration": 125699000
+      }
+    },
+    {
+      "call_id": "0005",
+      "request_sha256": "3b5c65b0b46cdde5417c40e51da05d697f9b53e52144d5c0077cecc384a7958b",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "bb3217232b6e3cd5bbd1b6d4f5921c329d72b706acfe206805433191e52a62db",
+      "api_wall_seconds": 3.555483957999968,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 9566,
+        "eval_count": 443,
+        "total_duration": 3551290375,
+        "load_duration": 1674625,
+        "prompt_eval_duration": 432206000,
+        "eval_duration": 3086391000
+      }
+    },
+    {
+      "call_id": "0006",
+      "request_sha256": "70db4ad084b51f752c2f7aff061d07bb9c61118fd59e165e132ef3b21f5b80ef",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "67fc2e30d9b60abe26598e124643c934369e47236e64cc52a349d0b2910a3261",
+      "api_wall_seconds": 0.6506914169985976,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 11493,
+        "eval_count": 1,
+        "total_duration": 646312625,
+        "load_duration": 1916500,
+        "prompt_eval_duration": 605871000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0007",
+      "request_sha256": "9f3c8c81d72583d7c670612d28f59ab0122ab8fe7a5e058eef9fbd0c9ed54b02",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "57fa4759e5c91169ff75d6a62d50f1fb598d03f20174960bdb7af943e05b0bd1",
+      "api_wall_seconds": 0.2313258340000175,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 11524,
+        "eval_count": 23,
+        "total_duration": 228029083,
+        "load_duration": 1579083,
+        "prompt_eval_duration": 79091000,
+        "eval_duration": 110899000
+      }
+    },
+    {
+      "call_id": "0008",
+      "request_sha256": "47d7617eb9624dc11ff9fb91159702a7fb4faaf05601867c331ce6fb0418dfd2",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "a85a7837728f44bb9d3fe827fbc0a725996fbc983c88dc1725fc3f2d644a4ac0",
+      "api_wall_seconds": 5.611529833000532,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 13029,
+        "eval_count": 745,
+        "total_duration": 5607480750,
+        "load_duration": 1760792,
+        "prompt_eval_duration": 479377000,
+        "eval_duration": 5076666000
+      }
+    },
+    {
+      "call_id": "0009",
+      "request_sha256": "875be3fab2338389f20122d2542c002ca715064151aaca117d6c98d62ef0d73f",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "e454a0ace7f954de258360c23ae885ff696631df6d829cf0fcbf72156ff726af",
+      "api_wall_seconds": 0.4859761250008887,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 14243,
+        "eval_count": 1,
+        "total_duration": 482334000,
+        "load_duration": 1612875,
+        "prompt_eval_duration": 437859000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0010",
+      "request_sha256": "c53175990afc3f6e4561e67bebc7319ea3f42238aef3fe1c07e9d5e4db53de29",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "234d116833323297fc568c3b2808095b260a5aea20930417ac23ac6edcff72c2",
+      "api_wall_seconds": 0.2477792089994182,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 14274,
+        "eval_count": 23,
+        "total_duration": 243981250,
+        "load_duration": 1663916,
+        "prompt_eval_duration": 82847000,
+        "eval_duration": 118031000
+      }
+    },
+    {
+      "call_id": "0011",
+      "request_sha256": "f9a6b94c012651ae2defa1497c0681d997d3331f28a2509c8b78ac34dd804d72",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "89b5c32712ed4cf240bd41320b8cd9173fe832606c9cc9abb2d01a1a4750e658",
+      "api_wall_seconds": 2.9308061660012754,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 15796,
+        "eval_count": 301,
+        "total_duration": 2927086125,
+        "load_duration": 1451125,
+        "prompt_eval_duration": 513692000,
+        "eval_duration": 2367102000
+      }
+    },
+    {
+      "call_id": "0012",
+      "request_sha256": "c513a5a1ad6a1d770ffaeb46ac8b3e2bd3233cc57332d4f361929e50ea92fb4f",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "c8c953de05490666c644324da9dc0c0925ec488577ba1962c3dec63c57318c24",
+      "api_wall_seconds": 0.9131746669991117,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 18275,
+        "eval_count": 1,
+        "total_duration": 909233542,
+        "load_duration": 1658125,
+        "prompt_eval_duration": 856975000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0013",
+      "request_sha256": "f583dbd139421c5208a7a097aec13595ebdee972fe1ca9a33f2002d38a2156b5",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "2820198c904b42ebc9f7018c876b2cbb903d9c2c64830d4196b08bf32ce8fa60",
+      "api_wall_seconds": 0.2925888749996375,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 18306,
+        "eval_count": 27,
+        "total_duration": 288179041,
+        "load_duration": 2119500,
+        "prompt_eval_duration": 87611000,
+        "eval_duration": 144229000
+      }
+    },
+    {
+      "call_id": "0014",
+      "request_sha256": "8a1237a4549bbe8c3dded864cd1caf618db02e7c38d3d9d96774e2f9ace5a8e5",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "51533ac6c3289d328547de03debb12e13798f50bf6f36831c376352ff2f77885",
+      "api_wall_seconds": 6.327225333003298,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 20509,
+        "eval_count": 784,
+        "total_duration": 6323190000,
+        "load_duration": 1505917,
+        "prompt_eval_duration": 846504000,
+        "eval_duration": 5420245000
+      }
+    },
+    {
+      "call_id": "0015",
+      "request_sha256": "5147d074028b2f18378a36efdcccc0c9976f2063d85490ce3133232a8c91e82f",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "3dd72fe0946f1a84d22aafbc6a85c101c627524b12e18792a91594f5c522d417",
+      "api_wall_seconds": 1.3713830420019804,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 21357,
+        "eval_count": 170,
+        "total_duration": 1366527583,
+        "load_duration": 1894458,
+        "prompt_eval_duration": 347276000,
+        "eval_duration": 957248000
+      }
+    },
+    {
+      "call_id": "0016",
+      "request_sha256": "1ab2aa417ff377ec7cf954141f1479a051964bae317abe5e0579af64d7597a01",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "48b03026a30af624c1a57875dec4cc560316c86305943fc53719e96065a127c1",
+      "api_wall_seconds": 1.4870693330012728,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 21587,
+        "eval_count": 149,
+        "total_duration": 1482141375,
+        "load_duration": 1761500,
+        "prompt_eval_duration": 140815000,
+        "eval_duration": 1277676000
+      }
+    },
+    {
+      "call_id": "0017",
+      "request_sha256": "f7aa2d2f0c256b6c8bea5d8cfbf42710624cc549b2640a22de8f9acba1f7aa1c",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "d1aeabde6afcef1754a8907a77180bbc4dbdf311c5fa415115930276d88891c9",
+      "api_wall_seconds": 0.6993231249980454,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 23237,
+        "eval_count": 1,
+        "total_duration": 695112125,
+        "load_duration": 1736416,
+        "prompt_eval_duration": 631623000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0018",
+      "request_sha256": "57a9b8fb885f1b5336c0b49be291fe22070d86c56912a24afc66d227a9034211",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "5153f86d4d88dacd20dc34d91057cba7049b697b121b8d902646a316d071d59c",
+      "api_wall_seconds": 0.3000628330009931,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 23268,
+        "eval_count": 23,
+        "total_duration": 295431084,
+        "load_duration": 2150625,
+        "prompt_eval_duration": 93795000,
+        "eval_duration": 135979000
+      }
+    },
+    {
+      "call_id": "0019",
+      "request_sha256": "5f319088082e40e868c44d87fa2eed12213a7d72bc80083813e07dff6d08638f",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "6df5331dd45ba6534e780bb3cd45890c9eb0dd7861a801860bc43e120e083d5a",
+      "api_wall_seconds": 3.8461642500005837,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 24790,
+        "eval_count": 368,
+        "total_duration": 3840950084,
+        "load_duration": 2370542,
+        "prompt_eval_duration": 605615000,
+        "eval_duration": 3163369000
+      }
+    },
+    {
+      "call_id": "0020",
+      "request_sha256": "cca678f72c15e08c36f843c9f5e20a2c747ce60b30d1e0a57d2f66c3a374af89",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "59d728f13450d26eb909f4de8d26be520c3555419d0deafcd5c633f94c78eab7",
+      "api_wall_seconds": 1.2568447919984465,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 27336,
+        "eval_count": 27,
+        "total_duration": 1252549541,
+        "load_duration": 1963375,
+        "prompt_eval_duration": 1017419000,
+        "eval_duration": 163160000
+      }
+    },
+    {
+      "call_id": "0021",
+      "request_sha256": "a9324c8459c8df2bf7b44fa7c9e617afa653af258953230389a7e648faec6b73",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "298db2dca046bd9959a1dc6920eef0122ae96c44cace490cc4d96a90f492f6e7",
+      "api_wall_seconds": 7.001479292001022,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 29537,
+        "eval_count": 798,
+        "total_duration": 6997196208,
+        "load_duration": 1729583,
+        "prompt_eval_duration": 965746000,
+        "eval_duration": 5956373000
+      }
+    },
+    {
+      "call_id": "0022",
+      "request_sha256": "d81a592b0a0019adf909a8461de3338622ad93dd286fe69b9450e2ba1e87c5a6",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "458d40606daa3e27fd87bf7f856b391eb7801ad3fd864300ff92815885a44bb9",
+      "api_wall_seconds": 0.48165679199883016,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 30399,
+        "eval_count": 1,
+        "total_duration": 476558500,
+        "load_duration": 2103875,
+        "prompt_eval_duration": 394192000,
+        "eval_duration": 1000
+      }
+    },
+    {
+      "call_id": "0023",
+      "request_sha256": "1d5d1232cddf0743c4d132867781f0e87b0687ffc1d5d57727fe76cb4009715d",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "23ab46d94359164d71c66bd9743fce5d5e4b4ebb4fa5dd012e851be5e18e189a",
+      "api_wall_seconds": 3.0464054590011074,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 30430,
+        "eval_count": 445,
+        "total_duration": 3042811125,
+        "load_duration": 2071917,
+        "prompt_eval_duration": 101165000,
+        "eval_duration": 2868844000
+      }
+    },
+    {
+      "call_id": "0024",
+      "request_sha256": "46256e680c2a3d7b335cbca17024dc2a2459ee001a99fbee74516bfae6a60b17",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "5cf997cfe6c53da22b509f9acc16fddc2472919c4dfc2e4a92cd85b0c12c7df5",
+      "api_wall_seconds": 2.7439987500001735,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 30937,
+        "eval_count": 239,
+        "total_duration": 2739258875,
+        "load_duration": 2052417,
+        "prompt_eval_duration": 105598000,
+        "eval_duration": 2555242000
+      }
+    },
+    {
+      "call_id": "0025",
+      "request_sha256": "a98e3801b173a32ce03f4f62cd988066e6043a810fa5e1bfa54d73abdb91c01e",
+      "model": "gemma4:e4b",
+      "options": {
+        "temperature": 0.0,
+        "num_predict": 2048,
+        "num_ctx": 32768,
+        "seed": 0
+      },
+      "think": false,
+      "stream": false,
+      "status": "model_response",
+      "response_sha256": "c4cb18d2862833af04dd93384f91d543bb909f33a71e40ff72bba0d6e524022a",
+      "api_wall_seconds": 0.26011029099754523,
+      "done_reason": "stop",
+      "usage": {
+        "prompt_eval_count": 31215,
+        "eval_count": 1,
+        "total_duration": 255752125,
+        "load_duration": 2060041,
+        "prompt_eval_duration": 179353000,
+        "eval_duration": 1000
+      }
+    }
+  ]
+}

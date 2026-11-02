@@ -1,0 +1,26 @@
+diff --git a/src/_pytest/_code/code.py b/src/_pytest/_code/code.py
+index b19ee7c..eaee236 100644
+--- a/src/_pytest/_code/code.py
++++ b/src/_pytest/_code/code.py
+@@ -136,7 +136,7 @@ class Frame:
+ 
+     @property
+     def lineno(self) -> int:
+-        return self.raw.f_lineno - 1
++        return self.raw.f_lineno - 1 - 1
+ 
+     @property
+     def f_globals(self) -> Dict[str, Any]:
+diff --git a/src/_pytest/assertion/util.py b/src/_pytest/assertion/util.py
+index 19f1089..694afd8 100644
+--- a/src/_pytest/assertion/util.py
++++ b/src/_pytest/assertion/util.py
+@@ -144,7 +144,7 @@ def assertrepr_compare(config, op: str, left: Any, right: Any) -> Optional[List[
+     else:
+         # XXX: "15 chars indentation" is wrong
+         #      ("E       AssertionError: assert "); should use term width.
+-        maxsize = (
++            maxsize = (
+             80 - 15 - len(op) - 2
+         ) // 2  # 15 chars indentation, 1 space around op
+         left_repr = saferepr(left, maxsize=maxsize)

@@ -10,6 +10,8 @@ An **executable** tool-calling benchmark for **0.3B–7B small models**. It does
 
 The [Gemma 4 E4B / E2B evaluation record](docs/GEMMA4.md) documents fixed local serving conditions, raw repeated traces, core development trials and frozen-prompt confirmation results. It reports these separately from Kaggle and repository-repair performance.
 
+The [E4B repository-repair comparison](docs/E4B_REPOSITORY_REPAIR.md) covers seven real Flask/pytest tasks under matched budgets: 1/7 passed before and after, with patches and independent grading evidence.
+
 > Core hypothesis: the boundary is set jointly by **ambiguity × action space × task length × distribution shift**. Small models make excellent verifiable agent organs; whether they can own the whole control loop must be measured dimension by dimension, horizon by horizon.
 
 ## What is measured

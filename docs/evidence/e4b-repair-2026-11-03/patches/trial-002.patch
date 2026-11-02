@@ -1,0 +1,35 @@
+diff --git a/src/_pytest/mark/__init__.py b/src/_pytest/mark/__init__.py
+index 0dc3718..8ea40b0 100644
+--- a/src/_pytest/mark/__init__.py
++++ b/src/_pytest/mark/__init__.py
+@@ -49,27 +49,9 @@ def param(
+     marks: Union[MarkDecorator, Collection[Union[MarkDecorator, Mark]]] = (),
+     id: Optional[str] = None,
+ ) -> ParameterSet:
+-    """Specify a parameter in `pytest.mark.parametrize`_ calls or
+-    :ref:`parametrized fixtures <fixture-parametrize-marks>`.
+-
+-    .. code-block:: python
+-
+-        @pytest.mark.parametrize(
+-            "test_input,expected",
+-            [
+-                ("3+5", 8),
+-                pytest.param("6*9", 42, marks=pytest.mark.xfail),
+-            ],
+-        )
+-        def test_eval(test_input, expected):
+-            assert eval(test_input) == expected
+-
+-    :param values: Variable args of the values of the parameter set, in order.
+-    :keyword marks: A single mark or a list of marks to be applied to this parameter set.
+-    :keyword str id: The id to attribute to this parameter set.
+-    """
+-    return ParameterSet.param(*values, marks=marks, id=id)
+-
++def skip_module(msg: str) -> MarkDecorator:
++    """Skip an entire module if conditions are met, allowing module-level skip."""
++    return MARK_GEN.skip(reason=msg, allow_module_level=True)
+ 
+ def pytest_addoption(parser: Parser) -> None:
+     group = parser.getgroup("general")
