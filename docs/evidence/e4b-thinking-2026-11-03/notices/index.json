@@ -1,0 +1,28 @@
+{
+  "upstream_licenses": [
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "6995257cf470d2143ad1683824962de4071c0eb7",
+      "license_artifact": "notices/pytest-ca836a5f9ecc-LICENSE",
+      "license_sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b",
+      "source_url": "https://github.com/pytest-dev/pytest/blob/6995257cf470d2143ad1683824962de4071c0eb7/LICENSE"
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "repo": "pallets/flask",
+      "base_commit": "182ce3dd15dfa3537391c3efaf9c3ff407d134d4",
+      "license_artifact": "notices/flask-489a8e110850-LICENSE.rst",
+      "license_sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+      "source_url": "https://github.com/pallets/flask/blob/182ce3dd15dfa3537391c3efaf9c3ff407d134d4/LICENSE.rst"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "2f7415cfbc4b6ca62f9013f1abd27136f46b9653",
+      "license_artifact": "notices/pytest-ca836a5f9ecc-LICENSE",
+      "license_sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b",
+      "source_url": "https://github.com/pytest-dev/pytest/blob/2f7415cfbc4b6ca62f9013f1abd27136f46b9653/LICENSE"
+    }
+  ]
+}

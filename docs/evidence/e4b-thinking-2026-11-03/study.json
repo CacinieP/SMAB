@@ -1,0 +1,162 @@
+{
+  "distinct_tasks": 3,
+  "primary_attempts": 6,
+  "old_task_development_diagnostic": true,
+  "official_competition_score": false,
+  "no_lora": true,
+  "dataset": "https://huggingface.co/datasets/princeton-nlp/SWE-bench_Lite",
+  "dataset_revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+  "selection": [
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "6995257cf470d2143ad1683824962de4071c0eb7",
+      "selection_reason": "Previously successful A; regression control",
+      "snapshot_sha256": "9c364deaa72bdede13f623d90d7a6996cb83bd3d0f973c50030061663cdf30fc",
+      "python_version": "Python 3.11.15"
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "repo": "pallets/flask",
+      "base_commit": "182ce3dd15dfa3537391c3efaf9c3ff407d134d4",
+      "selection_reason": "Previously failed exact-string editing; second repository",
+      "snapshot_sha256": "9cfb04c1cff669d5bd0a946e329689b63206f48641fb71f58d8c1ff111675e8f",
+      "python_version": "Python 3.11.15"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "2f7415cfbc4b6ca62f9013f1abd27136f46b9653",
+      "selection_reason": "Previously failed upstream/downstream navigation",
+      "snapshot_sha256": "e85bbfca3c2aa124d7ef96fb77e1d753a6b42dfeac5f6fbbd1c0f19070004fd1",
+      "python_version": "Python 3.11.15"
+    }
+  ],
+  "prompt_A_sha256": "35bec37d93e0e05be7f1e62b925ffdd7d039201d7d7a5a0de6647f9386b04f69",
+  "only_intervention": "effective native think boolean",
+  "model_parameters": {
+    "temperature": 0,
+    "seed": 0,
+    "num_predict": 2048,
+    "num_ctx": 32768
+  },
+  "budgets": {
+    "agent_seconds": 300,
+    "logical_model_calls": 48,
+    "official_counted_tools": 40,
+    "command_timeout_seconds": 60,
+    "outer_trial_seconds": 450
+  },
+  "reasoning_history": "The shared original ADK/Ollama bridge does not propagate reasoning into subsequent ADK/tool history; held identical for both modes. A separate compatibility control verifies continuation after removing thinking history.",
+  "environment": {
+    "source": "This thinking study's newly recorded foreground-service fingerprint and mode contracts, not the prior study's live PID",
+    "fingerprint_sha256": "24c00d02a8fd20863d9e904b64ceabd0da968e07a6752344d2a1a3e517017c5a",
+    "root_service_settings_sha256": "b7f303774413deb8348044bfe4332d8f097a0e30d428176bc4788c47a44b26c3",
+    "mode_contract_sha256": "b4e09f001747591818af58541273cd9896ca9437b5a256f6b618f99d29ffa731",
+    "same_current_root_service": true,
+    "mode_contract_passed": true,
+    "core_contract_requests_not_primary_samples": 6,
+    "software_versions": {
+      "driver_python": "3.12.13",
+      "packages": {
+        "swegemma": "0.2.11",
+        "adk-submission": "0.2.13",
+        "adk-eval-core": "0.1.0",
+        "google-adk": "1.36.1",
+        "google-genai": "2.11.0"
+      },
+      "source": "Current harness interpreter distribution metadata; checked against prior recorded versions, current runtime inventory and all six primary driver manifests",
+      "all_six_manifest_driver_versions_match": true,
+      "runtime_inventory_sha256": "04ff6081cb6a6a538bc28abf64115534fdae426c45aa4b48bf4da43b85ae97f7",
+      "prior_version_record_sha256": "920fd9ae6b81be669ed976bdee7d8051e64aaa565368535d4fa1d7b4c786210e"
+    },
+    "model": {
+      "model": "gemma4:e4b",
+      "manifest_sha256": "dc35e8d9c6061baa6f0fa870975ab6932e2542b579b13ea0f199fa4bb7300c9c",
+      "source": "https://registry.ollama.ai/v2/library/gemma4/manifests/e4b",
+      "source_trust_limit": "Cached original TLS registry manifest; no independent signature proof",
+      "runtime_version": "0.40.13",
+      "details": {
+        "parent_model": "gemma4-validation-20260929:e4b-imatrix-attention-q6-q8-draft2",
+        "format": "gguf",
+        "family": "gemma4",
+        "families": [
+          "gemma4"
+        ],
+        "parameter_size": "7.5B",
+        "quantization_level": "Q4_K_M",
+        "runner": "llamacpp"
+      },
+      "all_seven_blob_hashes_verified": true,
+      "total_blob_bytes": 6583656505,
+      "model_default_parameters": {
+        "draft_num_predict": 3,
+        "temperature": 1,
+        "top_k": 64,
+        "top_p": 0.95
+      },
+      "context_length_observed": 32768,
+      "draft_runtime_observed": {
+        "type": "draft-mtp",
+        "maximum_draft_tokens": 3,
+        "draft_acceptance_logged": true
+      },
+      "seed_validation_limit": "Sent seed0 in all6 requests; seed influence cannot be independently identified at temperature0"
+    },
+    "mode_contract": {
+      "off": {
+        "arithmetic_thinking_chars": 0,
+        "tool_call_thinking_chars": 0,
+        "continuation_thinking_chars": 0,
+        "done_reasons": [
+          "stop",
+          "stop",
+          "stop"
+        ],
+        "eval_counts": [
+          243,
+          17,
+          4
+        ]
+      },
+      "on": {
+        "arithmetic_thinking_chars": 1033,
+        "tool_call_thinking_chars": 301,
+        "continuation_thinking_chars": 249,
+        "done_reasons": [
+          "stop",
+          "stop",
+          "stop"
+        ],
+        "eval_counts": [
+          565,
+          102,
+          73
+        ]
+      }
+    },
+    "no_thinking_history_compatibility": {
+      "source_sha256": "30a1a59946e344429fbe8f1b9c4c5b945880a83cabe1317d8f02e04d7929cfbc",
+      "model_requests_not_primary_samples": 1,
+      "checks": {
+        "ready7": true,
+        "unwanted_repeated_tool_call": false,
+        "truncated": false,
+        "done": true,
+        "done_reason": "stop",
+        "returned_thinking_chars": 317
+      }
+    }
+  },
+  "frozen_integrity": {
+    "new_file_count": 44,
+    "old_file_count": 73,
+    "new_drift_count": 0,
+    "old_drift_count": 0,
+    "order_preserved": true,
+    "pair_source_mismatches": 0
+  },
+  "reproducibility_limit": "Full A ADK config/prompt/Skill/source and raw reasoning remain private. Exact agent rerun requires the authorized private gemma-agent snapshot; this bundle supports public patch/filtered grade/usage consistency checks only.",
+  "reasoning_token_limit": "Generated eval_count includes thinking; thought presence and characters are directly observed. No independent reasoning-token count is estimated.",
+  "scope_limit": "Purposive old-task development diagnostic; no unseen confirmation, population ranking or official SWE-bench/Kaggle score"
+}

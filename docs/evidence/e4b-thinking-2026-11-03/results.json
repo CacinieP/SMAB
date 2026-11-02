@@ -1,0 +1,96 @@
+{
+  "trial_artifacts": [
+    "trials/trial-001.json",
+    "trials/trial-002.json",
+    "trials/trial-003.json",
+    "trials/trial-004.json",
+    "trials/trial-005.json",
+    "trials/trial-006.json"
+  ],
+  "successes_by_mode": {
+    "off": 1,
+    "on": 0
+  },
+  "paired": {
+    "on_wins": 0,
+    "on_losses": 1,
+    "both_pass": 0,
+    "both_fail": 2,
+    "ties": 2
+  },
+  "cost_by_mode": {
+    "off": {
+      "successes": 1,
+      "valid_graded": 3,
+      "planned_tasks": 3,
+      "pending_task_modes": 0,
+      "invalid_attempts": 0,
+      "mean_process_wall_seconds": 56.238,
+      "mean_llm_calls": 22.333333333333332,
+      "mean_counted_tools": 13.333333333333334,
+      "mean_all_trace_tools": 14.666666666666666,
+      "mean_generated_tokens_including_thinking": 3586.6666666666665,
+      "mean_prompt_tokens_recounting_context": 384997.3333333333,
+      "total_thinking_characters": 0,
+      "thinking_response_count": 0,
+      "length_response_count": 2,
+      "patch_kinds": {
+        "explicit-nonempty": 1,
+        "explicit-empty": 2
+      }
+    },
+    "on": {
+      "successes": 0,
+      "valid_graded": 3,
+      "planned_tasks": 3,
+      "pending_task_modes": 0,
+      "invalid_attempts": 0,
+      "mean_process_wall_seconds": 184.45566666666667,
+      "mean_llm_calls": 27,
+      "mean_counted_tools": 22.666666666666668,
+      "mean_all_trace_tools": 23.666666666666668,
+      "mean_generated_tokens_including_thinking": 19560.666666666668,
+      "mean_prompt_tokens_recounting_context": 533073.3333333334,
+      "total_thinking_characters": 190411,
+      "thinking_response_count": 81,
+      "length_response_count": 13,
+      "patch_kinds": {
+        "explicit-nonempty": 1,
+        "fallback-nonempty": 1,
+        "empty-no-submission": 1
+      }
+    }
+  },
+  "length_by_mode": {
+    "off": 2,
+    "on": 13
+  },
+  "thinking_responses_by_mode": {
+    "off": 0,
+    "on": 81
+  },
+  "thinking_characters_by_mode": {
+    "off": 0,
+    "on": 190411
+  },
+  "task_pairs": [
+    {
+      "instance_id": "pytest-dev__pytest-11143",
+      "off": true,
+      "on": false,
+      "outcome": "on_losses"
+    },
+    {
+      "instance_id": "pallets__flask-5063",
+      "off": false,
+      "on": false,
+      "outcome": "both_fail"
+    },
+    {
+      "instance_id": "pytest-dev__pytest-11148",
+      "off": false,
+      "on": false,
+      "outcome": "both_fail"
+    }
+  ]
+}

@@ -4,6 +4,8 @@ Appending the frozen SMAB v3 policy did **not improve test-passing repair rate**
 
 This is a result for one fixed, no-thinking local stack and seven selected tasks. It is not a population success estimate, an official SWE-bench score, or a Kaggle score. No LoRA was trained.
 
+A subsequent [thinking off/on diagnostic](E4B_THINKING.md) reuses original A on three selected old tasks: off passed 1/3 and on passed 0/3 under matched caps. It is a separate experiment and does not replace this seven-task result.
+
 ## What changed
 
 A uses the existing competition-v2 coding prompt, ADK tools and repair Skill from the private `gemma-agent` snapshot `e097c0c2e40a9574543134ef87062d13368c5c2f`. B retains that baseline and only appends the exact [previously frozen public SMAB v3 policy](evidence/gemma4-2026-11-02/prompts/optimized.txt). The only differing agent asset is `prompts/system.md`. This tests transfer of a generic tool-result/recovery policy; it does not compare two different runtime implementations.
