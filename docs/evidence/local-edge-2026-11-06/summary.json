@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:21:00.182512+08:00",
+  "generated_at": "2026-11-06T18:53:54.905446+08:00",
   "benchmark": {
     "repo": "https://github.com/CacinieP/SMAB",
     "version": "0.2.0",
@@ -119,6 +119,8 @@
       "p95_case_wall_ms": 7083.15,
       "avg_request_latency_ms": 646.1,
       "p95_request_latency_ms": 7081.39,
+      "server_bench": null,
+      "exclusive": null,
       "valid": true
     },
     {
@@ -225,6 +227,11 @@
       "p95_request_latency_ms": 912.1,
       "loadavg_start": 7.98,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 88.37,
+        "model_id": "MiniCPM5-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -327,6 +334,11 @@
       "p95_request_latency_ms": 786.31,
       "loadavg_start": 7.98,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 88.37,
+        "model_id": "MiniCPM5-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -407,6 +419,11 @@
       "p95_request_latency_ms": 5965.83,
       "loadavg_start": 7.98,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 88.37,
+        "model_id": "MiniCPM5-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -521,6 +538,11 @@
       "p95_request_latency_ms": 3975.11,
       "loadavg_start": 3.56,
       "loadavg_end": 5.51,
+      "server_bench": {
+        "decode_tok_s_median": 36.01,
+        "model_id": "MiniCPM5-2B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -600,6 +622,11 @@
       "p95_request_latency_ms": 3949.06,
       "loadavg_start": 3.56,
       "loadavg_end": 5.51,
+      "server_bench": {
+        "decode_tok_s_median": 36.01,
+        "model_id": "MiniCPM5-2B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -679,6 +706,11 @@
       "p95_request_latency_ms": 5898.99,
       "loadavg_start": 3.56,
       "loadavg_end": 5.51,
+      "server_bench": {
+        "decode_tok_s_median": 36.01,
+        "model_id": "MiniCPM5-2B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -782,6 +814,11 @@
       "p95_request_latency_ms": 1632.06,
       "loadavg_start": 5.83,
       "loadavg_end": 4.36,
+      "server_bench": {
+        "decode_tok_s_median": 43.43,
+        "model_id": "MiniCPM-V-4.7-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -862,6 +899,11 @@
       "p95_request_latency_ms": 4269.21,
       "loadavg_start": 5.83,
       "loadavg_end": 4.36,
+      "server_bench": {
+        "decode_tok_s_median": 43.43,
+        "model_id": "MiniCPM-V-4.7-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -941,6 +983,11 @@
       "p95_request_latency_ms": 2966.16,
       "loadavg_start": 5.83,
       "loadavg_end": 4.36,
+      "server_bench": {
+        "decode_tok_s_median": 43.43,
+        "model_id": "MiniCPM-V-4.7-1B-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -1055,6 +1102,11 @@
       "p95_request_latency_ms": 2070.51,
       "loadavg_start": 6.09,
       "loadavg_end": 7.32,
+      "server_bench": {
+        "decode_tok_s_median": 208.34,
+        "model_id": "MNN-Pocket-0.3B-GGUF-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -1167,6 +1219,11 @@
       "p95_request_latency_ms": 2553.33,
       "loadavg_start": 6.09,
       "loadavg_end": 7.32,
+      "server_bench": {
+        "decode_tok_s_median": 208.34,
+        "model_id": "MNN-Pocket-0.3B-GGUF-Q8_0"
+      },
+      "exclusive": null,
       "valid": true
     },
     {
@@ -1274,6 +1331,17 @@
       "p95_request_latency_ms": 5843.45,
       "loadavg_start": 3.78,
       "loadavg_end": 4.75,
+      "server_bench": {
+        "decode_tok_s_median": 76.96,
+        "model_id": "Qwen3.5-0.8B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 86.24,
+        "prefill_tok_s": 1427.44,
+        "e2e_ms": 2548.0,
+        "footprint_mb": 462,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1380,6 +1448,17 @@
       "p95_request_latency_ms": 6375.32,
       "loadavg_start": 3.78,
       "loadavg_end": 4.75,
+      "server_bench": {
+        "decode_tok_s_median": 76.96,
+        "model_id": "Qwen3.5-0.8B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 86.24,
+        "prefill_tok_s": 1427.44,
+        "e2e_ms": 2548.0,
+        "footprint_mb": 462,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1460,6 +1539,17 @@
       "p95_request_latency_ms": 5142.35,
       "loadavg_start": 3.78,
       "loadavg_end": 4.75,
+      "server_bench": {
+        "decode_tok_s_median": 76.96,
+        "model_id": "Qwen3.5-0.8B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 86.24,
+        "prefill_tok_s": 1427.44,
+        "e2e_ms": 2548.0,
+        "footprint_mb": 462,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1570,6 +1660,17 @@
       "p95_request_latency_ms": 2780.1,
       "loadavg_start": 3.55,
       "loadavg_end": 5.79,
+      "server_bench": {
+        "decode_tok_s_median": 42.31,
+        "model_id": "Qwen3.5-2B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 43.5,
+        "prefill_tok_s": 949.55,
+        "e2e_ms": 5005.3,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1675,6 +1776,17 @@
       "p95_request_latency_ms": 2973.23,
       "loadavg_start": 3.55,
       "loadavg_end": 5.79,
+      "server_bench": {
+        "decode_tok_s_median": 42.31,
+        "model_id": "Qwen3.5-2B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 43.5,
+        "prefill_tok_s": 949.55,
+        "e2e_ms": 5005.3,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1755,6 +1867,17 @@
       "p95_request_latency_ms": 8518.31,
       "loadavg_start": 3.55,
       "loadavg_end": 5.79,
+      "server_bench": {
+        "decode_tok_s_median": 42.31,
+        "model_id": "Qwen3.5-2B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 43.5,
+        "prefill_tok_s": 949.55,
+        "e2e_ms": 5005.3,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1874,6 +1997,17 @@
       "p95_request_latency_ms": 259.41,
       "loadavg_start": 5.22,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 312.2,
+        "model_id": "LFM2.5-230M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 309.4,
+        "prefill_tok_s": 7435.53,
+        "e2e_ms": 719.0,
+        "footprint_mb": 185,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -1977,6 +2111,17 @@
       "p95_request_latency_ms": 1381.33,
       "loadavg_start": 5.22,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 312.2,
+        "model_id": "LFM2.5-230M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 309.4,
+        "prefill_tok_s": 7435.53,
+        "e2e_ms": 719.0,
+        "footprint_mb": 185,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2056,6 +2201,17 @@
       "p95_request_latency_ms": 370.85,
       "loadavg_start": 5.22,
       "loadavg_end": 5.83,
+      "server_bench": {
+        "decode_tok_s_median": 312.2,
+        "model_id": "LFM2.5-230M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 309.4,
+        "prefill_tok_s": 7435.53,
+        "e2e_ms": 719.0,
+        "footprint_mb": 185,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2154,6 +2310,17 @@
       "p95_request_latency_ms": 1814.42,
       "loadavg_start": 5.71,
       "loadavg_end": 11.08,
+      "server_bench": {
+        "decode_tok_s_median": 47.85,
+        "model_id": "LFM2.5-1.2B-Instruct-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 77.03,
+        "prefill_tok_s": 1421.28,
+        "e2e_ms": 3140.9,
+        "footprint_mb": 196,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2233,6 +2400,17 @@
       "p95_request_latency_ms": 1706.29,
       "loadavg_start": 5.71,
       "loadavg_end": 11.08,
+      "server_bench": {
+        "decode_tok_s_median": 47.85,
+        "model_id": "LFM2.5-1.2B-Instruct-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 77.03,
+        "prefill_tok_s": 1421.28,
+        "e2e_ms": 3140.9,
+        "footprint_mb": 196,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2312,6 +2490,17 @@
       "p95_request_latency_ms": 2978.6,
       "loadavg_start": 5.71,
       "loadavg_end": 11.08,
+      "server_bench": {
+        "decode_tok_s_median": 47.85,
+        "model_id": "LFM2.5-1.2B-Instruct-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 77.03,
+        "prefill_tok_s": 1421.28,
+        "e2e_ms": 3140.9,
+        "footprint_mb": 196,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2432,6 +2621,17 @@
       "p95_request_latency_ms": 12149.16,
       "loadavg_start": 12.21,
       "loadavg_end": 4.38,
+      "server_bench": {
+        "decode_tok_s_median": 32.28,
+        "model_id": "LFM2.5-2.6B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 32.24,
+        "prefill_tok_s": 587.68,
+        "e2e_ms": 6954.2,
+        "footprint_mb": 246,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2552,6 +2752,17 @@
       "p95_request_latency_ms": 13642.61,
       "loadavg_start": 12.21,
       "loadavg_end": 4.38,
+      "server_bench": {
+        "decode_tok_s_median": 32.28,
+        "model_id": "LFM2.5-2.6B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 32.24,
+        "prefill_tok_s": 587.68,
+        "e2e_ms": 6954.2,
+        "footprint_mb": 246,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2632,6 +2843,17 @@
       "p95_request_latency_ms": 37934.26,
       "loadavg_start": 12.21,
       "loadavg_end": 4.38,
+      "server_bench": {
+        "decode_tok_s_median": 32.28,
+        "model_id": "LFM2.5-2.6B-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 32.24,
+        "prefill_tok_s": 587.68,
+        "e2e_ms": 6954.2,
+        "footprint_mb": 246,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2750,6 +2972,17 @@
       "p95_request_latency_ms": 347.11,
       "loadavg_start": 10.99,
       "loadavg_end": 10.94,
+      "server_bench": {
+        "decode_tok_s_median": 126.84,
+        "model_id": "LFM2.5-350M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 204.84,
+        "prefill_tok_s": 3329.92,
+        "e2e_ms": 1140.3,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2830,6 +3063,17 @@
       "p95_request_latency_ms": 2001.95,
       "loadavg_start": 10.99,
       "loadavg_end": 10.94,
+      "server_bench": {
+        "decode_tok_s_median": 126.84,
+        "model_id": "LFM2.5-350M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 204.84,
+        "prefill_tok_s": 3329.92,
+        "e2e_ms": 1140.3,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -2909,6 +3153,17 @@
       "p95_request_latency_ms": 787.38,
       "loadavg_start": 10.99,
       "loadavg_end": 10.94,
+      "server_bench": {
+        "decode_tok_s_median": 126.84,
+        "model_id": "LFM2.5-350M-Q8_0"
+      },
+      "exclusive": {
+        "decode_tok_s": 204.84,
+        "prefill_tok_s": 3329.92,
+        "e2e_ms": 1140.3,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3023,6 +3278,17 @@
       "p95_request_latency_ms": 24630.36,
       "loadavg_start": 8.19,
       "loadavg_end": 9.54,
+      "server_bench": {
+        "decode_tok_s_median": 36.76,
+        "model_id": "Qwen3.5-0.8B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 35.25,
+        "prefill_tok_s": 760.44,
+        "e2e_ms": 6229.2,
+        "footprint_mb": 449,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3134,6 +3400,17 @@
       "p95_request_latency_ms": 13587.13,
       "loadavg_start": 8.19,
       "loadavg_end": 9.54,
+      "server_bench": {
+        "decode_tok_s_median": 36.76,
+        "model_id": "Qwen3.5-0.8B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 35.25,
+        "prefill_tok_s": 760.44,
+        "e2e_ms": 6229.2,
+        "footprint_mb": 449,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3214,6 +3491,17 @@
       "p95_request_latency_ms": 13152.21,
       "loadavg_start": 8.19,
       "loadavg_end": 9.54,
+      "server_bench": {
+        "decode_tok_s_median": 36.76,
+        "model_id": "Qwen3.5-0.8B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 35.25,
+        "prefill_tok_s": 760.44,
+        "e2e_ms": 6229.2,
+        "footprint_mb": 449,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3324,6 +3612,17 @@
       "p95_request_latency_ms": 4442.67,
       "loadavg_start": 5.04,
       "loadavg_end": 6.51,
+      "server_bench": {
+        "decode_tok_s_median": 23.85,
+        "model_id": "Qwen3.5-2B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 25.64,
+        "prefill_tok_s": 860.57,
+        "e2e_ms": 8242.1,
+        "footprint_mb": 411,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3428,6 +3727,17 @@
       "p95_request_latency_ms": 4938.86,
       "loadavg_start": 5.04,
       "loadavg_end": 6.51,
+      "server_bench": {
+        "decode_tok_s_median": 23.85,
+        "model_id": "Qwen3.5-2B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 25.64,
+        "prefill_tok_s": 860.57,
+        "e2e_ms": 8242.1,
+        "footprint_mb": 411,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3508,6 +3818,17 @@
       "p95_request_latency_ms": 16202.47,
       "loadavg_start": 5.04,
       "loadavg_end": 6.51,
+      "server_bench": {
+        "decode_tok_s_median": 23.85,
+        "model_id": "Qwen3.5-2B-BF16"
+      },
+      "exclusive": {
+        "decode_tok_s": 25.64,
+        "prefill_tok_s": 860.57,
+        "e2e_ms": 8242.1,
+        "footprint_mb": 411,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3627,6 +3948,17 @@
       "p95_request_latency_ms": 630.5,
       "loadavg_start": 5.89,
       "loadavg_end": 8.19,
+      "server_bench": {
+        "decode_tok_s_median": 88.07,
+        "model_id": "LFM2.5-230M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 191.93,
+        "prefill_tok_s": 7485.57,
+        "e2e_ms": 1187.0,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3731,6 +4063,17 @@
       "p95_request_latency_ms": 2002.29,
       "loadavg_start": 5.89,
       "loadavg_end": 8.19,
+      "server_bench": {
+        "decode_tok_s_median": 88.07,
+        "model_id": "LFM2.5-230M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 191.93,
+        "prefill_tok_s": 7485.57,
+        "e2e_ms": 1187.0,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3810,6 +4153,17 @@
       "p95_request_latency_ms": 549.46,
       "loadavg_start": 5.89,
       "loadavg_end": 8.19,
+      "server_bench": {
+        "decode_tok_s_median": 88.07,
+        "model_id": "LFM2.5-230M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 191.93,
+        "prefill_tok_s": 7485.57,
+        "e2e_ms": 1187.0,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3908,6 +4262,17 @@
       "p95_request_latency_ms": 2259.93,
       "loadavg_start": 3.2,
       "loadavg_end": 5.01,
+      "server_bench": {
+        "decode_tok_s_median": 42.7,
+        "model_id": "LFM2.5-1.2B-Instruct-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 42.42,
+        "prefill_tok_s": 1236.36,
+        "e2e_ms": 5144.7,
+        "footprint_mb": 195,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -3987,6 +4352,17 @@
       "p95_request_latency_ms": 1295.42,
       "loadavg_start": 3.2,
       "loadavg_end": 5.01,
+      "server_bench": {
+        "decode_tok_s_median": 42.7,
+        "model_id": "LFM2.5-1.2B-Instruct-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 42.42,
+        "prefill_tok_s": 1236.36,
+        "e2e_ms": 5144.7,
+        "footprint_mb": 195,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4066,6 +4442,17 @@
       "p95_request_latency_ms": 3438.09,
       "loadavg_start": 3.2,
       "loadavg_end": 5.01,
+      "server_bench": {
+        "decode_tok_s_median": 42.7,
+        "model_id": "LFM2.5-1.2B-Instruct-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 42.42,
+        "prefill_tok_s": 1236.36,
+        "e2e_ms": 5144.7,
+        "footprint_mb": 195,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4186,6 +4573,17 @@
       "p95_request_latency_ms": 22265.16,
       "loadavg_start": 3.9,
       "loadavg_end": 18.41,
+      "server_bench": {
+        "decode_tok_s_median": 17.78,
+        "model_id": "LFM2.5-2.6B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 18.39,
+        "prefill_tok_s": 506.31,
+        "e2e_ms": 11747.1,
+        "footprint_mb": 244,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4305,6 +4703,17 @@
       "p95_request_latency_ms": 25100.79,
       "loadavg_start": 3.9,
       "loadavg_end": 18.41,
+      "server_bench": {
+        "decode_tok_s_median": 17.78,
+        "model_id": "LFM2.5-2.6B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 18.39,
+        "prefill_tok_s": 506.31,
+        "e2e_ms": 11747.1,
+        "footprint_mb": 244,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4384,6 +4793,17 @@
       "p95_request_latency_ms": 68635.85,
       "loadavg_start": 3.9,
       "loadavg_end": 18.41,
+      "server_bench": {
+        "decode_tok_s_median": 17.78,
+        "model_id": "LFM2.5-2.6B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 18.39,
+        "prefill_tok_s": 506.31,
+        "e2e_ms": 11747.1,
+        "footprint_mb": 244,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4488,6 +4908,17 @@
       "p95_request_latency_ms": 1594.92,
       "loadavg_start": 5.01,
       "loadavg_end": 4.74,
+      "server_bench": {
+        "decode_tok_s_median": 52.87,
+        "model_id": "MiniCPM5-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 54.36,
+        "prefill_tok_s": 2035.66,
+        "e2e_ms": 3852.7,
+        "footprint_mb": 249,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4586,6 +5017,17 @@
       "p95_request_latency_ms": 922.01,
       "loadavg_start": 5.01,
       "loadavg_end": 4.74,
+      "server_bench": {
+        "decode_tok_s_median": 52.87,
+        "model_id": "MiniCPM5-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 54.36,
+        "prefill_tok_s": 2035.66,
+        "e2e_ms": 3852.7,
+        "footprint_mb": 249,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4666,6 +5108,17 @@
       "p95_request_latency_ms": 12838.68,
       "loadavg_start": 5.01,
       "loadavg_end": 4.74,
+      "server_bench": {
+        "decode_tok_s_median": 52.87,
+        "model_id": "MiniCPM5-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 54.36,
+        "prefill_tok_s": 2035.66,
+        "e2e_ms": 3852.7,
+        "footprint_mb": 249,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4779,6 +5232,17 @@
       "p95_request_latency_ms": 7453.13,
       "loadavg_start": 6.95,
       "loadavg_end": 5.96,
+      "server_bench": {
+        "decode_tok_s_median": 17.65,
+        "model_id": "MiniCPM5-2B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 20.72,
+        "prefill_tok_s": 741.5,
+        "e2e_ms": 10254.7,
+        "footprint_mb": 351,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4858,6 +5322,17 @@
       "p95_request_latency_ms": 7055.63,
       "loadavg_start": 6.95,
       "loadavg_end": 5.96,
+      "server_bench": {
+        "decode_tok_s_median": 17.65,
+        "model_id": "MiniCPM5-2B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 20.72,
+        "prefill_tok_s": 741.5,
+        "e2e_ms": 10254.7,
+        "footprint_mb": 351,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -4937,6 +5412,17 @@
       "p95_request_latency_ms": 11044.98,
       "loadavg_start": 6.95,
       "loadavg_end": 5.96,
+      "server_bench": {
+        "decode_tok_s_median": 17.65,
+        "model_id": "MiniCPM5-2B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 20.72,
+        "prefill_tok_s": 741.5,
+        "e2e_ms": 10254.7,
+        "footprint_mb": 351,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5050,6 +5536,17 @@
       "p95_request_latency_ms": 2970.43,
       "loadavg_start": 9.54,
       "loadavg_end": 8.17,
+      "server_bench": {
+        "decode_tok_s_median": 65.23,
+        "model_id": "MNN-Pocket-0.3B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 130.57,
+        "prefill_tok_s": 2635.68,
+        "e2e_ms": 1704.9,
+        "footprint_mb": 194,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5161,6 +5658,17 @@
       "p95_request_latency_ms": 3787.83,
       "loadavg_start": 9.54,
       "loadavg_end": 8.17,
+      "server_bench": {
+        "decode_tok_s_median": 65.23,
+        "model_id": "MNN-Pocket-0.3B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 130.57,
+        "prefill_tok_s": 2635.68,
+        "e2e_ms": 1704.9,
+        "footprint_mb": 194,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5264,6 +5772,17 @@
       "p95_request_latency_ms": 2377.34,
       "loadavg_start": 4.74,
       "loadavg_end": 2.76,
+      "server_bench": {
+        "decode_tok_s_median": 53.14,
+        "model_id": "MiniCPM-V-4.7-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 57.53,
+        "prefill_tok_s": 1779.66,
+        "e2e_ms": 3725.9,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5344,6 +5863,17 @@
       "p95_request_latency_ms": 6180.23,
       "loadavg_start": 4.74,
       "loadavg_end": 2.76,
+      "server_bench": {
+        "decode_tok_s_median": 53.14,
+        "model_id": "MiniCPM-V-4.7-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 57.53,
+        "prefill_tok_s": 1779.66,
+        "e2e_ms": 3725.9,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5424,6 +5954,17 @@
       "p95_request_latency_ms": 11695.77,
       "loadavg_start": 4.74,
       "loadavg_end": 2.76,
+      "server_bench": {
+        "decode_tok_s_median": 53.14,
+        "model_id": "MiniCPM-V-4.7-1B-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 57.53,
+        "prefill_tok_s": 1779.66,
+        "e2e_ms": 3725.9,
+        "footprint_mb": 391,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5543,6 +6084,17 @@
       "p95_request_latency_ms": 438.53,
       "loadavg_start": 3.49,
       "loadavg_end": 4.11,
+      "server_bench": {
+        "decode_tok_s_median": 125.72,
+        "model_id": "LFM2.5-350M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 131.19,
+        "prefill_tok_s": 4571.53,
+        "e2e_ms": 1640.4,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5623,6 +6175,17 @@
       "p95_request_latency_ms": 3513.27,
       "loadavg_start": 3.49,
       "loadavg_end": 4.11,
+      "server_bench": {
+        "decode_tok_s_median": 125.72,
+        "model_id": "LFM2.5-350M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 131.19,
+        "prefill_tok_s": 4571.53,
+        "e2e_ms": 1640.4,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     },
     {
@@ -5702,6 +6265,17 @@
       "p95_request_latency_ms": 1714.04,
       "loadavg_start": 3.49,
       "loadavg_end": 4.11,
+      "server_bench": {
+        "decode_tok_s_median": 125.72,
+        "model_id": "LFM2.5-350M-F16"
+      },
+      "exclusive": {
+        "decode_tok_s": 131.19,
+        "prefill_tok_s": 4571.53,
+        "e2e_ms": 1640.4,
+        "footprint_mb": 188,
+        "condition": "exclusive"
+      },
       "valid": true
     }
   ],

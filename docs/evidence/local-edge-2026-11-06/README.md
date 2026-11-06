@@ -32,14 +32,14 @@
 | MiniCPM5-1B | 2026-05 | 1153 MB | F16 2167 MB | 35.3 / 34.7 / 83.8 |
 | MiniCPM5-2B | 2026-09 | 2680 MB | F16 5039 MB | 44.5 / 78.9 / **94.6**（F16：43.7 / 80.3 / **96.7**） |
 | MNN-Pocket-0.3B（MNN INT4 / GGUF Q8 / GGUF F16） | 2026-09 | 387 MB | 726 MB | 29.2 / 30.1 / 30.4（prompt-only 三精度；B 28.1–28.4；C 不支持） |
-| *MiniCPM-V-4.7-1B（2025 基线，按最初需求保留）* | 2025 | 1082 MB | F16 2024 MB | 35.8 / 40.9 / 86.4 |
+| *MiniCPM-V-4.7-1B（按最初需求保留的基线）* | 2026-10-06 | 1082 MB | F16 2024 MB | 35.8 / 40.9 / 86.4 |
 
 > 表中数字为 **SMAB overall（%）**；perfect-case rate 与七维见仓库外 `report/对比报告.md` §11。A/B/C 三通道分开标注。
 
 ## 关键结论
 
 1. **协议通道 >> 精度**：同模型 native 比 json prompt-only 高约 **40–60pp**；而 Q8_0 vs F16/BF16 的差值在 **±5pp** 内（多数 ±2pp）。对这些 ≤3B 模型，量化不是分水岭，"能否按协议行动"才是。
-2. **2026 世代在文本 JSON 协议上进步明显**：Qwen3.5-2B 的 A 通道 74.4%，是 2025 世代最佳（MiniCPM5-2B 44.5%）的 1.7 倍；但 native 通道仍是 MiniCPM5-2B 最高（94.6%）。
+2. **2026 世代在文本 JSON 协议上进步明显**：Qwen3.5-2B 的 A 通道 74.4%，是同代 MiniCPM5-2B（44.5%）的 1.7 倍；但 native 通道仍是 MiniCPM5-2B 最高（94.6%）。
 3. **协议依赖可以造成 60pp+ 的假象**：LFM2.5-2.6B native 91.6% vs json prompt-only 29.3%（28/28 protocol_error）。选型必须先固定协议通道。
 4. **0.3B 级在 2026 仍不具备控制环能力**：MNN-Pocket-0.3B（29–30%）、LFM2.5-230M/350M（29–30%，native 65–73%）与 1B 级（native 80–85%）存在断层。
 5. **LFM2.5 全家族输出的是自有文本 tool 格式**（`<|tool_call_start|>[func(...)]<|tool_call_end|>`），不是 SMAB 的 `{"tool_calls":...}` 契约；prompt-only/约束解码下 26–28/28 protocol_error，native 66–94%。用 prompt-only JSON 评估会严重低估该家族。

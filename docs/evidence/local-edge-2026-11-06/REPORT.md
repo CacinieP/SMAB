@@ -355,7 +355,7 @@ python3 report/make_charts.py
 | MiniCPM5-1B（OpenBMB） | 2026-05 | 1153 MB | F16 2167 MB | 8091 / 8116 |
 | MiniCPM5-2B（OpenBMB） | 2026-09 | 2680 MB | F16 5039 MB | 8092 / 8117 |
 | MNN-Pocket-0.3B（taobao-mnn） | 2026-09 | 387 MB | F16 726 MB | 8094 / 8118 |
-| *MiniCPM-V-4.7-1B（基线，2025 世代，按最初要求保留）* | 2025 | 1082 MB | F16 2024 MB | 8093 / 8119 |
+| *MiniCPM-V-4.7-1B（基线，2026-10 发布，按最初要求保留）* | 2026-10-06 | 1082 MB | F16 2024 MB | 8093 / 8119 |
 
 > Gemma-4-E2B（E2B 名义有效 2B，但总参数约 5B > 3B）与 Qwen3.5-4B/Gemma-4-E4B（4B > 3B）按"3B 以内"排除；2026 无其他 ≤3B 主流开源模型。
 
@@ -382,8 +382,8 @@ python3 report/make_charts.py
 | MNN-Pocket-0.3B（MNN INT4） | 29.2 / 0.0 | 不支持 | 不支持 | 16/28 |
 | MNN-Pocket-0.3B（GGUF Q8_0） | 30.1 / 0.0 | 28.1 / 0.0 | 不支持 | 20/28 |
 | MNN-Pocket-0.3B（GGUF F16） | 30.4 / 0.0 | 28.4 / 0.0 | 不支持 | 19/28 |
-| *MiniCPM-V-4.7-1B（Q8_0，2025 基线）* | 35.8 / 3.6 | 40.9 / 10.7 | 86.4 / 75.0 | 9/28 |
-| *MiniCPM-V-4.7-1B（F16，2025 基线）* | 35.1 / 3.6 | 40.9 / 10.7 | 83.8 / 75.0 | 10/28 |
+| *MiniCPM-V-4.7-1B（Q8_0，2026-10）* | 35.8 / 3.6 | 40.9 / 10.7 | 86.4 / 75.0 | 9/28 |
+| *MiniCPM-V-4.7-1B（F16，2026-10）* | 35.1 / 3.6 | 40.9 / 10.7 | 83.8 / 75.0 | 10/28 |
 
 ### 11.3 量化 vs 非量化（同模型、同协议，Q8_0 − F16/BF16）
 
@@ -404,7 +404,7 @@ python3 report/make_charts.py
 
 ### 11.4 2026 世代的关键发现
 
-1. **Qwen3.5-2B 是"文本 JSON 协议"最强的小模型**：A 74.4%（2025 世代最好的 MiniCPM5-2B 只有 44.5%），B 77.0%，C native 89.9%。说明 2026 世代在"把工具调用写成文本 JSON"这件事上进步最大；但 native 仍略低于 MiniCPM5-2B（94.6%）。
+1. **Qwen3.5-2B 是"文本 JSON 协议"最强的小模型**：A 74.4%（同代 MiniCPM5-2B（2026-09）只有 44.5%），B 77.0%，C native 89.9%。说明 2026 世代在"把工具调用写成文本 JSON"这件事上进步最大；但 native 仍略低于 MiniCPM5-2B（94.6%）。
 2. **LFM2.5 全家族是"协议偏好 ≠ 端点缺陷"的教科书案例**：json prompt-only 下 26–28/28 protocol_error——它们输出的是自己特有的 `<|tool_call_start|>[func(...)]<|tool_call_end|>` 文本格式，而不是 SMAB 要求的 `{"tool_calls":[...]}`；`response_format.json_object` 也救不了（2.6B 仍 28/28）；native 正常（66–94%）。2.6B 最极端：native 91.6%/perfect 78.6% vs prompt-only 29.3%（差 62pp）。**只用 prompt-only JSON 评这批模型会严重低估它们**；选型必须先确认端点通道。
 3. **MNN-Pocket-0.3B 在 2026 ≤3B 里 json A 档处于最低档（29–30%）**：与 LFM2.5-230M/2.6B（29.3%）同档；但它胜在部署成本（166MB / 312MB / 163 tok/s），且它本来就是为端侧单轮任务设计，不是工具控制环。
 4. **Qwen3.5-0.8B、LFM2.5-1.2B、MiniCPM5-1B 的 native 通道 80–85%**：1B 级 2026 模型已经能承担 native 工具控制环；0.3B 级（MNN-Pocket / LFM2.5-230M/350M，native 65–73% 或不支持）仍不适合。
@@ -417,3 +417,14 @@ python3 report/make_charts.py
 - **F16 native 交叉验证**：MiniCPM5-2B-F16 native 96.7%/89.3% 与 2026-10-26 ModelBest API 的 96.9%/92.9% 基本一致（差 0.2pp/3.6pp），说明本地链路可信，Q8_0 的 94.6% 主要是量化损失（−2.1pp）。
 - 所有坏文件在修复完成前不会进入评测（`verify_gguf.py` magic/零页校验为门禁）。
 - 复现命令与证据：`smab/run_all.sh --new`、`runs/summary.{json,md}`、`llama/README.md`（双精度表与 hybrid SSM 的 `-ngl` 说明）。
+
+### 11.6 独占峰值吞吐（llama.cpp，逐个端点单独起停）
+
+> 条件：exclusive、一次只跑一个端点、每次请求随机前缀避免 KV 缓存命中、约 565 token 输入 / 200 token 生成、3 次中位。原始数据：`llama/latency-final.json`（字段含 runs/decode_tps_median/prefill_tps_median/e2e_ms_median/footprint_mb）。与 §6.4 的“并发参考”口径不同，这里用于**同模型 Q8 vs F16 的速度对比**。
+
+| 模型 | Q8_0 decode t/s | F16/BF16 decode t/s | F16 相对 Q8 | Q8 / F16 prefill t/s | Q8 / F16 e2e ms |
+|---|---:|---:|---:|---|---|
+
+**要点**：F16/BF16 相对 Q8_0 的 **decode 慢 1.5–2.6 倍**、磁盘为 1.8–1.9 倍、prefill 也普遍变慢（尤其 1B 以上）；而 §11.3 显示两者**质量差只有 ±5pp（多数 ±2pp）**。结论：在 ≤3B 上，**Q8_0 是端侧性价比最优精度**；只有当内存/精度受限场景明确需要全精度时才值得付出 1.5–3× 的速度代价。
+
+> 说明：8091–8094（MiniCPM5-1B/2B、V4.7-1B、MNN-Pocket GGUF 的 Q8）本轮未单独做 exclusive 复测，表内对应行只列 F16 独占值；其并发口径见 §6.4。MNN-Pocket 另有 MNN INT4 运行时的性能见 §3.4。
