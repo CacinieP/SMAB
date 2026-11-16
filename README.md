@@ -219,6 +219,23 @@ OpenRouter 免费小模型另测 9 款（native），其中 nemotron-3.5-lightni
 - **协议依赖可造成 60pp+ 假象**：LFM2.5-2.6B native 91.6% vs json prompt-only 29.3%；MNN-Pocket-0.3B 无 native parser，只能走文本协议。
 - **0.3B 级仍不可承担控制环**：29–30%（0.3B）与 83–95%（1–2B native）之间存在断层。
 
+## 本地端侧部署批次（2026-11-16，MiniCPM 两款 F16，repeats=3）
+
+> 与上方 11-06 批次同口径（本地 llama.cpp、非 API 榜单），差异：llama.cpp **1.0.0 stable** + **`--repeats 3`**（均值 ± 标准差 + pass^k，仓库 v0.2.0 协议的落地批次），补充 extra 13 例回归集与端侧吞吐；硬件 M5 Max / 64GB。证据见 [`docs/evidence/minicpm-local-r3-2026-11-16/`](docs/evidence/minicpm-local-r3-2026-11-16/)。
+
+| 模型 | 通道 | core（28 例） | extra（13 例） | 吞吐 |
+|---|---|---|---|---|
+| MiniCPM5-2B | native | **96.1% ± 0.8** | **97.6% ± 0.0** | ≈87 tok/s |
+| MiniCPM5-2B | json | 87.3% ± 0.3 | 95.3% ± 0.0 | ≈87 tok/s |
+| MiniCPM-V-4.7-1B | native | 85.8% ± 0.0 | 89.2% ± 0.0 | ≈161 tok/s |
+| MiniCPM-V-4.7-1B | json | 40.9% ± 0.0 | 58.6% ± 0.0 | ≈161 tok/s |
+
+读数建议：
+
+- **MiniCPM5-2B native 无短板维度**（最低 selection 93.4%，recovery/planning/relevance 满分），与 11-06 批次 F16 单遍 96.7% 交叉一致；json 通道丢 state_tracking（46.7%）与 3+ 长任务（48.3%）。
+- **MiniCPM-V-4.7-1B native 短板在 relevance（50%）/ recovery（62.5%）**：该不调用/该追问时倾向直接调用、可恢复错误后调整不足；json 通道崩塌（core 40.9%，与 11-06 B 通道完全一致）——未针对 SMAB json 协议训练，只反映协议适配性。
+- **首个 repeats=3 + pass^k 本地批次**：temp 0 下三遍几乎全同（std ≤0.8pp），pass³ 等于 perfect-case rate（2B native 85.7%、1B native 75.0%），本地 F16 推理在该协议下高度确定。
+
 ## 数据集与扩展
 
 - [`datasets/tools.json`](datasets/tools.json)：工具 catalog 与 JSON Schema；

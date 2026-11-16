@@ -177,6 +177,23 @@ Three readings:
 
 > The numbers above are single-pass temp=0 observations; for production usability measure pass^k with `--repeats`.
 
+## Local on-device batch (2026-11-16, two MiniCPM models at F16, repeats=3)
+
+> Same scope as the local batches (llama.cpp on-device, **not** the API leaderboard), with three differences: llama.cpp **1.0.0 stable**, **`--repeats 3`** (mean ± stddev + pass^k — the first local batch to land the repo's v0.2.0 protocol), plus the 13-episode extra regression set and on-device throughput. Hardware: M5 Max / 64 GB. Evidence in [`docs/evidence/minicpm-local-r3-2026-11-16/`](docs/evidence/minicpm-local-r3-2026-11-16/).
+
+| Model | Channel | core (28) | extra (13) | Throughput |
+|---|---|---|---|---|
+| MiniCPM5-2B | native | **96.1% ± 0.8** | **97.6% ± 0.0** | ≈87 tok/s |
+| MiniCPM5-2B | json | 87.3% ± 0.3 | 95.3% ± 0.0 | ≈87 tok/s |
+| MiniCPM-V-4.7-1B | native | 85.8% ± 0.0 | 89.2% ± 0.0 | ≈161 tok/s |
+| MiniCPM-V-4.7-1B | json | 40.9% ± 0.0 | 58.6% ± 0.0 | ≈161 tok/s |
+
+Readings:
+
+- **MiniCPM5-2B has no weak dimension on native** (lowest selection 93.4%; recovery/planning/relevance at 100), cross-checked against the 11-06 batch's F16 single pass (96.7). The json channel loses state_tracking (46.7%) and the 3+ horizon segment (48.3%).
+- **MiniCPM-V-4.7-1B breaks on native relevance (50%) / recovery (62.5%)**: it over-calls when it should clarify or answer directly, and adjusts poorly after recoverable errors. Its json channel collapses (core 40.9%, identical to the 11-06 B channel) — the model was not trained for SMAB's json protocol, so that number reflects protocol fit, not capability.
+- **First repeats=3 + pass^k local batch**: at temp 0 the three passes are nearly identical (std ≤0.8pp) and pass³ equals the perfect-case rate (2B native 85.7%, 1B native 75.0%) — local F16 inference is highly deterministic under this protocol.
+
 ## Datasets and extension
 
 - [`datasets/tools.json`](datasets/tools.json): tool catalog with JSON Schemas;
