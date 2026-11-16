@@ -236,6 +236,26 @@ OpenRouter 免费小模型另测 9 款（native），其中 nemotron-3.5-lightni
 - **MiniCPM-V-4.7-1B native 短板在 relevance（50%）/ recovery（62.5%）**：该不调用/该追问时倾向直接调用、可恢复错误后调整不足；json 通道崩塌（core 40.9%，与 11-06 B 通道完全一致）——未针对 SMAB json 协议训练，只反映协议适配性。
 - **首个 repeats=3 + pass^k 本地批次**：temp 0 下三遍几乎全同（std ≤0.8pp），pass³ 等于 perfect-case rate（2B native 85.7%、1B native 75.0%），本地 F16 推理在该协议下高度确定。
 
+## 同底座双路线（2026-11-16，书生-A1.5 vs MiniCPM-V 4.7 35B-A3B，Q4_K_M）
+
+> 两枚模型**架构相同（`qwen35moe`）、底座相同（Qwen3.6-35B-A3B）、量化相同（Q4_K_M）、运行时相同**（llama.cpp 1.0.0 / M5 Max / 64GB，串行加载），因此差异基本只剩后训练与工具协议适配。协议：28+13 episode、temp=0、seed=0、`--repeats 3`、schema original、纯文本（两侧 mmproj 均未挂载），且**不加载各自官方推荐采样**。证据见 [`docs/evidence/sage-vs-minicpm-2026-11-16/`](docs/evidence/sage-vs-minicpm-2026-11-16/)。
+
+| 模型 | 通道 | core（28 例） | extra（13 例） | 吞吐 |
+|---|---|---|---|---|
+| 书生-A1.5（原生，思考开） | native | **98.6% ± 0.0**（perfect 96.4%） | 90.8% ± 0.0（69.2%） | ≈116 tok/s |
+| 书生-A1.5（原生，思考开） | json | **96.7% ± 0.1**（89.3%） | **96.1% ± 0.0**（84.6%） | ≈107 tok/s |
+| 书生-A1.5（`enable_thinking:false`） | native | 88.9% ± 0.0（85.7%） | 81.4% ± 0.0（69.2%） | ≈107 tok/s |
+| 书生-A1.5（`enable_thinking:false`） | json | 95.1% ± 0.4（92.9%） | 83.4% ± 1.1（59.0%） | ≈89 tok/s |
+| MiniCPM-V 4.7 35B-A3B | native | 95.6% ± 0.0（89.3%） | **91.7% ± 0.0**（69.2%） | ≈104 tok/s |
+| MiniCPM-V 4.7 35B-A3B | json | 91.3% ± 0.0（82.1%） | 82.0% ± 0.0（69.2%） | ≈91 tok/s |
+
+读数建议：
+
+- **core 上书生-A1.5 最高，断在「该不该动手」**：relevance 100%（MiniCPM 83.3%）、state_tracking 100%（93.3%）、stopping 98.8%（96.4%）；逐例只丢 `sel_001` 相似工具混淆一例。
+- **extra 回归集 MiniCPM 略优且便宜一半**：91.7% vs 90.8%、`stopping` 满分，完成 token 只有对方的 44%。三家 perfect-case rate 同为 69.2%，但**不满分的具体例子不重合**，`m47_arg_101`（精确 ISO 时间）与 `m47_stop_101`（一次性副作用 + 回显 ID）**三家全挂**。
+- **思考开关是独立强变量，且不是「公平性控制」**：给书生-A1.5 注入 `chat_template_kwargs:{"enable_thinking":false}` 后 core×native 掉 9.7pp、`relevance` 100%→66.7%、84 次运行出现 12 次 `max_turns` 打转、prompt token 从 93,330 涨到 148,851。MiniCPM 的 GGUF 模板里写着 `thinking hard-disabled for llama`，没有可比开关——所以「两边都关思考」并非公平口径，主表以出厂默认形态为准。
+- **`max_tokens` 在工具轮次里不是瓶颈**：512 与 2048 两遍 core×native 完全同分（思考链平均约 280 token），只有开放题才会出现「思考吃光预算 → content 为空」。
+
 ## 数据集与扩展
 
 - [`datasets/tools.json`](datasets/tools.json)：工具 catalog 与 JSON Schema；

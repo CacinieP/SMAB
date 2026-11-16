@@ -194,6 +194,26 @@ Readings:
 - **MiniCPM-V-4.7-1B breaks on native relevance (50%) / recovery (62.5%)**: it over-calls when it should clarify or answer directly, and adjusts poorly after recoverable errors. Its json channel collapses (core 40.9%, identical to the 11-06 B channel) — the model was not trained for SMAB's json protocol, so that number reflects protocol fit, not capability.
 - **First repeats=3 + pass^k local batch**: at temp 0 the three passes are nearly identical (std ≤0.8pp) and pass³ equals the perfect-case rate (2B native 85.7%, 1B native 75.0%) — local F16 inference is highly deterministic under this protocol.
 
+## Same-base-model, two post-training routes (2026-11-16, Sage-A1.5 vs MiniCPM-V 4.7 35B-A3B, Q4_K_M)
+
+> These two checkpoints share the **architecture (`qwen35moe`)**, the **base model (Qwen3.6-35B-A3B)**, the **quantisation (Q4_K_M)** and the **runtime** (llama.cpp 1.0.0 on an M5 Max / 64 GB, loaded serially), so the remaining difference is essentially post-training and tool-protocol adaptation. Protocol: 28 + 13 episodes, temp=0, seed=0, `--repeats 3`, schema `original`, text-only (neither side mounts mmproj), and **neither vendor's recommended sampling is loaded**. Evidence in [`docs/evidence/sage-vs-minicpm-2026-11-16/`](docs/evidence/sage-vs-minicpm-2026-11-16/).
+
+| Model | Channel | core (28) | extra (13) | Throughput |
+|---|---|---|---|---|
+| Sage-A1.5 (as shipped, thinking on) | native | **98.6% ± 0.0** (perfect 96.4%) | 90.8% ± 0.0 (69.2%) | ≈116 tok/s |
+| Sage-A1.5 (as shipped, thinking on) | json | **96.7% ± 0.1** (89.3%) | **96.1% ± 0.0** (84.6%) | ≈107 tok/s |
+| Sage-A1.5 (`enable_thinking:false`) | native | 88.9% ± 0.0 (85.7%) | 81.4% ± 0.0 (69.2%) | ≈107 tok/s |
+| Sage-A1.5 (`enable_thinking:false`) | json | 95.1% ± 0.4 (92.9%) | 83.4% ± 1.1 (59.0%) | ≈89 tok/s |
+| MiniCPM-V 4.7 35B-A3B | native | 95.6% ± 0.0 (89.3%) | **91.7% ± 0.0** (69.2%) | ≈104 tok/s |
+| MiniCPM-V 4.7 35B-A3B | json | 91.3% ± 0.0 (82.1%) | 82.0% ± 0.0 (69.2%) | ≈91 tok/s |
+
+Readings:
+
+- **Sage-A1.5 tops core, and its edge is "should I act at all"**: relevance 100% (MiniCPM 83.3%), state_tracking 100% (93.3%), stopping 98.8% (96.4%); case-wise it only loses `sel_001`, the similar-tool confusion episode.
+- **On the extra regression set MiniCPM is slightly ahead and about twice as cheap**: 91.7% vs 90.8%, `stopping` at 100%, and 44% of the counterpart's completion tokens. All three configurations report the same 69.2% perfect-case rate, but **the failing cases are not the same set**; `m47_arg_101` (exact ISO timestamp) and `m47_stop_101` (single-shot side effect + ID echo) are failed by **every** configuration.
+- **The thinking switch is a strong independent variable, not a fairness control**: injecting `chat_template_kwargs:{"enable_thinking":false}` into Sage costs 9.7pp on core×native, drops relevance 100%→66.7%, produces 12 `max_turns` aborts out of 84 runs (tool-call churn) and inflates prompt tokens from 93,330 to 148,851. MiniCPM's GGUF template states `thinking hard-disabled for llama`, i.e. it has no comparable switch — so "disable thinking on both sides" is not the fair reading; the main table uses each model's shipped default.
+- **`max_tokens` is not the bottleneck for tool turns**: the 512 and 2048 passes score identically (98.6% / 96.4%), with thinking averaging ~280 tokens; the budget only becomes a problem on open-ended questions, where thinking can consume the whole completion and leave `content` empty.
+
 ## Datasets and extension
 
 - [`datasets/tools.json`](datasets/tools.json): tool catalog with JSON Schemas;

@@ -9,4 +9,5 @@ build/
 .env
 runs/*.json
 runs/*.md
+runs/*/
 reproduced/
